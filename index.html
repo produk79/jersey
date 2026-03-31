@@ -643,12 +643,13 @@
       <p>Mode edit dilindungi password sederhana. Masukkan password untuk membuka panel editor halaman ini.</p>
       <input type="password" id="editorPasswordInput" placeholder="Masukkan password edit" />
       <button class="btn btn-primary" type="button" id="unlockEditorBtn" style="width:100%;">Buka Editor</button>
-      <div class="lock-note">Password ini cocok untuk proteksi ringan, bukan keamanan tingkat tinggi.</div>
+      <div class="lock-note">Password ini cocok untuk proteksi ligan, bukan keamanan tingkat tinggi.</div>
     </div>
   </div>
 
   <div class="floating-actions" id="floatingActions">
     <button class="btn floating-btn floating-btn-preview" type="button" id="floatingPreviewBtn">Preview</button>
+    <button class="btn floating-btn floating-btn-preview" type="button" id="floatingDownloadBtn">Download</button>
     <button class="btn btn-primary floating-btn" type="button" id="floatingSaveBtn">Simpan</button>
   </div>
 
@@ -659,10 +660,11 @@
           <div>
             <div class="helper-badge">MODE EDIT AKTIF</div>
             <h2>Panel Edit Landing Page</h2>
-            <p>Versi ini cocok untuk GitHub Pages. Semua file gambar kamu upload manual ke folder <strong>img</strong> di repository, lalu di editor ini cukup isi nama file gambar saja.</p>
+            <p>Versi ini cocok untuk GitHub Pages. Semua file gambar kamu upload manual ke folder <strong>img</strong> de repository, lalu di editor ini cukup isi nama file gambar saja.</p>
           </div>
           <div class="editor-actions">
             <button class="btn btn-primary" type="button" id="saveBrowserBtn">Simpan di Browser</button>
+            <button class="btn btn-light" type="button" id="downloadIndexBtn">Download index.html</button>
             <button class="btn btn-light" type="button" id="copyEditLinkBtn">Salin Link Edit</button>
             <button class="btn btn-light" type="button" id="copyPreviewLinkBtn">Salin Link Preview</button>
             <button class="btn btn-dark" type="button" id="resetDataBtn">Reset</button>
@@ -795,14 +797,14 @@
         { title: "Warna Tahan Lama", text: "Menggunakan teknik print berkualitas agar warna tetap tajam dan tidak mudah pudar." }
       ],
       catalogTitle: "Katalog Produk Jersey",
-      catalogSubtitle: "Pilih model favoritmu. Semua item di bawah ini bisa diganti foto, judul, harga, dan link tombol.",
+      catalogSubtitle: "Pilih model favoritmu. Semua item di bawah ini kan bisa diganti foto, judul, harga, dan link tombol.",
       catalogProducts: [
         { title: "Jersey Home 2026", image: "produk-1.jpg", oldPrice: "Rp219.000", newPrice: "Rp149.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
         { title: "Jersey Away Premium", image: "produk-2.jpg", oldPrice: "Rp229.000", newPrice: "Rp159.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
-        { title: "Jersey Training Pro", image: "produk-3.jpg", oldPrice: "Rp199.000", newPrice: "Rp139.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
+        { title: "Jersey Training Pro", image: "produk-3.jpg", oldPrice: "Rp199.000", newPrice: "Rp139.000", buttonText: "Lihut Produk", buttonUrl: "", bestSeller: false, hot: false },
         { title: "Jersey Edisi Tim", image: "produk-4.jpg", oldPrice: "Rp249.000", newPrice: "Rp169.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
         { title: "Jersey Fans Edition", image: "produk-5.jpg", oldPrice: "Rp239.000", newPrice: "Rp164.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
-        { title: "Jersey Match Day", image: "produk-6.jpg", oldPrice: "Rp259.000", newPrice: "Rp179.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false }
+        { title: "Jersey Match Day", image: "produk-6.jpg", oldPrice: "Rp259.000", newPrice: "Rp179.000", buttonText: "Lihut Produk", buttonUrl: "", bestSeller: false, hot: false }
       ],
       galleryTitle: "Galeri Jersey",
       gallerySubtitle: "Upload gambar manual ke folder img di repository, lalu isi nama file di sini.",
@@ -811,7 +813,7 @@
       testimonialSubtitle: "Bisa diganti bebas sesuai review asli dari customer kamu.",
       testimonials: [
         { text: "Hasil print-nya bagus banget, warna sesuai mockup. Tim kami puas.", name: "Rama - Manager Futsal" },
-        { text: "Bahannya adem dan jahitannya rapi. Repeat order lagi bulan depan.", name: "Iqbal - Komunitas Bola" },
+        { text: "Bahannya adem dan jahitannya rapi. Repeat order laga bulan depan.", name: "Iqbal - Komunitas Bola" },
         { text: "Fast respon, desain dibantu sampai jadi. Recommended.", name: "Dina - Panitia Event" }
       ],
       closingTitle: "Siap Order Jersey Hari Ini?",
@@ -826,8 +828,9 @@
     const EDIT_UNLOCK_KEY = "lp_jersey_single_file_unlock";
     let content = deepClone(defaultContent);
     const urlObj = new URL(window.location.href);
-    const isEditMode = urlObj.searchParams.get("edit") === "1";
     let editorUnlocked = false;
+    const isEditMode = urlObj.searchParams.get("edit") === "1";
+    const ORIGINAL_SOURCE_HTML = document.documentElement.outerHTML;
 
     function deepClone(obj) {
       return JSON.parse(JSON.stringify(obj));
@@ -896,7 +899,7 @@
       const customUrl = String(item.buttonUrl || "").trim();
       if (customUrl) return customUrl;
       const template = String(content.waProductMessageTemplate || "Halo Admin, saya tertarik dengan {product}");
-      const message = template.replace(/\{product\}/g, item.title || "produk ini");
+      const message = template.replace(/\\{product\}/g, item.title || "produk ini");
       return buildWaLink(content.adminWaNumber, message);
     }
 
@@ -1047,7 +1050,9 @@
       renderGallery();
       renderTestimonials();
       updateEditorLinkBox();
-      refreshAllImagePreviews(false);
+      if (editorUnlocked && isEditMode) {
+        refreshAllImagePreviews(false);
+      }
     }
 
     function field(label, path, value, type = "text") {
@@ -1105,7 +1110,7 @@
               <button type="button" class="editor-mini-btn" data-refresh-path="${path}">Refresh Preview</button>
               <span class="editor-preview-status" data-status-path="${path}">Cek preview dari GitHub</span>
             </div>
-            <img class="editor-preview-thumb" data-preview-path="${path}" src="${resolved}" alt="preview" style="${resolved ? "" : "display:none;"}" />
+            <img class="editor-preview-thumb" data-preview-path="${path}" src="${resolved}" alt="preview" style="${resolved ? "" : "display:none;" }" />
           </div>
         </div>
       `;
@@ -1126,14 +1131,7 @@
       if (!resolved) {
         preview.removeAttribute("src");
         preview.style.display = "none";
-        setPreviewStatus(path, "Nama file belum diisi");
-        return;
-      }
-
-      if (resolved.startsWith("data:")) {
-        preview.src = resolved;
-        preview.style.display = "block";
-        setPreviewStatus(path, "Preview siap", "success");
+        setPreviewStatus(path, "Nama file belum disi");
         return;
       }
 
@@ -1149,7 +1147,7 @@
       tester.onerror = () => {
         preview.style.display = "none";
         preview.removeAttribute("src");
-        setPreviewStatus(path, "Gambar belum muncul di GitHub", "error");
+        setPreviewStatus(path, "Gambar kelum munule di GitHub", "error");
       };
       tester.src = testSrc;
     }
@@ -1169,7 +1167,32 @@
 
     function saveEditorData() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
-      alert("Perubahan disimpan di browser ini.");
+      alert("Perubahan disimpan di browser ini. Untuk semua perangkat, download index.html terbaru lalu upload ke GitHub.");
+    }
+
+    function buildExportHtml() {
+      const source = "<!DOCTYPE html>\n" + ORIGINAL_SOURCE_HTML;
+      const startMarker = "const defaultContent = {";
+      const endMarker = "\n\n    const STORAGE_KEY =";
+      const startIndex = source.indexOf(startMarker);
+      const endIndex = source.indexOf(endMarker, startIndex);
+      if (startIndex === -1 || endIndex === -1) return source;
+      const before = source.slice(0, startIndex);
+      const after = source.slice(endIndex);
+      const serializedContent = JSON.stringify(content, null, 6);
+      return before + `const defaultContent = ${serializedContent};` + after;
+    }
+
+    function downloadCurrentIndexHtml() {
+      const blob = new Blob([buildExportHtml()], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "index.html";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
     }
 
     function openPreviewPage() {
@@ -1180,10 +1203,8 @@
     function updateEditorLinkBox() {
       const box = document.getElementById("editorLinkBox");
       if (!box || !isEditMode || !editorUnlocked) return;
-      box.innerHTML = `
-        <div><strong>Link edit:</strong><br>${escapeHtml(getShareLink(true))}</div>
-        <div style="margin-top:10px;"><strong>Link preview:</strong><br>${escapeHtml(getShareLink(false))}</div>
-      `;
+      box.innerHTML = `<div><strong>Link edit:</strong><br>${escapeHtml(getShareLink(true))}</div>
+        <div style="margin-top:10px;"><strong>Link preview:</strong><br>${escapeHtml(getShareLink(false))}</div>`;
     }
 
     function renderEditor() {
@@ -1216,7 +1237,7 @@
           <div class="editor-fields">
             ${field("Folder Gambar", "mediaBaseUrl", content.mediaBaseUrl)}
             ${field("Password Edit", "editPassword", content.editPassword)}
-            ${field("Template WA Produk ({product})", "waProductMessageTemplate", content.waProductMessageTemplate, "textarea")}
+            ${field("Template WA Produk ({ product })", "waProductMessageTemplate", content.waProductMessageTemplate, "textarea")}
             ${field("Pesan WA Utama", "waMainMessage", content.waMainMessage, "textarea")}
           </div>
         </div>
@@ -1226,7 +1247,7 @@
           <p>Kalau link WA utama dikosongkan, tombol utama akan otomatis pakai nomor admin dan pesan WA utama.</p>
           <div class="editor-fields">
             ${field("Judul LP", "pageTitle", content.pageTitle)}
-            ${field("Deskripsi LP", "pageDescription", content.pageDescription, "textarea")}
+            ${field("Descripsi LP", "pageDescription", content.pageDescription, "textarea")}
             ${imageField("Nama File Gambar Hero", "heroImage", content.heroImage)}
             ${field("Harga Coret Hero", "priceOld", content.priceOld)}
             ${field("Harga Hero", "priceNew", content.priceNew)}
@@ -1248,7 +1269,7 @@
 
         <div class="editor-section">
           <h3>Testimoni</h3>
-          <p>Testimoni yang sudah ada bisa diganti, dan kamu juga bisa tambah testimoni baru kapan saja.</p>
+          <p>Testimoni yang sudah ada bisa diganti, dan kamu auga bisa tambah testimoni new kapan saja.</p>
           <div class="editor-fields">
             ${content.testimonials.map((item, index) => testimonialItemField(item, index)).join("")}
             <div class="editor-array-actions">
@@ -1334,6 +1355,10 @@
         saveEditorData();
       };
 
+      document.getElementById("downloadIndexBtn").onclick = () => {
+        downloadCurrentIndexHtml();
+      };
+
       document.getElementById("copyEditLinkBtn").onclick = () => {
         copyText(getShareLink(true), "Link edit berhasil disalin.");
       };
@@ -1363,6 +1388,13 @@
       if (floatingPreviewBtn) {
         floatingPreviewBtn.onclick = () => {
           openPreviewPage();
+        };
+      }
+
+      const floatingDownloadBtn = document.getElementById("floatingDownloadBtn");
+      if (floatingDownloadBtn) {
+        floatingDownloadBtn.onclick = () => {
+          downloadCurrentIndexHtml();
         };
       }
 
