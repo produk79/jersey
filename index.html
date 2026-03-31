@@ -16,187 +16,585 @@
     }
     img { max-width: 100%; display: block; }
     a { text-decoration: none; }
-    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
-    .hero { background: linear-gradient(135deg, #0f172a, #1d4ed8); color: white; padding: 28px 0 42px; }
-    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: center; }
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      color: white;
+      padding: 28px 0 42px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: center;
+    }
     .badge {
-      display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-      color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; margin-bottom: 16px;
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 16px;
     }
-    h1 { margin: 0 0 14px; font-size: clamp(30px, 5vw, 54px); line-height: 1.05; }
-    .hero p { margin: 0 0 18px; font-size: 17px; color: #dbeafe; }
-    .price-box { display: flex; align-items: end; gap: 12px; margin: 18px 0 22px; flex-wrap: wrap; }
-    .old-price { font-size: 18px; color: #cbd5e1; text-decoration: line-through; }
-    .new-price { font-size: 34px; font-weight: 800; color: #ffffff; line-height: 1; }
-    .discount-pill { background: #facc15; color: #111827; padding: 7px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; }
-    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.05;
+    }
+    .hero p {
+      margin: 0 0 18px;
+      font-size: 17px;
+      color: #dbeafe;
+    }
+    .price-box {
+      display: flex;
+      align-items: end;
+      gap: 12px;
+      margin: 18px 0 22px;
+      flex-wrap: wrap;
+    }
+    .old-price {
+      font-size: 18px;
+      color: #cbd5e1;
+      text-decoration: line-through;
+    }
+    .new-price {
+      font-size: 34px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .discount-pill {
+      background: #facc15;
+      color: #111827;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
     .btn {
-      display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px;
-      border-radius: 12px; font-weight: 700; transition: 0.2s ease; cursor: pointer; border: 0; text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: 0.2s ease;
+      cursor: pointer;
+      border: 0;
+      text-align: center;
     }
-    .btn-primary { background: #22c55e; color: white; }
+    .btn-primary {
+      background: #22c55e;
+      color: white;
+    }
     .btn-primary:hover { transform: translateY(-1px); }
-    .btn-secondary { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.2); }
-    .btn-light { background: white; color: #0f172a; border: 1px solid #d1d5db; }
-    .btn-dark { background: #0f172a; color: white; }
-    .hero-card {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px;
-      overflow: hidden; backdrop-filter: blur(8px); box-shadow: 0 18px 45px rgba(0,0,0,0.22);
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
     }
-    .hero-card img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 4.2; }
-    .section { padding: 54px 0; }
-    .section-title { margin: 0 0 10px; font-size: clamp(24px, 4vw, 36px); text-align: center; color: #0f172a; }
-    .section-subtitle { margin: 0 auto 28px; max-width: 760px; text-align: center; color: #64748b; }
-    .features, .gallery, .testimonial-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .btn-light {
+      background: white;
+      color: #0f172a;
+      border: 1px solid #d1d5db;
+    }
+    .btn-dark {
+      background: #0f172a;
+      color: white;
+    }
+    .hero-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.22);
+    }
+    .hero-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4 / 4.2;
+    }
+    .section {
+      padding: 54px 0;
+    }
+    .section-title {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 4vw, 36px);
+      text-align: center;
+      color: #0f172a;
+    }
+    .section-subtitle {
+      margin: 0 auto 28px;
+      max-width: 760px;
+      text-align: center;
+      color: #64748b;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
     .card {
-      background: white; border: 1px solid #e5e7eb; border-radius: 20px; padding: 20px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 20px;
       box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
     }
-    .card h3 { margin: 0 0 10px; font-size: 20px; }
-    .card p { margin: 0; color: #64748b; }
-    .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+    .card p {
+      margin: 0;
+      color: #64748b;
+    }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
     .product-card {
-      position: relative; background: white; border: 1px solid #e5e7eb; border-radius: 20px;
-      overflow: hidden; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05); min-width: 0;
+      position: relative;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+      min-width: 0;
     }
     .product-badges {
-      position: absolute; top: 10px; left: 10px; z-index: 2; display: flex; gap: 6px;
-      flex-wrap: wrap; max-width: calc(100% - 20px);
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      max-width: calc(100% - 20px);
     }
     .product-badge {
-      display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px;
-      font-size: 11px; font-weight: 800; letter-spacing: 0.3px; color: white;
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: white;
       box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
     }
     .product-badge.best { background: #f59e0b; }
     .product-badge.hot { background: #ef4444; }
-    .product-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: #fff; }
+    .product-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #fff;
+    }
     .product-body { padding: 18px; }
-    .product-title { margin: 0 0 10px; font-size: 18px; color: #0f172a; }
-    .product-price { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
-    .product-price .old { color: #94a3b8; text-decoration: line-through; font-size: 15px; }
-    .product-price .new { color: #0f172a; font-size: 24px; font-weight: 800; }
+    .product-title {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #0f172a;
+    }
+    .product-price {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .product-price .old {
+      color: #94a3b8;
+      text-decoration: line-through;
+      font-size: 15px;
+    }
+    .product-price .new {
+      color: #0f172a;
+      font-size: 24px;
+      font-weight: 800;
+    }
     .product-btn { width: 100%; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
     .gallery img {
-      width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 18px;
-      border: 1px solid #e5e7eb; background: #fff; min-width: 0;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      min-width: 0;
     }
-    .testimonial-name { margin-top: 14px; font-weight: 700; color: #0f172a; }
+    .testimonial-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .testimonial-name {
+      margin-top: 14px;
+      font-weight: 700;
+      color: #0f172a;
+    }
     .highlight {
-      background: linear-gradient(135deg, #eff6ff, #ffffff); border: 1px solid #dbeafe; border-radius: 24px;
-      padding: 26px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+      border: 1px solid #dbeafe;
+      border-radius: 24px;
+      padding: 26px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
     }
-    .footer { background: #0f172a; color: #cbd5e1; padding: 24px 0; text-align: center; font-size: 14px; }
+    .footer {
+      background: #0f172a;
+      color: #cbd5e1;
+      padding: 24px 0;
+      text-align: center;
+      font-size: 14px;
+    }
     .sticky-bar {
-      position: sticky; bottom: 0; z-index: 40; background: rgba(15, 23, 42, 0.94);
-      backdrop-filter: blur(8px); border-top: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      bottom: 0;
+      z-index: 40;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
     .sticky-inner {
-      min-height: 70px; display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; color: white; flex-wrap: wrap; padding: 12px 0;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: white;
+      flex-wrap: wrap;
+      padding: 12px 0;
     }
-    .sticky-price { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .sticky-price {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
     .sticky-price .old-price { color: #94a3b8; }
-    .admin-info { margin-top: 14px; font-size: 14px; color: #bfdbfe; }
+    .admin-info {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #bfdbfe;
+    }
 
     .editor-wrap {
-      display: none; background: #0b1220; color: white; padding: 20px 0 28px;
+      display: none;
+      background: #0b1220;
+      color: white;
+      padding: 20px 0 28px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     body.edit-mode .editor-wrap { display: block; }
     .editor-panel {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 18px;
     }
     .editor-head {
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
     }
-    .editor-head h2 { margin: 0 0 6px; font-size: 24px; }
-    .editor-head p { margin: 0; color: #cbd5e1; font-size: 14px; max-width: 760px; }
-    .editor-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-    .editor-note { margin: 14px 0 0; font-size: 13px; color: #cbd5e1; }
-    .editor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .editor-head h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+    .editor-head p {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 14px;
+      max-width: 760px;
+    }
+    .editor-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .editor-note {
+      margin: 14px 0 0;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    .editor-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
     .editor-section {
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 16px;
     }
-    .editor-section h3 { margin: 0 0 8px; font-size: 18px; }
-    .editor-section p { margin: 0 0 14px; font-size: 13px; color: #cbd5e1; }
-    .editor-fields { display: grid; gap: 10px; }
-    .editor-field { display: grid; gap: 6px; }
-    .editor-field span { font-size: 13px; color: #dbeafe; }
-    .editor-field input, .editor-field textarea {
-      width: 100%; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.08);
-      color: white; border-radius: 10px; padding: 10px 12px; outline: none; font: inherit;
+    .editor-section h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
     }
-    .editor-field textarea { min-height: 88px; resize: vertical; }
-    .editor-check-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 2px; }
+    .editor-section p {
+      margin: 0 0 14px;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    .editor-fields {
+      display: grid;
+      gap: 10px;
+    }
+    .editor-field {
+      display: grid;
+      gap: 6px;
+    }
+    .editor-field span {
+      font-size: 13px;
+      color: #dbeafe;
+    }
+    .editor-field input,
+    .editor-field textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-radius: 10px;
+      padding: 10px 12px;
+      outline: none;
+      font: inherit;
+    }
+    .editor-field textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+    .editor-check-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
     .editor-check {
-      display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: white; font-size: 13px; cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
     }
-    .editor-check input { width: 16px; height: 16px; margin: 0; accent-color: #22c55e; }
-    .editor-upload {
-      display: grid; gap: 8px; margin-top: 6px; padding: 10px; border-radius: 10px;
-      background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.12);
+    .editor-check input {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      accent-color: #22c55e;
     }
-    .editor-upload input[type="file"] { width: 100%; color: white; }
-    .editor-upload small { color: #cbd5e1; font-size: 12px; line-height: 1.45; }
+    .editor-image-box {
+      display: grid;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .editor-image-help {
+      color: #cbd5e1;
+      font-size: 12px;
+      line-height: 1.45;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px dashed rgba(255,255,255,0.12);
+    }
     .editor-preview-thumb {
-      width: 72px; height: 72px; object-fit: cover; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06);
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
     }
     .editor-link-box {
-      margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.08);
-      font-size: 13px; color: #dbeafe; word-break: break-all;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.08);
+      font-size: 13px;
+      color: #dbeafe;
+      word-break: break-all;
     }
     .floating-actions {
-      position: fixed; right: 14px; bottom: 14px; z-index: 180; display: none; gap: 8px; align-items: center;
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 180;
+      display: none;
+      gap: 8px;
+      align-items: center;
     }
-    body.edit-mode .floating-actions.show { display: flex; }
+    body.edit-mode .floating-actions.show {
+      display: flex;
+    }
     .floating-btn {
-      min-height: 42px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 700;
-      box-shadow: 0 14px 34px rgba(0,0,0,0.22); backdrop-filter: blur(8px);
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
+      backdrop-filter: blur(8px);
     }
-    .floating-btn-preview { background: rgba(15, 23, 42, 0.92); color: white; border: 1px solid rgba(255,255,255,0.1); }
+    .floating-btn-preview {
+      background: rgba(15, 23, 42, 0.92);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
     .helper-badge {
-      display: inline-block; background: rgba(34,197,94,0.14); color: #bbf7d0; border: 1px solid rgba(34,197,94,0.24);
-      padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; margin-bottom: 12px;
+      display: inline-block;
+      background: rgba(34,197,94,0.14);
+      color: #bbf7d0;
+      border: 1px solid rgba(34,197,94,0.24);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
     .editor-lock {
-      position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center;
-      padding: 20px; background: rgba(2, 6, 23, 0.72); backdrop-filter: blur(8px);
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(2, 6, 23, 0.72);
+      backdrop-filter: blur(8px);
     }
     .editor-lock.show { display: flex; }
     .editor-lock-card {
-      width: min(460px, 100%); background: #0f172a; color: white; border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 22px; padding: 22px; box-shadow: 0 22px 70px rgba(0,0,0,0.35);
+      width: min(460px, 100%);
+      background: #0f172a;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 22px 70px rgba(0,0,0,0.35);
     }
-    .editor-lock-card h2 { margin: 0 0 8px; font-size: 24px; }
-    .editor-lock-card p { margin: 0 0 16px; color: #cbd5e1; font-size: 14px; }
+    .editor-lock-card h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+    .editor-lock-card p {
+      margin: 0 0 16px;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
     .editor-lock-card input {
-      width: 100%; min-height: 48px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.08); color: white; padding: 0 14px; font: inherit; outline: none; margin-bottom: 12px;
+      width: 100%;
+      min-height: 48px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      padding: 0 14px;
+      font: inherit;
+      outline: none;
+      margin-bottom: 12px;
     }
-    .editor-lock-card .lock-note { margin-top: 12px; font-size: 12px; color: #94a3b8; }
+    .editor-lock-card .lock-note {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
 
     @media (max-width: 900px) {
-      .hero-grid, .features, .testimonial-wrap, .highlight, .editor-grid { grid-template-columns: 1fr; }
-      .catalog-grid, .gallery { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .hero-grid,
+      .features,
+      .testimonial-wrap,
+      .highlight,
+      .editor-grid {
+        grid-template-columns: 1fr;
+      }
+      .catalog-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
       .gallery img { border-radius: 10px; }
       .product-card { border-radius: 12px; }
-      .product-badges { top: 6px; left: 6px; gap: 4px; max-width: calc(100% - 12px); }
-      .product-badge { min-height: 20px; padding: 0 7px; font-size: 8px; }
+      .product-badges {
+        top: 6px;
+        left: 6px;
+        gap: 4px;
+        max-width: calc(100% - 12px);
+      }
+      .product-badge {
+        min-height: 20px;
+        padding: 0 7px;
+        font-size: 8px;
+      }
       .product-body { padding: 8px; }
-      .product-title { font-size: 12px; line-height: 1.25; margin: 0 0 6px; }
-      .product-price { gap: 4px; margin-bottom: 8px; }
+      .product-title {
+        font-size: 12px;
+        line-height: 1.25;
+        margin: 0 0 6px;
+      }
+      .product-price {
+        gap: 4px;
+        margin-bottom: 8px;
+      }
       .product-price .old { font-size: 10px; }
       .product-price .new { font-size: 14px; }
-      .product-btn { min-height: 34px; padding: 0 8px; border-radius: 8px; font-size: 11px; }
+      .product-btn {
+        min-height: 34px;
+        padding: 0 8px;
+        border-radius: 8px;
+        font-size: 11px;
+      }
       .hero { padding-top: 20px; }
       .sticky-inner { justify-content: center; text-align: center; }
       .editor-head h2 { font-size: 20px; }
       .btn { min-height: 42px; }
-      .floating-actions { right: 10px; bottom: 10px; gap: 6px; }
-      .floating-btn { min-height: 38px; padding: 0 12px; font-size: 12px; }
+      .floating-actions {
+        right: 10px;
+        bottom: 10px;
+        gap: 6px;
+      }
+      .floating-btn {
+        min-height: 38px;
+        padding: 0 12px;
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -223,7 +621,7 @@
           <div>
             <div class="helper-badge">MODE EDIT AKTIF</div>
             <h2>Panel Edit Landing Page</h2>
-            <p>Buka file ini dengan <strong>?edit=1</strong>. Folder gambar default sudah pakai <strong>img/</strong>. Gambar bisa diisi nama file saja atau URL lengkap.</p>
+            <p>Versi ini cocok untuk GitHub Pages. Semua file gambar kamu upload manual ke folder <strong>img</strong> di repository, lalu di editor ini cukup isi nama file gambar saja.</p>
           </div>
           <div class="editor-actions">
             <button class="btn btn-primary" type="button" id="saveBrowserBtn">Simpan di Browser</button>
@@ -233,7 +631,7 @@
           </div>
         </div>
         <div class="editor-grid" id="editorGrid"></div>
-        <div class="editor-note">Catatan: HTML murni tidak bisa menghapus file fisik dari server. File ini sudah aman untuk preview/edit tanpa error. Kalau nanti kamu ingin upload/hapus file server otomatis, itu perlu backend terpisah.</div>
+        <div class="editor-note">Catatan: untuk GitHub Pages, upload gambar dilakukan manual ke folder <strong>img</strong> di repo. Sesudah itu, isi nama file seperti <strong>produk-1.jpg</strong> atau <strong>logo.png</strong> di menu edit.</div>
         <div class="editor-link-box" id="editorLinkBox"></div>
       </div>
     </div>
@@ -369,7 +767,7 @@
         { title: "Jersey Match Day", image: "produk-6.jpg", oldPrice: "Rp259.000", newPrice: "Rp179.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false }
       ],
       galleryTitle: "Galeri Jersey",
-      gallerySubtitle: "Tinggal ganti nama file atau URL gambar di file ini untuk update foto produk.",
+      gallerySubtitle: "Upload gambar manual ke folder img di repository, lalu isi nama file di sini.",
       galleryImages: ["galeri-1.jpg", "galeri-2.jpg", "galeri-3.jpg"],
       testimonialTitle: "Testimoni Pembeli",
       testimonialSubtitle: "Bisa diganti bebas sesuai review asli dari customer kamu.",
@@ -402,7 +800,7 @@
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
+        .replace(/\"/g, "&quot;");
     }
 
     function setByPath(obj, path, value) {
@@ -644,13 +1042,11 @@
       return `
         <div class="editor-field">
           <span>${label}</span>
-          <input type="text" data-path="${path}" value="${escapeHtml(value)}" placeholder="contoh: hero.jpg atau https://domain.com/foto.jpg" />
-          <div class="editor-upload">
-            <input type="file" accept="image/*" data-image-upload-path="${path}" />
-            <small>
-              Pilih file dari perangkat untuk preview cepat di browser ini, atau isi kolom atas dengan nama file / URL gambar.<br>
-              Untuk server, cukup taruh file di folder <strong>img/</strong> lalu isi nama filenya saja.
-            </small>
+          <input type="text" data-path="${path}" value="${escapeHtml(value)}" placeholder="contoh: produk-1.jpg atau logo.png" />
+          <div class="editor-image-box">
+            <div class="editor-image-help">
+              Upload file gambar secara manual ke folder <strong>img</strong> di repository GitHub, lalu isi nama file di kolom atas.
+            </div>
             <img class="editor-preview-thumb" data-preview-path="${path}" src="${resolved}" alt="preview" style="${resolved ? "" : "display:none;"}" />
           </div>
         </div>
@@ -721,9 +1117,9 @@
       editorGrid.innerHTML = `
         <div class="editor-section">
           <h3>Pengaturan Edit & Media</h3>
-          <p>Folder gambar default sekarang <strong>img/</strong>. Jadi kamu cukup isi nama file seperti <strong>produk-1.jpg</strong> untuk memanggil <strong>img/produk-1.jpg</strong>.</p>
+          <p>Gunakan folder <strong>img</strong> untuk semua gambar di repository GitHub Pages kamu.</p>
           <div class="editor-fields">
-            ${field("Folder / Base URL Gambar", "mediaBaseUrl", content.mediaBaseUrl)}
+            ${field("Folder Gambar", "mediaBaseUrl", content.mediaBaseUrl)}
             ${field("Password Edit", "editPassword", content.editPassword)}
             ${field("Template WA Produk ({product})", "waProductMessageTemplate", content.waProductMessageTemplate, "textarea")}
             ${field("Pesan WA Utama", "waMainMessage", content.waMainMessage, "textarea")}
@@ -736,7 +1132,7 @@
           <div class="editor-fields">
             ${field("Judul LP", "pageTitle", content.pageTitle)}
             ${field("Deskripsi LP", "pageDescription", content.pageDescription, "textarea")}
-            ${imageField("Nama File / URL Gambar Hero", "heroImage", content.heroImage)}
+            ${imageField("Nama File Gambar Hero", "heroImage", content.heroImage)}
             ${field("Harga Coret Hero", "priceOld", content.priceOld)}
             ${field("Harga Hero", "priceNew", content.priceNew)}
             ${field("Teks Diskon", "discountText", content.discountText)}
@@ -749,19 +1145,19 @@
 
         <div class="editor-section">
           <h3>Galeri</h3>
-          <p>Isi nama file dari folder img atau tempel URL lengkap.</p>
+          <p>Isi nama file gambar yang sudah kamu upload ke folder <strong>img</strong>.</p>
           <div class="editor-fields">
-            ${content.galleryImages.map((item, index) => imageField(`Nama File / URL Gambar Galeri ${index + 1}`, `galleryImages.${index}`, item)).join("")}
+            ${content.galleryImages.map((item, index) => imageField(`Nama File Gambar Galeri ${index + 1}`, `galleryImages.${index}`, item)).join("")}
           </div>
         </div>
 
         ${content.catalogProducts.map((item, index) => `
           <div class="editor-section">
             <h3>Produk ${index + 1}</h3>
-            <p>Kalau link custom dikosongkan, tombol produk akan otomatis menuju WhatsApp berdasarkan judul produk ini.</p>
+            <p>Isi nama file gambar produk yang sudah kamu upload ke folder <strong>img</strong>.</p>
             <div class="editor-fields">
               ${field("Judul Produk", `catalogProducts.${index}.title`, item.title)}
-              ${imageField("Nama File / URL Gambar Produk", `catalogProducts.${index}.image`, item.image)}
+              ${imageField("Nama File Gambar Produk", `catalogProducts.${index}.image`, item.image)}
               ${field("Harga Coret", `catalogProducts.${index}.oldPrice`, item.oldPrice)}
               ${field("Harga Promo", `catalogProducts.${index}.newPrice`, item.newPrice)}
               ${field("Teks Tombol", `catalogProducts.${index}.buttonText`, item.buttonText)}
@@ -789,24 +1185,11 @@
 
       editorGrid.onchange = (event) => {
         const target = event.target;
-
         if (target.dataset.path && target.type === "checkbox") {
           const path = target.dataset.path;
           setByPath(content, path, target.checked);
           initPage();
-          return;
         }
-
-        const path = target.dataset.imageUploadPath;
-        const file = target.files && target.files[0];
-        if (!path || !file) return;
-        const reader = new FileReader();
-        reader.onload = () => {
-          setByPath(content, path, reader.result);
-          initPage();
-          renderEditor();
-        };
-        reader.readAsDataURL(file);
       };
 
       document.getElementById("saveBrowserBtn").onclick = () => {
