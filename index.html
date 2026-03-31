@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LP Jersey - Single File</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f8fc;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .hero { background: linear-gradient(135deg, #0f172a, #1d4ed8); color: white; padding: 28px 0 42px; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: center; }
+    .badge {
+      display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; margin-bottom: 16px;
+    }
+    h1 { margin: 0 0 14px; font-size: clamp(30px, 5vw, 54px); line-height: 1.05; }
+    .hero p { margin: 0 0 18px; font-size: 17px; color: #dbeafe; }
+    .price-box { display: flex; align-items: end; gap: 12px; margin: 18px 0 22px; flex-wrap: wrap; }
+    .old-price { font-size: 18px; color: #cbd5e1; text-decoration: line-through; }
+    .new-price { font-size: 34px; font-weight: 800; color: #ffffff; line-height: 1; }
+    .discount-pill { background: #facc15; color: #111827; padding: 7px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px;
+      border-radius: 12px; font-weight: 700; transition: 0.2s ease; cursor: pointer; border: 0; text-align: center;
+    }
+    .btn-primary { background: #22c55e; color: white; }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-secondary { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-light { background: white; color: #0f172a; border: 1px solid #d1d5db; }
+    .btn-dark { background: #0f172a; color: white; }
+    .hero-card {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px;
+      overflow: hidden; backdrop-filter: blur(8px); box-shadow: 0 18px 45px rgba(0,0,0,0.22);
+    }
+    .hero-card img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 4.2; }
+    .section { padding: 54px 0; }
+    .section-title { margin: 0 0 10px; font-size: clamp(24px, 4vw, 36px); text-align: center; color: #0f172a; }
+    .section-subtitle { margin: 0 auto 28px; max-width: 760px; text-align: center; color: #64748b; }
+    .features, .gallery, .testimonial-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card {
+      background: white; border: 1px solid #e5e7eb; border-radius: 20px; padding: 20px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+    }
+    .card h3 { margin: 0 0 10px; font-size: 20px; }
+    .card p { margin: 0; color: #64748b; }
+    .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .product-card {
+      position: relative; background: white; border: 1px solid #e5e7eb; border-radius: 20px;
+      overflow: hidden; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05); min-width: 0;
+    }
+    .product-badges {
+      position: absolute; top: 10px; left: 10px; z-index: 2; display: flex; gap: 6px;
+      flex-wrap: wrap; max-width: calc(100% - 20px);
+    }
+    .product-badge {
+      display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px;
+      font-size: 11px; font-weight: 800; letter-spacing: 0.3px; color: white;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+    }
+    .product-badge.best { background: #f59e0b; }
+    .product-badge.hot { background: #ef4444; }
+    .product-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: #fff; }
+    .product-body { padding: 18px; }
+    .product-title { margin: 0 0 10px; font-size: 18px; color: #0f172a; }
+    .product-price { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .product-price .old { color: #94a3b8; text-decoration: line-through; font-size: 15px; }
+    .product-price .new { color: #0f172a; font-size: 24px; font-weight: 800; }
+    .product-btn { width: 100%; }
+    .gallery img {
+      width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 18px;
+      border: 1px solid #e5e7eb; background: #fff; min-width: 0;
+    }
+    .testimonial-name { margin-top: 14px; font-weight: 700; color: #0f172a; }
+    .highlight {
+      background: linear-gradient(135deg, #eff6ff, #ffffff); border: 1px solid #dbeafe; border-radius: 24px;
+      padding: 26px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;
+    }
+    .footer { background: #0f172a; color: #cbd5e1; padding: 24px 0; text-align: center; font-size: 14px; }
+    .sticky-bar {
+      position: sticky; bottom: 0; z-index: 40; background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(8px); border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .sticky-inner {
+      min-height: 70px; display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; color: white; flex-wrap: wrap; padding: 12px 0;
+    }
+    .sticky-price { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .sticky-price .old-price { color: #94a3b8; }
+    .admin-info { margin-top: 14px; font-size: 14px; color: #bfdbfe; }
+
+    .editor-wrap {
+      display: none; background: #0b1220; color: white; padding: 20px 0 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    body.edit-mode .editor-wrap { display: block; }
+    .editor-panel {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 18px;
+    }
+    .editor-head {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .editor-head h2 { margin: 0 0 6px; font-size: 24px; }
+    .editor-head p { margin: 0; color: #cbd5e1; font-size: 14px; max-width: 760px; }
+    .editor-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .editor-note { margin: 14px 0 0; font-size: 13px; color: #cbd5e1; }
+    .editor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .editor-section {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px;
+    }
+    .editor-section h3 { margin: 0 0 8px; font-size: 18px; }
+    .editor-section p { margin: 0 0 14px; font-size: 13px; color: #cbd5e1; }
+    .editor-fields { display: grid; gap: 10px; }
+    .editor-field { display: grid; gap: 6px; }
+    .editor-field span { font-size: 13px; color: #dbeafe; }
+    .editor-field input, .editor-field textarea {
+      width: 100%; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.08);
+      color: white; border-radius: 10px; padding: 10px 12px; outline: none; font: inherit;
+    }
+    .editor-field textarea { min-height: 88px; resize: vertical; }
+    .editor-check-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 2px; }
+    .editor-check {
+      display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: white; font-size: 13px; cursor: pointer;
+    }
+    .editor-check input { width: 16px; height: 16px; margin: 0; accent-color: #22c55e; }
+    .editor-upload {
+      display: grid; gap: 8px; margin-top: 6px; padding: 10px; border-radius: 10px;
+      background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.12);
+    }
+    .editor-upload input[type="file"] { width: 100%; color: white; }
+    .editor-upload small { color: #cbd5e1; font-size: 12px; line-height: 1.45; }
+    .editor-preview-thumb {
+      width: 72px; height: 72px; object-fit: cover; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06);
+    }
+    .editor-link-box {
+      margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.08);
+      font-size: 13px; color: #dbeafe; word-break: break-all;
+    }
+    .floating-actions {
+      position: fixed; right: 14px; bottom: 14px; z-index: 180; display: none; gap: 8px; align-items: center;
+    }
+    body.edit-mode .floating-actions.show { display: flex; }
+    .floating-btn {
+      min-height: 42px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 700;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.22); backdrop-filter: blur(8px);
+    }
+    .floating-btn-preview { background: rgba(15, 23, 42, 0.92); color: white; border: 1px solid rgba(255,255,255,0.1); }
+    .helper-badge {
+      display: inline-block; background: rgba(34,197,94,0.14); color: #bbf7d0; border: 1px solid rgba(34,197,94,0.24);
+      padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; margin-bottom: 12px;
+    }
+    .editor-lock {
+      position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center;
+      padding: 20px; background: rgba(2, 6, 23, 0.72); backdrop-filter: blur(8px);
+    }
+    .editor-lock.show { display: flex; }
+    .editor-lock-card {
+      width: min(460px, 100%); background: #0f172a; color: white; border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px; padding: 22px; box-shadow: 0 22px 70px rgba(0,0,0,0.35);
+    }
+    .editor-lock-card h2 { margin: 0 0 8px; font-size: 24px; }
+    .editor-lock-card p { margin: 0 0 16px; color: #cbd5e1; font-size: 14px; }
+    .editor-lock-card input {
+      width: 100%; min-height: 48px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08); color: white; padding: 0 14px; font: inherit; outline: none; margin-bottom: 12px;
+    }
+    .editor-lock-card .lock-note { margin-top: 12px; font-size: 12px; color: #94a3b8; }
+
+    @media (max-width: 900px) {
+      .hero-grid, .features, .testimonial-wrap, .highlight, .editor-grid { grid-template-columns: 1fr; }
+      .catalog-grid, .gallery { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .gallery img { border-radius: 10px; }
+      .product-card { border-radius: 12px; }
+      .product-badges { top: 6px; left: 6px; gap: 4px; max-width: calc(100% - 12px); }
+      .product-badge { min-height: 20px; padding: 0 7px; font-size: 8px; }
+      .product-body { padding: 8px; }
+      .product-title { font-size: 12px; line-height: 1.25; margin: 0 0 6px; }
+      .product-price { gap: 4px; margin-bottom: 8px; }
+      .product-price .old { font-size: 10px; }
+      .product-price .new { font-size: 14px; }
+      .product-btn { min-height: 34px; padding: 0 8px; border-radius: 8px; font-size: 11px; }
+      .hero { padding-top: 20px; }
+      .sticky-inner { justify-content: center; text-align: center; }
+      .editor-head h2 { font-size: 20px; }
+      .btn { min-height: 42px; }
+      .floating-actions { right: 10px; bottom: 10px; gap: 6px; }
+      .floating-btn { min-height: 38px; padding: 0 12px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="editor-lock" id="editorLock">
+    <div class="editor-lock-card">
+      <h2>Masuk ke Mode Edit</h2>
+      <p>Mode edit dilindungi password sederhana. Masukkan password untuk membuka panel editor halaman ini.</p>
+      <input type="password" id="editorPasswordInput" placeholder="Masukkan password edit" />
+      <button class="btn btn-primary" type="button" id="unlockEditorBtn" style="width:100%;">Buka Editor</button>
+      <div class="lock-note">Password ini cocok untuk proteksi ringan, bukan keamanan tingkat tinggi.</div>
+    </div>
+  </div>
+
+  <div class="floating-actions" id="floatingActions">
+    <button class="btn floating-btn floating-btn-preview" type="button" id="floatingPreviewBtn">Preview</button>
+    <button class="btn btn-primary floating-btn" type="button" id="floatingSaveBtn">Simpan</button>
+  </div>
+
+  <div class="editor-wrap" id="editorWrap">
+    <div class="container">
+      <div class="editor-panel">
+        <div class="editor-head">
+          <div>
+            <div class="helper-badge">MODE EDIT AKTIF</div>
+            <h2>Panel Edit Landing Page</h2>
+            <p>Buka file ini dengan <strong>?edit=1</strong>. Folder gambar default sudah pakai <strong>img/</strong>. Gambar bisa diisi nama file saja atau URL lengkap.</p>
+          </div>
+          <div class="editor-actions">
+            <button class="btn btn-primary" type="button" id="saveBrowserBtn">Simpan di Browser</button>
+            <button class="btn btn-light" type="button" id="copyEditLinkBtn">Salin Link Edit</button>
+            <button class="btn btn-light" type="button" id="copyPreviewLinkBtn">Salin Link Preview</button>
+            <button class="btn btn-dark" type="button" id="resetDataBtn">Reset</button>
+          </div>
+        </div>
+        <div class="editor-grid" id="editorGrid"></div>
+        <div class="editor-note">Catatan: HTML murni tidak bisa menghapus file fisik dari server. File ini sudah aman untuk preview/edit tanpa error. Kalau nanti kamu ingin upload/hapus file server otomatis, itu perlu backend terpisah.</div>
+        <div class="editor-link-box" id="editorLinkBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge" id="badgeText"></div>
+        <h1 id="pageTitle"></h1>
+        <p id="pageDescription"></p>
+
+        <div class="price-box">
+          <div class="old-price" id="priceOld"></div>
+          <div class="new-price" id="priceNew"></div>
+          <div class="discount-pill" id="discountText"></div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" id="ctaBtn" target="_blank" rel="noopener noreferrer"></a>
+          <a class="btn btn-secondary" id="secondaryBtn"></a>
+        </div>
+
+        <div class="admin-info" id="adminInfo"></div>
+      </div>
+
+      <div class="hero-card">
+        <img id="heroImage" src="" alt="" />
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title" id="featuresTitle"></h2>
+      <p class="section-subtitle" id="featuresSubtitle"></p>
+      <div class="features" id="featuresList"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title" id="catalogTitle"></h2>
+      <p class="section-subtitle" id="catalogSubtitle"></p>
+      <div class="catalog-grid" id="catalogList"></div>
+    </div>
+  </section>
+
+  <section class="section" id="galeri">
+    <div class="container">
+      <h2 class="section-title" id="galleryTitle"></h2>
+      <p class="section-subtitle" id="gallerySubtitle"></p>
+      <div class="gallery" id="galleryList"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title" id="testimonialTitle"></h2>
+      <p class="section-subtitle" id="testimonialSubtitle"></p>
+      <div class="testimonial-wrap" id="testimonialList"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="highlight">
+        <div>
+          <h2 style="margin:0 0 10px; font-size: clamp(24px, 4vw, 36px);" id="closingTitle"></h2>
+          <p style="margin:0; color:#475569;" id="closingText"></p>
+        </div>
+        <div>
+          <a class="btn btn-primary" id="closingBtn" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sticky-bar">
+    <div class="container sticky-inner">
+      <div>
+        <div style="font-weight:700;">Promo Jersey Hari Ini</div>
+        <div style="font-size:13px; color:#cbd5e1;" id="promoNote"></div>
+      </div>
+      <div class="sticky-price">
+        <span class="old-price" id="stickyPriceOld"></span>
+        <span style="font-size:24px; font-weight:800;" id="stickyPriceNew"></span>
+        <a class="btn btn-primary" id="stickyBtn" target="_blank" rel="noopener noreferrer"></a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container" id="footerText"></div>
+  </footer>
+
+  <script>
+    const defaultContent = {
+      brandName: "JerseySport Indonesia",
+      pageTitle: "Promo Jersey Custom Premium",
+      pageDescription: "Jersey bola, futsal, komunitas, dan event dengan bahan adem, full print, warna tajam, dan jahitan rapi.",
+      badgeText: "BISA ORDER SATUAN & PARTAI",
+      mediaBaseUrl: "img/",
+      editPassword: "123456",
+      heroImage: "hero-jersey.jpg",
+      heroImageAlt: "Foto jersey utama",
+      priceOld: "Rp249.000",
+      priceNew: "Rp149.000",
+      discountText: "HEMAT 40%",
+      ctaText: "Pesan via WhatsApp",
+      ctaUrl: "",
+      adminWaNumber: "6281234567890",
+      adminWaLabel: "Admin WA: 0812-3456-7890",
+      secondaryButtonText: "Lihat Detail",
+      secondaryButtonUrl: "#galeri",
+      waMainMessage: "Halo Admin, saya mau order jersey",
+      waProductMessageTemplate: "Halo Admin, saya tertarik dengan {product}",
+      featuresTitle: "Kenapa Banyak yang Pilih Jersey Kami?",
+      featuresSubtitle: "Cocok untuk tim futsal, bola, komunitas, sekolah, event kantor, sampai reseller.",
+      features: [
+        { title: "Bahan Adem", text: "Nyaman dipakai untuk latihan maupun pertandingan dengan sirkulasi udara yang baik." },
+        { title: "Full Custom Design", text: "Bisa ganti nama, nomor punggung, logo tim, sponsor, dan warna sesuai kebutuhan." },
+        { title: "Warna Tahan Lama", text: "Menggunakan teknik print berkualitas agar warna tetap tajam dan tidak mudah pudar." }
+      ],
+      catalogTitle: "Katalog Produk Jersey",
+      catalogSubtitle: "Pilih model favoritmu. Semua item di bawah ini bisa diganti foto, judul, harga, dan link tombol.",
+      catalogProducts: [
+        { title: "Jersey Home 2026", image: "produk-1.jpg", oldPrice: "Rp219.000", newPrice: "Rp149.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
+        { title: "Jersey Away Premium", image: "produk-2.jpg", oldPrice: "Rp229.000", newPrice: "Rp159.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
+        { title: "Jersey Training Pro", image: "produk-3.jpg", oldPrice: "Rp199.000", newPrice: "Rp139.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
+        { title: "Jersey Edisi Tim", image: "produk-4.jpg", oldPrice: "Rp249.000", newPrice: "Rp169.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
+        { title: "Jersey Fans Edition", image: "produk-5.jpg", oldPrice: "Rp239.000", newPrice: "Rp164.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
+        { title: "Jersey Match Day", image: "produk-6.jpg", oldPrice: "Rp259.000", newPrice: "Rp179.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false }
+      ],
+      galleryTitle: "Galeri Jersey",
+      gallerySubtitle: "Tinggal ganti nama file atau URL gambar di file ini untuk update foto produk.",
+      galleryImages: ["galeri-1.jpg", "galeri-2.jpg", "galeri-3.jpg"],
+      testimonialTitle: "Testimoni Pembeli",
+      testimonialSubtitle: "Bisa diganti bebas sesuai review asli dari customer kamu.",
+      testimonials: [
+        { text: "Hasil print-nya bagus banget, warna sesuai mockup. Tim kami puas.", name: "Rama - Manager Futsal" },
+        { text: "Bahannya adem dan jahitannya rapi. Repeat order lagi bulan depan.", name: "Iqbal - Komunitas Bola" },
+        { text: "Fast respon, desain dibantu sampai jadi. Recommended.", name: "Dina - Panitia Event" }
+      ],
+      closingTitle: "Siap Order Jersey Hari Ini?",
+      closingText: "Klik tombol WhatsApp sekarang untuk cek stok, konsultasi desain, dan dapatkan promo terbaik.",
+      closingButtonText: "Chat Admin Sekarang",
+      closingButtonUrl: "",
+      footerText: "© 2026 JerseySport Indonesia. Semua hak dilindungi.",
+      promoNote: "Promo terbatas minggu ini. Harga bisa berubah kapan saja."
+    };
+
+    const STORAGE_KEY = "lp_jersey_single_file_config";
+    const EDIT_UNLOCK_KEY = "lp_jersey_single_file_unlock";
+    let content = deepClone(defaultContent);
+    const urlObj = new URL(window.location.href);
+    const isEditMode = urlObj.searchParams.get("edit") === "1";
+    let editorUnlocked = false;
+
+    function deepClone(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function setByPath(obj, path, value) {
+      const keys = path.split(".");
+      let ref = obj;
+      for (let i = 0; i < keys.length - 1; i += 1) {
+        const maybeIndex = Number(keys[i]);
+        const key = Number.isInteger(maybeIndex) && String(maybeIndex) === keys[i] ? maybeIndex : keys[i];
+        ref = ref[key];
+      }
+      const lastMaybeIndex = Number(keys[keys.length - 1]);
+      const lastKey = Number.isInteger(lastMaybeIndex) && String(lastMaybeIndex) === keys[keys.length - 1] ? lastMaybeIndex : keys[keys.length - 1];
+      ref[lastKey] = value;
+    }
+
+    function getByPath(obj, path) {
+      return path.split(".").reduce((acc, key) => {
+        const maybeIndex = Number(key);
+        const parsedKey = Number.isInteger(maybeIndex) && String(maybeIndex) === key ? maybeIndex : key;
+        return acc ? acc[parsedKey] : "";
+      }, obj);
+    }
+
+    function normalizeWaNumber(value) {
+      const digits = String(value || "").replace(/\D/g, "");
+      if (!digits) return "";
+      if (digits.startsWith("62")) return digits;
+      if (digits.startsWith("0")) return "62" + digits.slice(1);
+      if (digits.startsWith("8")) return "62" + digits;
+      return digits;
+    }
+
+    function buildWaLink(number, message) {
+      const phone = normalizeWaNumber(number);
+      if (!phone) return "#";
+      return "https://wa.me/" + phone + "?text=" + encodeURIComponent(message || "");
+    }
+
+    function resolveImageUrl(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "";
+      if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("data:") || raw.startsWith("/")) return raw;
+      const base = String(content.mediaBaseUrl || "").trim();
+      if (!base) return raw;
+      return base.replace(/\/+$/, "") + "/" + raw.replace(/^\/+/, "");
+    }
+
+    function getMainWaUrl(customUrl, fallbackMessage) {
+      const raw = String(customUrl || "").trim();
+      if (raw) return raw;
+      return buildWaLink(content.adminWaNumber, fallbackMessage);
+    }
+
+    function getProductButtonUrl(item) {
+      const customUrl = String(item.buttonUrl || "").trim();
+      if (customUrl) return customUrl;
+      const template = String(content.waProductMessageTemplate || "Halo Admin, saya tertarik dengan {product}");
+      const message = template.replace(/\{product\}/g, item.title || "produk ini");
+      return buildWaLink(content.adminWaNumber, message);
+    }
+
+    function getDataParam() {
+      try {
+        const encoded = urlObj.searchParams.get("data");
+        if (!encoded) return null;
+        const json = decodeURIComponent(atob(encoded));
+        return JSON.parse(json);
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function getSavedData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function loadInitialContent() {
+      const dataFromUrl = getDataParam();
+      const dataFromStorage = getSavedData();
+      if (dataFromUrl) {
+        content = dataFromUrl;
+      } else if (dataFromStorage) {
+        content = dataFromStorage;
+      }
+    }
+
+    function getShareLink(withEdit) {
+      const base = window.location.origin + window.location.pathname;
+      const params = new URLSearchParams();
+      if (withEdit) params.set("edit", "1");
+      try {
+        const encoded = btoa(encodeURIComponent(JSON.stringify(content)));
+        params.set("data", encoded);
+      } catch (error) {}
+      const query = params.toString();
+      return query ? base + "?" + query : base;
+    }
+
+    function copyText(text, successMessage) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+          .then(() => alert(successMessage))
+          .catch(() => window.prompt("Salin manual link berikut:", text));
+      } else {
+        window.prompt("Salin manual link berikut:", text);
+      }
+    }
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function setLink(id, text, url) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = text;
+      el.href = url;
+    }
+
+    function renderFeatures() {
+      const wrapper = document.getElementById("featuresList");
+      wrapper.innerHTML = content.features.map(item => `
+        <div class="card">
+          <h3>${item.title}</h3>
+          <p>${item.text}</p>
+        </div>
+      `).join("");
+    }
+
+    function renderCatalog() {
+      const wrapper = document.getElementById("catalogList");
+      wrapper.innerHTML = content.catalogProducts.map(item => `
+        <div class="product-card">
+          <div class="product-badges">
+            ${item.bestSeller ? '<span class="product-badge best">BEST SELLER</span>' : ''}
+            ${item.hot ? '<span class="product-badge hot">HOT</span>' : ''}
+          </div>
+          <img src="${resolveImageUrl(item.image)}" alt="${item.title}" />
+          <div class="product-body">
+            <h3 class="product-title">${item.title}</h3>
+            <div class="product-price">
+              <span class="old">${item.oldPrice}</span>
+              <span class="new">${item.newPrice}</span>
+            </div>
+            <a class="btn btn-primary product-btn" href="${getProductButtonUrl(item)}" target="_blank" rel="noopener noreferrer">${item.buttonText}</a>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderGallery() {
+      const wrapper = document.getElementById("galleryList");
+      wrapper.innerHTML = content.galleryImages.map((src, index) => `
+        <img src="${resolveImageUrl(src)}" alt="Galeri Jersey ${index + 1}" />
+      `).join("");
+    }
+
+    function renderTestimonials() {
+      const wrapper = document.getElementById("testimonialList");
+      wrapper.innerHTML = content.testimonials.map(item => `
+        <div class="card">
+          <p>“${item.text}”</p>
+          <div class="testimonial-name">${item.name}</div>
+        </div>
+      `).join("");
+    }
+
+    function initPage() {
+      document.title = content.pageTitle;
+      setText("badgeText", content.badgeText);
+      setText("pageTitle", content.pageTitle);
+      setText("pageDescription", content.pageDescription);
+      setText("priceOld", content.priceOld);
+      setText("priceNew", content.priceNew);
+      setText("discountText", content.discountText);
+      setText("featuresTitle", content.featuresTitle);
+      setText("featuresSubtitle", content.featuresSubtitle);
+      setText("catalogTitle", content.catalogTitle);
+      setText("catalogSubtitle", content.catalogSubtitle);
+      setText("galleryTitle", content.galleryTitle);
+      setText("gallerySubtitle", content.gallerySubtitle);
+      setText("testimonialTitle", content.testimonialTitle);
+      setText("testimonialSubtitle", content.testimonialSubtitle);
+      setText("closingTitle", content.closingTitle);
+      setText("closingText", content.closingText);
+      setText("promoNote", content.promoNote);
+      setText("stickyPriceOld", content.priceOld);
+      setText("stickyPriceNew", content.priceNew);
+      setText("footerText", content.footerText);
+      setText("adminInfo", content.adminWaLabel + " | WA: " + normalizeWaNumber(content.adminWaNumber));
+      setLink("ctaBtn", content.ctaText, getMainWaUrl(content.ctaUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
+      setLink("secondaryBtn", content.secondaryButtonText, content.secondaryButtonUrl);
+      setLink("closingBtn", content.closingButtonText, getMainWaUrl(content.closingButtonUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
+      setLink("stickyBtn", content.ctaText, getMainWaUrl(content.ctaUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
+      const heroImage = document.getElementById("heroImage");
+      heroImage.src = resolveImageUrl(content.heroImage);
+      heroImage.alt = content.heroImageAlt;
+      renderFeatures();
+      renderCatalog();
+      renderGallery();
+      renderTestimonials();
+      updateEditorLinkBox();
+    }
+
+    function field(label, path, value, type = "text") {
+      if (type === "textarea") {
+        return `
+          <label class="editor-field">
+            <span>${label}</span>
+            <textarea data-path="${path}">${escapeHtml(value)}</textarea>
+          </label>
+        `;
+      }
+      return `
+        <label class="editor-field">
+          <span>${label}</span>
+          <input type="${type}" data-path="${path}" value="${escapeHtml(value)}" />
+        </label>
+      `;
+    }
+
+    function checkboxField(label, path, checked) {
+      return `
+        <label class="editor-check">
+          <input type="checkbox" data-path="${path}" ${checked ? "checked" : ""} />
+          <span>${label}</span>
+        </label>
+      `;
+    }
+
+    function imageField(label, path, value) {
+      const resolved = resolveImageUrl(value);
+      return `
+        <div class="editor-field">
+          <span>${label}</span>
+          <input type="text" data-path="${path}" value="${escapeHtml(value)}" placeholder="contoh: hero.jpg atau https://domain.com/foto.jpg" />
+          <div class="editor-upload">
+            <input type="file" accept="image/*" data-image-upload-path="${path}" />
+            <small>
+              Pilih file dari perangkat untuk preview cepat di browser ini, atau isi kolom atas dengan nama file / URL gambar.<br>
+              Untuk server, cukup taruh file di folder <strong>img/</strong> lalu isi nama filenya saja.
+            </small>
+            <img class="editor-preview-thumb" data-preview-path="${path}" src="${resolved}" alt="preview" style="${resolved ? "" : "display:none;"}" />
+          </div>
+        </div>
+      `;
+    }
+
+    function updateSingleEditorPreview(path) {
+      const preview = document.querySelector(`[data-preview-path="${path}"]`);
+      if (!preview) return;
+      const resolved = resolveImageUrl(getByPath(content, path));
+      if (resolved) {
+        preview.src = resolved;
+        preview.style.display = "block";
+      } else {
+        preview.removeAttribute("src");
+        preview.style.display = "none";
+      }
+    }
+
+    function setFloatingActionsVisible(isVisible) {
+      const wrap = document.getElementById("floatingActions");
+      if (!wrap) return;
+      wrap.classList.toggle("show", !!isVisible);
+    }
+
+    function saveEditorData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+      alert("Perubahan disimpan di browser ini.");
+    }
+
+    function openPreviewPage() {
+      const previewLink = getShareLink(false);
+      window.open(previewLink, "_blank");
+    }
+
+    function updateEditorLinkBox() {
+      const box = document.getElementById("editorLinkBox");
+      if (!box || !isEditMode || !editorUnlocked) return;
+      box.innerHTML = `
+        <div><strong>Link edit:</strong><br>${escapeHtml(getShareLink(true))}</div>
+        <div style="margin-top:10px;"><strong>Link preview:</strong><br>${escapeHtml(getShareLink(false))}</div>
+      `;
+    }
+
+    function renderEditor() {
+      const lockEl = document.getElementById("editorLock");
+      const wrapEl = document.getElementById("editorWrap");
+      if (!isEditMode) {
+        lockEl.classList.remove("show");
+        document.body.classList.remove("edit-mode");
+        setFloatingActionsVisible(false);
+        return;
+      }
+      if (!editorUnlocked) {
+        lockEl.classList.add("show");
+        document.body.classList.remove("edit-mode");
+        wrapEl.style.display = "none";
+        setFloatingActionsVisible(false);
+        return;
+      }
+
+      lockEl.classList.remove("show");
+      wrapEl.style.display = "block";
+      document.body.classList.add("edit-mode");
+      setFloatingActionsVisible(true);
+
+      const editorGrid = document.getElementById("editorGrid");
+      editorGrid.innerHTML = `
+        <div class="editor-section">
+          <h3>Pengaturan Edit & Media</h3>
+          <p>Folder gambar default sekarang <strong>img/</strong>. Jadi kamu cukup isi nama file seperti <strong>produk-1.jpg</strong> untuk memanggil <strong>img/produk-1.jpg</strong>.</p>
+          <div class="editor-fields">
+            ${field("Folder / Base URL Gambar", "mediaBaseUrl", content.mediaBaseUrl)}
+            ${field("Password Edit", "editPassword", content.editPassword)}
+            ${field("Template WA Produk ({product})", "waProductMessageTemplate", content.waProductMessageTemplate, "textarea")}
+            ${field("Pesan WA Utama", "waMainMessage", content.waMainMessage, "textarea")}
+          </div>
+        </div>
+
+        <div class="editor-section">
+          <h3>Bagian Utama</h3>
+          <p>Kalau link WA utama dikosongkan, tombol utama akan otomatis pakai nomor admin dan pesan WA utama.</p>
+          <div class="editor-fields">
+            ${field("Judul LP", "pageTitle", content.pageTitle)}
+            ${field("Deskripsi LP", "pageDescription", content.pageDescription, "textarea")}
+            ${imageField("Nama File / URL Gambar Hero", "heroImage", content.heroImage)}
+            ${field("Harga Coret Hero", "priceOld", content.priceOld)}
+            ${field("Harga Hero", "priceNew", content.priceNew)}
+            ${field("Teks Diskon", "discountText", content.discountText)}
+            ${field("Nomor Admin WA", "adminWaNumber", content.adminWaNumber)}
+            ${field("Label Admin WA", "adminWaLabel", content.adminWaLabel)}
+            ${field("Link Tombol WA Utama (opsional)", "ctaUrl", content.ctaUrl)}
+            ${field("Link Tombol Closing (opsional)", "closingButtonUrl", content.closingButtonUrl)}
+          </div>
+        </div>
+
+        <div class="editor-section">
+          <h3>Galeri</h3>
+          <p>Isi nama file dari folder img atau tempel URL lengkap.</p>
+          <div class="editor-fields">
+            ${content.galleryImages.map((item, index) => imageField(`Nama File / URL Gambar Galeri ${index + 1}`, `galleryImages.${index}`, item)).join("")}
+          </div>
+        </div>
+
+        ${content.catalogProducts.map((item, index) => `
+          <div class="editor-section">
+            <h3>Produk ${index + 1}</h3>
+            <p>Kalau link custom dikosongkan, tombol produk akan otomatis menuju WhatsApp berdasarkan judul produk ini.</p>
+            <div class="editor-fields">
+              ${field("Judul Produk", `catalogProducts.${index}.title`, item.title)}
+              ${imageField("Nama File / URL Gambar Produk", `catalogProducts.${index}.image`, item.image)}
+              ${field("Harga Coret", `catalogProducts.${index}.oldPrice`, item.oldPrice)}
+              ${field("Harga Promo", `catalogProducts.${index}.newPrice`, item.newPrice)}
+              ${field("Teks Tombol", `catalogProducts.${index}.buttonText`, item.buttonText)}
+              ${field("Link Custom Produk (opsional)", `catalogProducts.${index}.buttonUrl`, item.buttonUrl)}
+              <div class="editor-check-row">
+                ${checkboxField("Best Seller", `catalogProducts.${index}.bestSeller`, item.bestSeller)}
+                ${checkboxField("Hot", `catalogProducts.${index}.hot`, item.hot)}
+              </div>
+            </div>
+          </div>
+        `).join("")}
+      `;
+
+      editorGrid.oninput = (event) => {
+        const target = event.target;
+        const path = target.dataset.path;
+        if (!path) return;
+        setByPath(content, path, target.type === "checkbox" ? target.checked : target.value);
+        if (path === "editPassword") {
+          sessionStorage.setItem(EDIT_UNLOCK_KEY, target.value);
+        }
+        initPage();
+        updateSingleEditorPreview(path);
+      };
+
+      editorGrid.onchange = (event) => {
+        const target = event.target;
+
+        if (target.dataset.path && target.type === "checkbox") {
+          const path = target.dataset.path;
+          setByPath(content, path, target.checked);
+          initPage();
+          return;
+        }
+
+        const path = target.dataset.imageUploadPath;
+        const file = target.files && target.files[0];
+        if (!path || !file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          setByPath(content, path, reader.result);
+          initPage();
+          renderEditor();
+        };
+        reader.readAsDataURL(file);
+      };
+
+      document.getElementById("saveBrowserBtn").onclick = () => {
+        saveEditorData();
+      };
+
+      document.getElementById("copyEditLinkBtn").onclick = () => {
+        copyText(getShareLink(true), "Link edit berhasil disalin.");
+      };
+
+      document.getElementById("copyPreviewLinkBtn").onclick = () => {
+        copyText(getShareLink(false), "Link preview berhasil disalin.");
+      };
+
+      document.getElementById("resetDataBtn").onclick = () => {
+        localStorage.removeItem(STORAGE_KEY);
+        sessionStorage.removeItem(EDIT_UNLOCK_KEY);
+        content = deepClone(defaultContent);
+        editorUnlocked = true;
+        sessionStorage.setItem(EDIT_UNLOCK_KEY, content.editPassword);
+        initPage();
+        renderEditor();
+      };
+
+      const floatingSaveBtn = document.getElementById("floatingSaveBtn");
+      if (floatingSaveBtn) {
+        floatingSaveBtn.onclick = () => {
+          saveEditorData();
+        };
+      }
+
+      const floatingPreviewBtn = document.getElementById("floatingPreviewBtn");
+      if (floatingPreviewBtn) {
+        floatingPreviewBtn.onclick = () => {
+          openPreviewPage();
+        };
+      }
+
+      updateEditorLinkBox();
+    }
+
+    function setupEditorLock() {
+      if (!isEditMode) return;
+      const input = document.getElementById("editorPasswordInput");
+      const button = document.getElementById("unlockEditorBtn");
+
+      const tryUnlock = () => {
+        if (String(input.value) === String(content.editPassword || "")) {
+          editorUnlocked = true;
+          sessionStorage.setItem(EDIT_UNLOCK_KEY, String(content.editPassword || ""));
+          input.value = "";
+          renderEditor();
+        } else {
+          alert("Password edit salah.");
+        }
+      };
+
+      button.onclick = tryUnlock;
+      input.onkeydown = (event) => {
+        if (event.key === "Enter") tryUnlock();
+      };
+
+      const savedUnlock = sessionStorage.getItem(EDIT_UNLOCK_KEY);
+      editorUnlocked = !!savedUnlock && savedUnlock === String(content.editPassword || "");
+    }
+
+    loadInitialContent();
+    initPage();
+    setupEditorLock();
+    renderEditor();
+  </script>
+</body>
+</html>
