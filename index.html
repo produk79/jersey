@@ -163,6 +163,35 @@
       margin: 0;
       color: #64748b;
     }
+    .promo-banner-link {
+      display: block;
+    }
+    .promo-banner-link.is-disabled {
+      pointer-events: none;
+      cursor: default;
+    }
+    .promo-banner-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+    }
+    .promo-banner-card img {
+      width: 100%;
+      aspect-ratio: 16 / 5.4;
+      object-fit: cover;
+      background: #fff;
+    }
+    .promo-banner-body {
+      padding: 14px 18px;
+    }
+    .promo-banner-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.35;
+    }
     .catalog-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -588,6 +617,9 @@
         gap: 8px;
       }
       .gallery img { border-radius: 10px; }
+      .promo-banner-card img { aspect-ratio: 16 / 7; }
+      .promo-banner-body { padding: 12px 14px; }
+      .promo-banner-text { font-size: 15px; }
       .product-card { border-radius: 12px; }
       .product-badges {
         top: 6px;
@@ -711,6 +743,19 @@
     </div>
   </section>
 
+  <section class="section" id="bannerSection">
+    <div class="container">
+      <a class="promo-banner-link" id="promoBannerLink" target="_blank" rel="noopener noreferrer">
+        <div class="promo-banner-card">
+          <img id="promoBannerImage" src="" alt="" />
+          <div class="promo-banner-body">
+            <div class="promo-banner-text" id="promoBannerText"></div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container">
       <h2 class="section-title" id="catalogTitle"></h2>
@@ -777,13 +822,13 @@
       "editPassword": "123456",
       "heroImage": "promo.jpeg",
       "heroImageAlt": "Foto jersey utama",
-      "priceOld": "Rp 129.000",
-      "priceNew": "Rp79.000",
-      "discountText": "HEMAT 21%",
+      "priceOld": "Rp249.000",
+      "priceNew": "Rp149.000",
+      "discountText": "HEMAT 40%",
       "ctaText": "Pesan via WhatsApp",
-      "ctaUrl": "https://wa.me/p/24490179693982614/6285191563084",
-      "adminWaNumber": "6285191563084",
-      "adminWaLabel": "Admin WA: 0851 9156 3084",
+      "ctaUrl": "",
+      "adminWaNumber": "6281234567890",
+      "adminWaLabel": "Admin WA: 0812-3456-7890",
       "secondaryButtonText": "Lihat Detail",
       "secondaryButtonUrl": "#galeri",
       "waMainMessage": "Halo kak, Saya tertarik custom jersey, bisa dibantu cara order dan customnya?",
@@ -804,6 +849,9 @@
                   "text": "Menggunakan teknik print berkualitas agar warna tetap tajam dan tidak mudah pudar."
             }
       ],
+      bannerImage: "banner-promo.jpg",
+      bannerText: "Promo spesial minggu ini, klik banner untuk lihat info lengkap.",
+      bannerUrl: "",
       "catalogTitle": "Katalog Produk Jersey",
       "catalogSubtitle": "Pilih model favoritmu. Semua item di bawah ini bisa diganti foto, judul, harga, dan link tombol.",
       "catalogProducts": [
@@ -894,11 +942,9 @@
       "closingTitle": "Siap Order Jersey Hari Ini?",
       "closingText": "Klik tombol WhatsApp sekarang untuk cek stok, konsultasi desain, dan dapatkan promo terbaik.",
       "closingButtonText": "Chat Admin Sekarang",
-      "closingButtonUrl": "https://wa.me/p/24490179693982614/6285191563084",
-      "footerText": "© 2026 Geark Sport Indonesia. Semua hak dilindungi.",
-      "promoNote": "Promo terbatas minggu ini. Harga bisa berubah kapan saja.",
-      "buttonPrimaryBg": "#fe5b16",
-      "buttonPrimaryText": "#ffffff"
+      "closingButtonUrl": "",
+      "footerText": "© 2026 JerseySport Indonesia. Semua hak dilindungi.",
+      "promoNote": "Promo terbatas minggu ini. Harga bisa berubah kapan saja."
 };
 
     const STORAGE_KEY = "lp_jersey_single_file_config";
@@ -1079,6 +1125,32 @@
       `).join("");
     }
 
+    function renderBanner() {
+      const section = document.getElementById("bannerSection");
+      const link = document.getElementById("promoBannerLink");
+      const image = document.getElementById("promoBannerImage");
+      const text = document.getElementById("promoBannerText");
+      const rawImage = String(content.bannerImage || "").trim();
+      const rawText = String(content.bannerText || "").trim();
+      const rawUrl = String(content.bannerUrl || "").trim();
+      const hasContent = !!(rawImage || rawText);
+
+      if (section) section.style.display = hasContent ? "" : "none";
+      if (image) {
+        image.src = rawImage ? resolveImageUrl(rawImage) : "";
+        image.alt = rawText || "Banner promo";
+        image.style.display = rawImage ? "block" : "none";
+      }
+      if (text) {
+        text.textContent = rawText;
+        text.style.display = rawText ? "block" : "none";
+      }
+      if (link) {
+        link.href = rawUrl || "#";
+        link.classList.toggle("is-disabled", !rawUrl);
+      }
+    }
+
     function renderCatalog() {
       const wrapper = document.getElementById("catalogList");
       wrapper.innerHTML = content.catalogProducts.map(item => `
@@ -1148,6 +1220,7 @@
       heroImage.src = resolveImageUrl(content.heroImage);
       heroImage.alt = content.heroImageAlt;
       renderFeatures();
+      renderBanner();
       renderCatalog();
       renderGallery();
       renderTestimonials();
@@ -1358,6 +1431,16 @@
             ${field("Label Admin WA", "adminWaLabel", content.adminWaLabel)}
             ${field("Link Tombol WA Utama (opsional)", "ctaUrl", content.ctaUrl)}
             ${field("Link Tombol Closing (opsional)", "closingButtonUrl", content.closingButtonUrl)}
+          </div>
+        </div>
+
+        <div class="editor-section">
+          <h3>Banner</h3>
+          <p>Banner ini tampil lebar seperti card dengan tinggi sedang. Klik gambar atau teks banner akan menuju URL yang kamu isi.</p>
+          <div class="editor-fields">
+            ${imageField("Nama File Gambar Banner", "bannerImage", content.bannerImage)}
+            ${field("Teks Banner", "bannerText", content.bannerText)}
+            ${field("Link URL Banner", "bannerUrl", content.bannerUrl)}
           </div>
         </div>
 
