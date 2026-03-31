@@ -964,18 +964,43 @@
       return base.replace(/\/+$/, "") + "/" + raw.replace(/^\/+/, "");
     }
 
-    function getMainWaUrl(customUrl, fallbackMessage) {
+    function isWhatsAppUrl(url) {
+      const raw = String(url || "").trim();
+      return /wa\.me\//i.test(raw) || /api\.whatsapp\.com\/send/i.test(raw) || /whatsapp:\/\/send/i.test(raw);
+    }
+
+    function getWhatsAppMessageFromUrl(url) {
+      try {
+        const raw = String(url || "").trim();
+        if (!raw) return "";
+        const parsed = new URL(raw);
+        return parsed.searchParams.get("text") || parsed.searchParams.get("message") || "";
+      } catch (error) {
+        const match = String(url || "").match(/[?&](?:text|message)=([^&]+)/i);
+        return match ? decodeURIComponent(match[1]) : "";
+      }
+    }
+
+    function normalizeActionUrl(customUrl, fallbackMessage) {
       const raw = String(customUrl || "").trim();
-      if (raw) return raw;
-      return buildWaLink(content.adminWaNumber, fallbackMessage);
+      if (!raw) {
+        return buildWaLink(content.adminWaNumber, fallbackMessage);
+      }
+      if (isWhatsAppUrl(raw)) {
+        const messageFromUrl = getWhatsAppMessageFromUrl(raw);
+        return buildWaLink(content.adminWaNumber, messageFromUrl || fallbackMessage);
+      }
+      return raw;
+    }
+
+    function getMainWaUrl(customUrl, fallbackMessage) {
+      return normalizeActionUrl(customUrl, fallbackMessage);
     }
 
     function getProductButtonUrl(item) {
-      const customUrl = String(item.buttonUrl || "").trim();
-      if (customUrl) return customUrl;
       const template = String(content.waProductMessageTemplate || "Halo Admin, saya tertarik dengan {product}");
-      const message = template.replace(/\\{product\}/g, item.title || "produk ini");
-      return buildWaLink(content.adminWaNumber, message);
+      const message = template.replace(/\{product\}/g, item.title || "produk ini");
+      return normalizeActionUrl(item.buttonUrl, message);
     }
 
     function getDataParam() {
@@ -1319,7 +1344,7 @@
 
         <div class="editor-section">
           <h3>Bagian Utama</h3>
-          <p>Kalau link WA utama dikosongkan, tombol utama akan otomatis pakai nomor admin dan pesan WA utama.</p>
+          <p>Kalau link WA utama dikosongkan, tombol utama akan otomatis pakai nomor admin dan pesan WA utama. Jika link custom adalah link WhatsApp, nomor WA di link itu juga otomatis mengikuti Nomor Admin WA di atas.</p>
           <div class="editor-fields">
             ${field("Judul LP", "pageTitle", content.pageTitle)}
             ${field("Descripsi LP", "pageDescription", content.pageDescription, "textarea")}
