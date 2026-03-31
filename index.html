@@ -457,6 +457,17 @@
       font-weight: 700;
       cursor: pointer;
     }
+    .editor-array-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .editor-danger-btn {
+      background: rgba(239,68,68,0.16);
+      border-color: rgba(239,68,68,0.3);
+      color: #fecaca;
+    }
     .editor-preview-status {
       font-size: 12px;
       color: #cbd5e1;
@@ -1036,6 +1047,7 @@
       renderGallery();
       renderTestimonials();
       updateEditorLinkBox();
+      refreshAllImagePreviews(false);
     }
 
     function field(label, path, value, type = "text") {
@@ -1061,6 +1073,21 @@
           <input type="checkbox" data-path="${path}" ${checked ? "checked" : ""} />
           <span>${label}</span>
         </label>
+      `;
+    }
+
+    function testimonialItemField(item, index) {
+      return `
+        <div class="editor-section" style="padding:12px;">
+          <h3 style="font-size:16px; margin:0 0 10px;">Testimoni ${index + 1}</h3>
+          <div class="editor-fields">
+            ${field("Isi Testimoni", `testimonials.${index}.text`, item.text, "textarea")}
+            ${field("Nama / Jabatan", `testimonials.${index}.name`, item.name)}
+            <div class="editor-array-actions">
+              <button type="button" class="editor-mini-btn editor-danger-btn" data-remove-testimonial="${index}">Hapus Testimoni</button>
+            </div>
+          </div>
+        </div>
       `;
     }
 
@@ -1125,6 +1152,13 @@
         setPreviewStatus(path, "Gambar belum muncul di GitHub", "error");
       };
       tester.src = testSrc;
+    }
+
+    function refreshAllImagePreviews(forceRefresh = false) {
+      document.querySelectorAll("[data-preview-path]").forEach((el) => {
+        const path = el.dataset.previewPath;
+        if (path) updateSingleEditorPreview(path, forceRefresh);
+      });
     }
 
     function setFloatingActionsVisible(isVisible) {
@@ -1212,6 +1246,17 @@
           </div>
         </div>
 
+        <div class="editor-section">
+          <h3>Testimoni</h3>
+          <p>Testimoni yang sudah ada bisa diganti, dan kamu juga bisa tambah testimoni baru kapan saja.</p>
+          <div class="editor-fields">
+            ${content.testimonials.map((item, index) => testimonialItemField(item, index)).join("")}
+            <div class="editor-array-actions">
+              <button type="button" class="editor-mini-btn" id="addTestimonialBtn">Tambah Testimoni</button>
+            </div>
+          </div>
+        </div>
+
         ${content.catalogProducts.map((item, index) => `
           <div class="editor-section">
             <h3>Produk ${index + 1}</h3>
@@ -1241,7 +1286,11 @@
           sessionStorage.setItem(EDIT_UNLOCK_KEY, target.value);
         }
         initPage();
-        updateSingleEditorPreview(path, false);
+        if (path === "mediaBaseUrl") {
+          refreshAllImagePreviews(false);
+        } else {
+          updateSingleEditorPreview(path, false);
+        }
       };
 
       editorGrid.onchange = (event) => {
@@ -1254,11 +1303,32 @@
       };
 
       editorGrid.onclick = (event) => {
-        const target = event.target;
-        const path = target.dataset.refreshPath;
-        if (!path) return;
+        const removeBtn = event.target.closest("[data-remove-testimonial]");
+        if (removeBtn) {
+          const removeIndex = removeBtn.dataset.removeTestimonial;
+          content.testimonials.splice(Number(removeIndex), 1);
+          if (content.testimonials.length === 0) {
+            content.testimonials.push({ text: "", name: "" });
+          }
+          initPage();
+          renderEditor();
+          return;
+        }
+
+        const refreshBtn = event.target.closest("[data-refresh-path]");
+        if (!refreshBtn) return;
+        const path = refreshBtn.dataset.refreshPath;
         updateSingleEditorPreview(path, true);
       };
+
+      const addTestimonialBtn = document.getElementById("addTestimonialBtn");
+      if (addTestimonialBtn) {
+        addTestimonialBtn.onclick = () => {
+          content.testimonials.push({ text: "", name: "" });
+          initPage();
+          renderEditor();
+        };
+      }
 
       document.getElementById("saveBrowserBtn").onclick = () => {
         saveEditorData();
