@@ -777,13 +777,13 @@
       "editPassword": "123456",
       "heroImage": "promo.jpeg",
       "heroImageAlt": "Foto jersey utama",
-      "priceOld": "Rp 129.000",
-      "priceNew": "Rp79.000",
-      "discountText": "HEMAT 21%",
+      "priceOld": "Rp249.000",
+      "priceNew": "Rp149.000",
+      "discountText": "HEMAT 40%",
       "ctaText": "Pesan via WhatsApp",
-      "ctaUrl": "https://wa.me/p/24490179693982614/6285191563084",
-      "adminWaNumber": "6285191563084",
-      "adminWaLabel": "Admin WA: 0851 9156 3084",
+      "ctaUrl": "",
+      "adminWaNumber": "6281234567890",
+      "adminWaLabel": "Admin WA: 0812-3456-7890",
       "secondaryButtonText": "Lihat Detail",
       "secondaryButtonUrl": "#galeri",
       "waMainMessage": "Halo kak, Saya tertarik custom jersey, bisa dibantu cara order dan customnya?",
@@ -894,11 +894,9 @@
       "closingTitle": "Siap Order Jersey Hari Ini?",
       "closingText": "Klik tombol WhatsApp sekarang untuk cek stok, konsultasi desain, dan dapatkan promo terbaik.",
       "closingButtonText": "Chat Admin Sekarang",
-      "closingButtonUrl": "https://wa.me/p/24490179693982614/6285191563084",
+      "closingButtonUrl": "",
       "footerText": "© 2026 JerseySport Indonesia. Semua hak dilindungi.",
-      "promoNote": "Promo terbatas minggu ini. Harga bisa berubah kapan saja.",
-      "buttonPrimaryBg": "#fe5b16",
-      "buttonPrimaryText": "#ffffff"
+      "promoNote": "Promo terbatas minggu ini. Harga bisa berubah kapan saja."
 };
 
     const STORAGE_KEY = "lp_jersey_single_file_config";
@@ -1138,7 +1136,7 @@
       setText("promoNote", content.promoNote);
       setText("stickyPriceOld", content.priceOld);
       setText("stickyPriceNew", content.priceNew);
-      setText("footerText", content.footerText);
+      setText("footerText", `© ${new Date().getFullYear()} ${content.footerText}`);
       setText("adminInfo", content.adminWaLabel + " | WA: " + normalizeWaNumber(content.adminWaNumber));
       setLink("ctaBtn", content.ctaText, getMainWaUrl(content.ctaUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
       setLink("secondaryBtn", content.secondaryButtonText, content.secondaryButtonUrl);
@@ -1369,7 +1367,16 @@
           </div>
         </div>
 
+        
         <div class="editor-section">
+          <h3>Footer</h3>
+          <p>Tahun footer otomatis mengikuti tahun aktif. Di sini kamu cukup ganti isi teks footernya saja.</p>
+          <div class="editor-fields">
+            ${field("Teks Footer", "footerText", content.footerText, "textarea")}
+          </div>
+        </div>
+
+<div class="editor-section">
           <h3>Testimoni</h3>
           <p>Testimoni yang sudah ada bisa diganti, dan kamu auga bisa tambah testimoni new kapan saja.</p>
           <div class="editor-fields">
