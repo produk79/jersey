@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -440,6 +439,33 @@
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.06);
+    }
+    .editor-mini-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .editor-mini-btn {
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .editor-preview-status {
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    .editor-preview-status.error {
+      color: #fca5a5;
+    }
+    .editor-preview-status.success {
+      color: #86efac;
     }
     .editor-link-box {
       margin-top: 12px;
@@ -1048,23 +1074,57 @@
             <div class="editor-image-help">
               Upload file gambar secara manual ke folder <strong>img</strong> di repository GitHub, lalu isi nama file di kolom atas.
             </div>
+            <div class="editor-mini-actions">
+              <button type="button" class="editor-mini-btn" data-refresh-path="${path}">Refresh Preview</button>
+              <span class="editor-preview-status" data-status-path="${path}">Cek preview dari GitHub</span>
+            </div>
             <img class="editor-preview-thumb" data-preview-path="${path}" src="${resolved}" alt="preview" style="${resolved ? "" : "display:none;"}" />
           </div>
         </div>
       `;
     }
 
-    function updateSingleEditorPreview(path) {
+    function setPreviewStatus(path, text, type = "") {
+      const status = document.querySelector(`[data-status-path="${path}"]`);
+      if (!status) return;
+      status.textContent = text;
+      status.classList.remove("error", "success");
+      if (type) status.classList.add(type);
+    }
+
+    function updateSingleEditorPreview(path, forceRefresh = false) {
       const preview = document.querySelector(`[data-preview-path="${path}"]`);
       if (!preview) return;
       const resolved = resolveImageUrl(getByPath(content, path));
-      if (resolved) {
-        preview.src = resolved;
-        preview.style.display = "block";
-      } else {
+      if (!resolved) {
         preview.removeAttribute("src");
         preview.style.display = "none";
+        setPreviewStatus(path, "Nama file belum diisi");
+        return;
       }
+
+      if (resolved.startsWith("data:")) {
+        preview.src = resolved;
+        preview.style.display = "block";
+        setPreviewStatus(path, "Preview siap", "success");
+        return;
+      }
+
+      const testSrc = forceRefresh ? `${resolved}${resolved.includes("?") ? "&" : "?"}v=${Date.now()}` : resolved;
+      setPreviewStatus(path, forceRefresh ? "Mencoba refresh dari GitHub..." : "Mengecek preview...");
+
+      const tester = new Image();
+      tester.onload = () => {
+        preview.src = testSrc;
+        preview.style.display = "block";
+        setPreviewStatus(path, "Preview ditemukan", "success");
+      };
+      tester.onerror = () => {
+        preview.style.display = "none";
+        preview.removeAttribute("src");
+        setPreviewStatus(path, "Gambar belum muncul di GitHub", "error");
+      };
+      tester.src = testSrc;
     }
 
     function setFloatingActionsVisible(isVisible) {
@@ -1181,7 +1241,7 @@
           sessionStorage.setItem(EDIT_UNLOCK_KEY, target.value);
         }
         initPage();
-        updateSingleEditorPreview(path);
+        updateSingleEditorPreview(path, false);
       };
 
       editorGrid.onchange = (event) => {
@@ -1191,6 +1251,13 @@
           setByPath(content, path, target.checked);
           initPage();
         }
+      };
+
+      editorGrid.onclick = (event) => {
+        const target = event.target;
+        const path = target.dataset.refreshPath;
+        if (!path) return;
+        updateSingleEditorPreview(path, true);
       };
 
       document.getElementById("saveBrowserBtn").onclick = () => {
