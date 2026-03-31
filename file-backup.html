@@ -777,13 +777,13 @@
       "editPassword": "123456",
       "heroImage": "promo.jpeg",
       "heroImageAlt": "Foto jersey utama",
-      "priceOld": "Rp249.000",
-      "priceNew": "Rp149.000",
-      "discountText": "HEMAT 40%",
+      "priceOld": "Rp 129.000",
+      "priceNew": "Rp79.000",
+      "discountText": "HEMAT 21%",
       "ctaText": "Pesan via WhatsApp",
-      "ctaUrl": "",
-      "adminWaNumber": "6281234567890",
-      "adminWaLabel": "Admin WA: 0812-3456-7890",
+      "ctaUrl": "https://wa.me/p/24490179693982614/6285191563084",
+      "adminWaNumber": "6285191563084",
+      "adminWaLabel": "Admin WA: 0851 9156 3084",
       "secondaryButtonText": "Lihat Detail",
       "secondaryButtonUrl": "#galeri",
       "waMainMessage": "Halo kak, Saya tertarik custom jersey, bisa dibantu cara order dan customnya?",
@@ -894,9 +894,11 @@
       "closingTitle": "Siap Order Jersey Hari Ini?",
       "closingText": "Klik tombol WhatsApp sekarang untuk cek stok, konsultasi desain, dan dapatkan promo terbaik.",
       "closingButtonText": "Chat Admin Sekarang",
-      "closingButtonUrl": "",
-      "footerText": "© 2026 JerseySport Indonesia. Semua hak dilindungi.",
-      "promoNote": "Promo terbatas minggu ini. Harga bisa berubah kapan saja."
+      "closingButtonUrl": "https://wa.me/p/24490179693982614/6285191563084",
+      "footerText": "© 2026 Geark Sport Indonesia. Semua hak dilindungi.",
+      "promoNote": "Promo terbatas minggu ini. Harga bisa berubah kapan saja.",
+      "buttonPrimaryBg": "#fe5b16",
+      "buttonPrimaryText": "#ffffff"
 };
 
     const STORAGE_KEY = "lp_jersey_single_file_config";
@@ -964,18 +966,43 @@
       return base.replace(/\/+$/, "") + "/" + raw.replace(/^\/+/, "");
     }
 
-    function getMainWaUrl(customUrl, fallbackMessage) {
+    function isWhatsAppUrl(url) {
+      const raw = String(url || "").trim();
+      return /wa\.me\//i.test(raw) || /api\.whatsapp\.com\/send/i.test(raw) || /whatsapp:\/\/send/i.test(raw);
+    }
+
+    function getWhatsAppMessageFromUrl(url) {
+      try {
+        const raw = String(url || "").trim();
+        if (!raw) return "";
+        const parsed = new URL(raw);
+        return parsed.searchParams.get("text") || parsed.searchParams.get("message") || "";
+      } catch (error) {
+        const match = String(url || "").match(/[?&](?:text|message)=([^&]+)/i);
+        return match ? decodeURIComponent(match[1]) : "";
+      }
+    }
+
+    function normalizeActionUrl(customUrl, fallbackMessage) {
       const raw = String(customUrl || "").trim();
-      if (raw) return raw;
-      return buildWaLink(content.adminWaNumber, fallbackMessage);
+      if (!raw) {
+        return buildWaLink(content.adminWaNumber, fallbackMessage);
+      }
+      if (isWhatsAppUrl(raw)) {
+        const messageFromUrl = getWhatsAppMessageFromUrl(raw);
+        return buildWaLink(content.adminWaNumber, messageFromUrl || fallbackMessage);
+      }
+      return raw;
+    }
+
+    function getMainWaUrl(customUrl, fallbackMessage) {
+      return normalizeActionUrl(customUrl, fallbackMessage);
     }
 
     function getProductButtonUrl(item) {
-      const customUrl = String(item.buttonUrl || "").trim();
-      if (customUrl) return customUrl;
       const template = String(content.waProductMessageTemplate || "Halo Admin, saya tertarik dengan {product}");
-      const message = template.replace(/\\{product\}/g, item.title || "produk ini");
-      return buildWaLink(content.adminWaNumber, message);
+      const message = template.replace(/\{product\}/g, item.title || "produk ini");
+      return normalizeActionUrl(item.buttonUrl, message);
     }
 
     function getDataParam() {
@@ -1111,7 +1138,7 @@
       setText("promoNote", content.promoNote);
       setText("stickyPriceOld", content.priceOld);
       setText("stickyPriceNew", content.priceNew);
-      setText("footerText", content.footerText);
+      setText("footerText", `© ${new Date().getFullYear()} ${content.footerText}`);
       setText("adminInfo", content.adminWaLabel + " | WA: " + normalizeWaNumber(content.adminWaNumber));
       setLink("ctaBtn", content.ctaText, getMainWaUrl(content.ctaUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
       setLink("secondaryBtn", content.secondaryButtonText, content.secondaryButtonUrl);
@@ -1319,7 +1346,7 @@
 
         <div class="editor-section">
           <h3>Bagian Utama</h3>
-          <p>Kalau link WA utama dikosongkan, tombol utama akan otomatis pakai nomor admin dan pesan WA utama.</p>
+          <p>Kalau link WA utama dikosongkan, tombol utama akan otomatis pakai nomor admin dan pesan WA utama. Jika link custom adalah link WhatsApp, nomor WA di link itu juga otomatis mengikuti Nomor Admin WA di atas.</p>
           <div class="editor-fields">
             ${field("Judul LP", "pageTitle", content.pageTitle)}
             ${field("Descripsi LP", "pageDescription", content.pageDescription, "textarea")}
@@ -1342,7 +1369,16 @@
           </div>
         </div>
 
+        
         <div class="editor-section">
+          <h3>Footer</h3>
+          <p>Tahun footer otomatis mengikuti tahun aktif. Di sini kamu cukup ganti isi teks footernya saja.</p>
+          <div class="editor-fields">
+            ${field("Teks Footer", "footerText", content.footerText, "textarea")}
+          </div>
+        </div>
+
+<div class="editor-section">
           <h3>Testimoni</h3>
           <p>Testimoni yang sudah ada bisa diganti, dan kamu auga bisa tambah testimoni new kapan saja.</p>
           <div class="editor-fields">
