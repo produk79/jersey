@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="id"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LP Jersey - Single File</title>
   <style>
     * { box-sizing: border-box; }
@@ -13,10 +12,6 @@
       background: #f7f8fc;
       color: #1f2937;
       line-height: 1.5;
-    }
-    :root {
-      --page-primary-btn-bg: #22c55e;
-      --page-primary-btn-text: #ffffff;
     }
     img { max-width: 100%; display: block; }
     a { text-decoration: none; }
@@ -105,14 +100,6 @@
       color: white;
     }
     .btn-primary:hover { transform: translateY(-1px); }
-    .page-theme-primary,
-    .page-theme-primary:visited {
-      background: var(--page-primary-btn-bg);
-      color: var(--page-primary-btn-text);
-    }
-    .page-theme-primary:hover {
-      color: var(--page-primary-btn-text);
-    }
     .btn-secondary {
       background: rgba(255,255,255,0.12);
       color: white;
@@ -143,10 +130,6 @@
     }
     .section {
       padding: 54px 0;
-    }
-    #bannerSection {
-      padding-top: 18px;
-      padding-bottom: 18px;
     }
     .section-title {
       margin: 0 0 10px;
@@ -634,10 +617,6 @@
         gap: 8px;
       }
       .gallery img { border-radius: 10px; }
-      #bannerSection {
-        padding-top: 12px;
-        padding-bottom: 12px;
-      }
       .promo-banner-card img { aspect-ratio: 16 / 7; }
       .promo-banner-body { padding: 12px 14px; }
       .promo-banner-text { font-size: 15px; }
@@ -693,9 +672,9 @@
     <div class="editor-lock-card">
       <h2>Masuk ke Mode Edit</h2>
       <p>Mode edit dilindungi password sederhana. Masukkan password untuk membuka panel editor halaman ini.</p>
-      <input type="password" id="editorPasswordInput" placeholder="Masukkan password edit" />
+      <input type="password" id="editorPasswordInput" placeholder="Masukkan password edit">
       <button class="btn btn-primary" type="button" id="unlockEditorBtn" style="width:100%;">Buka Editor</button>
-      <div class="lock-note">Password ini cocok untuk proteksi ringan, bukan keamanan tingkat tinggi.</div>
+      <div class="lock-note">Password ini cocok untuk proteksi ligan, bukan keamanan tingkat tinggi.</div>
     </div>
   </div>
 
@@ -712,7 +691,7 @@
           <div>
             <div class="helper-badge">MODE EDIT AKTIF</div>
             <h2>Panel Edit Landing Page</h2>
-            <p>Versi ini cocok untuk GitHub Pages. Semua file gambar kamu upload manual ke folder <strong>img</strong> di repository, lalu di editor ini cukup isi nama file gambar saja.</p>
+            <p>Versi ini cocok untuk GitHub Pages. Semua file gambar kamu upload manual ke folder <strong>img</strong> de repository, lalu di editor ini cukup isi nama file gambar saja.</p>
           </div>
           <div class="editor-actions">
             <button class="btn btn-primary" type="button" id="saveBrowserBtn">Simpan di Browser</button>
@@ -743,7 +722,7 @@
         </div>
 
         <div class="cta-row">
-          <a class="btn btn-primary page-theme-primary" id="ctaBtn" target="_blank" rel="noopener noreferrer"></a>
+          <a class="btn btn-primary" id="ctaBtn" target="_blank" rel="noopener noreferrer"></a>
           <a class="btn btn-secondary" id="secondaryBtn"></a>
         </div>
 
@@ -751,7 +730,7 @@
       </div>
 
       <div class="hero-card">
-        <img id="heroImage" src="" alt="" />
+        <img id="heroImage" src="" alt="">
       </div>
     </div>
   </header>
@@ -768,7 +747,7 @@
     <div class="container">
       <a class="promo-banner-link" id="promoBannerLink" target="_blank" rel="noopener noreferrer">
         <div class="promo-banner-card">
-          <img id="promoBannerImage" src="" alt="" />
+          <img id="promoBannerImage" src="" alt="">
           <div class="promo-banner-body">
             <div class="promo-banner-text" id="promoBannerText"></div>
           </div>
@@ -809,7 +788,7 @@
           <p style="margin:0; color:#475569;" id="closingText"></p>
         </div>
         <div>
-          <a class="btn btn-primary page-theme-primary" id="closingBtn" target="_blank" rel="noopener noreferrer"></a>
+          <a class="btn btn-primary" id="closingBtn" target="_blank" rel="noopener noreferrer"></a>
         </div>
       </div>
     </div>
@@ -824,7 +803,7 @@
       <div class="sticky-price">
         <span class="old-price" id="stickyPriceOld"></span>
         <span style="font-size:24px; font-weight:800;" id="stickyPriceNew"></span>
-        <a class="btn btn-primary page-theme-primary" id="stickyBtn" target="_blank" rel="noopener noreferrer"></a>
+        <a class="btn btn-primary" id="stickyBtn" target="_blank" rel="noopener noreferrer"></a>
       </div>
     </div>
   </div>
@@ -835,72 +814,146 @@
 
   <script>
     const defaultContent = {
-      brandName: "JerseySport Indonesia",
-      pageTitle: "Promo Jersey Custom Premium",
-      pageDescription: "Jersey bola, futsal, komunitas, dan event dengan bahan adem, full print, warna tajam, dan jahitan rapi.",
-      badgeText: "BISA ORDER SATUAN & PARTAI",
-      mediaBaseUrl: "img/",
-      editPassword: "123456",
-      heroImage: "hero-jersey.jpg",
-      heroImageAlt: "Foto jersey utama",
-      priceOld: "Rp249.000",
-      priceNew: "Rp149.000",
-      discountText: "HEMAT 40%",
-      buttonPrimaryBg: "#22c55e",
-      buttonPrimaryText: "#ffffff",
-      ctaText: "Pesan via WhatsApp",
-      ctaUrl: "",
-      adminWaNumber: "6281234567890",
-      adminWaLabel: "Admin WA: 0812-3456-7890",
-      secondaryButtonText: "Lihat Detail",
-      secondaryButtonUrl: "#galeri",
-      waMainMessage: "Halo Admin, saya mau order jersey",
-      waProductMessageTemplate: "Halo Admin, saya tertarik dengan {product}",
-      featuresTitle: "Kenapa Banyak yang Pilih Jersey Kami?",
-      featuresSubtitle: "Cocok untuk tim futsal, bola, komunitas, sekolah, event kantor, sampai reseller.",
-      features: [
-        { title: "Bahan Adem", text: "Nyaman dipakai untuk latihan maupun pertandingan dengan sirkulasi udara yang baik." },
-        { title: "Full Custom Design", text: "Bisa ganti nama, nomor punggung, logo tim, sponsor, dan warna sesuai kebutuhan." },
-        { title: "Warna Tahan Lama", text: "Menggunakan teknik print berkualitas agar warna tetap tajam dan tidak mudah pudar." }
+      "brandName": "JerseySport Indonesia",
+      "pageTitle": "Promo Jersey Custom Premium",
+      "pageDescription": "Jersey bola, futsal, komunitas, dan event dengan bahan adem, full print, warna tajam, dan jahitan rapi.",
+      "badgeText": "BISA ORDER SATUAN & PARTAI",
+      "mediaBaseUrl": "img/",
+      "editPassword": "123456",
+      "heroImage": "promo.jpeg",
+      "heroImageAlt": "Foto jersey utama",
+      "priceOld": "Rp 129.000",
+      "priceNew": "Rp 79.000",
+      "discountText": "HEMAT 21%",
+      "ctaText": "Pesan via WhatsApp",
+      "ctaUrl": "",
+      "adminWaNumber": "6285191563084",
+      "adminWaLabel": "Admin WA: 0851-9156-3084",
+      "secondaryButtonText": "Lihat Detail",
+      "secondaryButtonUrl": "#galeri",
+      "waMainMessage": "Halo kak, Saya tertarik custom jersey, bisa dibantu cara order dan customnya?",
+      "waProductMessageTemplate": "Halo Admin, saya tertarik dengan {product}",
+      "featuresTitle": "Kenapa Banyak yang Pilih Jersey Kami?",
+      "featuresSubtitle": "Cocok untuk tim futsal, bola, komunitas, sekolah, event kantor, sampai reseller.",
+      "features": [
+            {
+                  "title": "Bahan Adem",
+                  "text": "Nyaman dipakai untuk latihan maupun pertandingan dengan sirkulasi udara yang baik."
+            },
+            {
+                  "title": "Full Custom Design",
+                  "text": "Bisa ganti nama, nomor punggung, logo tim, sponsor, dan warna sesuai kebutuhan."
+            },
+            {
+                  "title": "Warna Tahan Lama",
+                  "text": "Menggunakan teknik print berkualitas agar warna tetap tajam dan tidak mudah pudar."
+            }
       ],
-      bannerImage: "banner-promo.jpg",
-      bannerText: "Promo spesial minggu ini, klik banner untuk lihat info lengkap.",
-      bannerUrl: "",
-      catalogTitle: "Katalog Produk Jersey",
-      catalogSubtitle: "Pilih model favoritmu. Semua item di bawah ini bisa diganti foto, judul, harga, dan link tombol.",
-      catalogProducts: [
-        { title: "Jersey Home 2026", image: "produk-1.jpg", oldPrice: "Rp219.000", newPrice: "Rp149.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
-        { title: "Jersey Away Premium", image: "produk-2.jpg", oldPrice: "Rp229.000", newPrice: "Rp159.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
-        { title: "Jersey Training Pro", image: "produk-3.jpg", oldPrice: "Rp199.000", newPrice: "Rp139.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
-        { title: "Jersey Edisi Tim", image: "produk-4.jpg", oldPrice: "Rp249.000", newPrice: "Rp169.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
-        { title: "Jersey Fans Edition", image: "produk-5.jpg", oldPrice: "Rp239.000", newPrice: "Rp164.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false },
-        { title: "Jersey Match Day", image: "produk-6.jpg", oldPrice: "Rp259.000", newPrice: "Rp179.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false }
+      "bannerImage": "banner.jpg",
+      "bannerText": "Mau lihat produk lengkap? KLIK DISINI!!",
+      "bannerUrl": "https://shopee.co.id/geark_sport#product_list",
+      "catalogTitle": "Katalog Produk Jersey",
+      "catalogSubtitle": "Pilih model favoritmu. Semua item di bawah ini bisa diganti foto, judul, harga, dan link tombol.",
+      "catalogProducts": [
+            {
+                  "title": "Jersey \"Kamu Itu Badut\" Full Printing - Custom Nama & Logo Sesukamu",
+                  "image": "produk1.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 85.000",
+                  "buttonText": "Lihat Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Futsal-Sepak-Bola-Full-Printing-Bebas-Custom-Design-Terbaru-BISA-SATUAN--i.383260121.51102777379?extraParams=%7B%22display_model_id%22%3A345267819917%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": false
+            },
+            {
+                  "title": "Jersey Fire Flowers Full Printing",
+                  "image": "produk2.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 85.000",
+                  "buttonText": "Cek Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Futsal-Sepak-Bola-Terbaru-Full-Printing-Free-Nama-Dan-Nomor-Punggung-Motif-LAVENDER-BLAZE-i.383260121.47450320582?extraParams=%7B%22display_model_id%22%3A310027927144%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": false
+            },
+            {
+                  "title": "Jersey Full Printing Cotton Burn Futsal",
+                  "image": "produk3.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 85.000",
+                  "buttonText": "Cek Promo",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Futsal-Sepak-Bola-Terbaru-Free-Nama-Dan-Nomor-Punggung-Motif-COTTON-BURN-Full-Printing-i.383260121.56550300300?extraParams=%7B%22display_model_id%22%3A385027248997%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": false
+            },
+            {
+                  "title": "Jersey Custom Futsal dan Sepak Bola Free Logo Sponsor",
+                  "image": "produk4.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 79.000",
+                  "buttonText": "Lihat Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Futsal-Custom-Full-Printing-Free-Nama-Punggung-Dan-Nomor-Bisa-Satuan--i.383260121.12961124703?extraParams=%7B%22display_model_id%22%3A156564720171%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": false,
+                  "hot": true
+            },
+            {
+                  "title": "Jersey Edition Cream Liquify Bahan Dryfit Premium",
+                  "image": "produk5.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 79.000",
+                  "buttonText": "Lihat Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Baju-Futsal-Sepakbola-Terbaru-Bebas-Custom-Design-Motif-CREAMY-LIQUEFY-Full-Printing-Termurah-Dan-Terlaris-i.383260121.25852610423?extraParams=%7B%22display_model_id%22%3A158452152402%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": false
+            },
+            {
+                  "title": "Jersey Flaming Pink Custom Design",
+                  "image": "produk6.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp79.000",
+                  "buttonText": "Lihat Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Baju-Futsal-Sepak-Bola-Terbaru-Motif-FLAMING-PINK-Full-Printing-Bebas-Custom-Design-i.383260121.25087180652?extraParams=%7B%22display_model_id%22%3A256796248580%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": true
+            }
       ],
-      galleryTitle: "Galeri Jersey",
-      gallerySubtitle: "Upload gambar manual ke folder img di repository, lalu isi nama file di sini.",
-      galleryImages: ["galeri-1.jpg", "galeri-2.jpg", "galeri-3.jpg"],
-      testimonialTitle: "Testimoni Pembeli",
-      testimonialSubtitle: "Bisa diganti bebas sesuai review asli dari customer kamu.",
-      testimonials: [
-        { text: "Hasil print-nya bagus banget, warna sesuai mockup. Tim kami puas.", name: "Rama - Manager Futsal" },
-        { text: "Bahannya adem dan jahitannya rapi. Repeat order lagi bulan depan.", name: "Iqbal - Komunitas Bola" },
-        { text: "Fast respon, desain dibantu sampai jadi. Recommended.", name: "Dina - Panitia Event" }
+      "galleryTitle": "Galeri Jersey",
+      "gallerySubtitle": "Upload gambar manual ke folder img di repository, lalu isi nama file di sini.",
+      "galleryImages": [
+            "galeri1.jpeg",
+            "galeri2.jpeg",
+            "galeri3.jpeg"
       ],
-      closingTitle: "Siap Order Jersey Hari Ini?",
-      closingText: "Klik tombol WhatsApp sekarang untuk cek stok, konsultasi desain, dan dapatkan promo terbaik.",
-      closingButtonText: "Chat Admin Sekarang",
-      closingButtonUrl: "",
-      footerText: "JerseySport Indonesia. Semua hak dilindungi.",
-      promoNote: "Promo terbatas minggu ini. Harga bisa berubah kapan saja."
-    };
+      "testimonialTitle": "Testimoni Pembeli",
+      "testimonialSubtitle": "Bisa diganti bebas sesuai review asli dari customer kamu.",
+      "testimonials": [
+            {
+                  "text": "Hasil print-nya bagus banget, warna sesuai mockup. Tim kami puas.",
+                  "name": "Rama - Manager Futsal"
+            },
+            {
+                  "text": "Bahannya adem dan jahitannya rapi. Repeat order lagi bulan depan.",
+                  "name": "Iqbal - Komunitas Bola"
+            },
+            {
+                  "text": "Fast respon, desain dibantu sampai jadi. Recommended.",
+                  "name": "Dina - Panitia Event"
+            }
+      ],
+      "closingTitle": "Siap Order Jersey Hari Ini?",
+      "closingText": "Klik tombol WhatsApp sekarang untuk cek stok, konsultasi desain, dan dapatkan promo terbaik.",
+      "closingButtonText": "Chat Admin Sekarang",
+      "closingButtonUrl": "",
+      "footerText": "© 2026 Geark Sport Indonesia. Semua hak dilindungi.",
+      "promoNote": "Promo terbatas minggu ini. Harga bisa berubah kapan saja."
+};
 
     const STORAGE_KEY = "lp_jersey_single_file_config";
     const EDIT_UNLOCK_KEY = "lp_jersey_single_file_unlock";
     let content = deepClone(defaultContent);
-    const ORIGINAL_SOURCE_HTML = document.documentElement.outerHTML;
     const urlObj = new URL(window.location.href);
-    const isEditMode = urlObj.searchParams.get("edit") === "1";
     let editorUnlocked = false;
+    const isEditMode = urlObj.searchParams.get("edit") === "1";
+    const ORIGINAL_SOURCE_HTML = document.documentElement.outerHTML;
 
     function deepClone(obj) {
       return JSON.parse(JSON.stringify(obj));
@@ -911,7 +964,7 @@
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
+        .replace(/\"/g, "&quot;");
     }
 
     function setByPath(obj, path, value) {
@@ -1113,7 +1166,7 @@
               <span class="old">${item.oldPrice}</span>
               <span class="new">${item.newPrice}</span>
             </div>
-            <a class="btn btn-primary page-theme-primary product-btn" href="${getProductButtonUrl(item)}" target="_blank" rel="noopener noreferrer">${item.buttonText}</a>
+            <a class="btn btn-primary product-btn" href="${getProductButtonUrl(item)}" target="_blank" rel="noopener noreferrer">${item.buttonText}</a>
           </div>
         </div>
       `).join("");
@@ -1163,8 +1216,6 @@
       setLink("secondaryBtn", content.secondaryButtonText, content.secondaryButtonUrl);
       setLink("closingBtn", content.closingButtonText, getMainWaUrl(content.closingButtonUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
       setLink("stickyBtn", content.ctaText, getMainWaUrl(content.ctaUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
-      document.documentElement.style.setProperty("--page-primary-btn-bg", content.buttonPrimaryBg || "#22c55e");
-      document.documentElement.style.setProperty("--page-primary-btn-text", content.buttonPrimaryText || "#ffffff");
       const heroImage = document.getElementById("heroImage");
       heroImage.src = resolveImageUrl(content.heroImage);
       heroImage.alt = content.heroImageAlt;
@@ -1189,11 +1240,11 @@
         `;
       }
       return `
-          <label class="editor-field">
-            <span>${label}</span>
-            <input type="${type}" data-path="${path}" value="${escapeHtml(value)}" />
-          </label>
-        `;
+        <label class="editor-field">
+          <span>${label}</span>
+          <input type="${type}" data-path="${path}" value="${escapeHtml(value)}" />
+        </label>
+      `;
     }
 
     function checkboxField(label, path, checked) {
@@ -1234,7 +1285,7 @@
               <button type="button" class="editor-mini-btn" data-refresh-path="${path}">Refresh Preview</button>
               <span class="editor-preview-status" data-status-path="${path}">Cek preview dari GitHub</span>
             </div>
-            <img class="editor-preview-thumb" data-preview-path="${path}" src="${resolved}" alt="preview" style="${resolved ? "" : "display:none;"}" />
+            <img class="editor-preview-thumb" data-preview-path="${path}" src="${resolved}" alt="preview" style="${resolved ? "" : "display:none;" }" />
           </div>
         </div>
       `;
@@ -1255,14 +1306,7 @@
       if (!resolved) {
         preview.removeAttribute("src");
         preview.style.display = "none";
-        setPreviewStatus(path, "Nama file belum diisi");
-        return;
-      }
-
-      if (resolved.startsWith("data:")) {
-        preview.src = resolved;
-        preview.style.display = "block";
-        setPreviewStatus(path, "Preview siap", "success");
+        setPreviewStatus(path, "Nama file belum disi");
         return;
       }
 
@@ -1278,7 +1322,7 @@
       tester.onerror = () => {
         preview.style.display = "none";
         preview.removeAttribute("src");
-        setPreviewStatus(path, "Gambar belum muncul di GitHub", "error");
+        setPreviewStatus(path, "Gambar kelum munule di GitHub", "error");
       };
       tester.src = testSrc;
     }
@@ -1302,12 +1346,9 @@
     }
 
     function buildExportHtml() {
-      const source = "<!DOCTYPE html>
-" + ORIGINAL_SOURCE_HTML;
+      const source = "<!DOCTYPE html>\n" + ORIGINAL_SOURCE_HTML;
       const startMarker = "const defaultContent = {";
-      const endMarker = "
-
-    const STORAGE_KEY =";
+      const endMarker = "\n\n    const STORAGE_KEY =";
       const startIndex = source.indexOf(startMarker);
       const endIndex = source.indexOf(endMarker, startIndex);
       if (startIndex === -1 || endIndex === -1) return source;
@@ -1337,10 +1378,8 @@
     function updateEditorLinkBox() {
       const box = document.getElementById("editorLinkBox");
       if (!box || !isEditMode || !editorUnlocked) return;
-      box.innerHTML = `
-        <div><strong>Link edit:</strong><br>${escapeHtml(getShareLink(true))}</div>
-        <div style="margin-top:10px;"><strong>Link preview:</strong><br>${escapeHtml(getShareLink(false))}</div>
-      `;
+      box.innerHTML = `<div><strong>Link edit:</strong><br>${escapeHtml(getShareLink(true))}</div>
+        <div style="margin-top:10px;"><strong>Link preview:</strong><br>${escapeHtml(getShareLink(false))}</div>`;
     }
 
     function renderEditor() {
@@ -1369,13 +1408,11 @@
       editorGrid.innerHTML = `
         <div class="editor-section">
           <h3>Pengaturan Edit & Media</h3>
-          <p>Gunakan folder <strong>img</strong> untuk semua gambar di repository GitHub Pages kamu. Di sini kamu juga bisa ubah warna semua tombol utama sekaligus.</p>
+          <p>Gunakan folder <strong>img</strong> untuk semua gambar di repository GitHub Pages kamu.</p>
           <div class="editor-fields">
             ${field("Folder Gambar", "mediaBaseUrl", content.mediaBaseUrl)}
             ${field("Password Edit", "editPassword", content.editPassword)}
-            ${field("Warna Button Utama", "buttonPrimaryBg", content.buttonPrimaryBg, "color")}
-            ${field("Warna Teks Button", "buttonPrimaryText", content.buttonPrimaryText, "color")}
-            ${field("Template WA Produk ({product})", "waProductMessageTemplate", content.waProductMessageTemplate, "textarea")}
+            ${field("Template WA Produk ({ product })", "waProductMessageTemplate", content.waProductMessageTemplate, "textarea")}
             ${field("Pesan WA Utama", "waMainMessage", content.waMainMessage, "textarea")}
           </div>
         </div>
@@ -1385,7 +1422,7 @@
           <p>Kalau link WA utama dikosongkan, tombol utama akan otomatis pakai nomor admin dan pesan WA utama. Jika link custom adalah link WhatsApp, nomor WA di link itu juga otomatis mengikuti Nomor Admin WA di atas.</p>
           <div class="editor-fields">
             ${field("Judul LP", "pageTitle", content.pageTitle)}
-            ${field("Deskripsi LP", "pageDescription", content.pageDescription, "textarea")}
+            ${field("Descripsi LP", "pageDescription", content.pageDescription, "textarea")}
             ${imageField("Nama File Gambar Hero", "heroImage", content.heroImage)}
             ${field("Harga Coret Hero", "priceOld", content.priceOld)}
             ${field("Harga Hero", "priceNew", content.priceNew)}
@@ -1415,6 +1452,7 @@
           </div>
         </div>
 
+        
         <div class="editor-section">
           <h3>Footer</h3>
           <p>Tahun footer otomatis mengikuti tahun aktif. Di sini kamu cukup ganti isi teks footernya saja.</p>
@@ -1423,9 +1461,9 @@
           </div>
         </div>
 
-        <div class="editor-section">
+<div class="editor-section">
           <h3>Testimoni</h3>
-          <p>Testimoni yang sudah ada bisa diganti, dan kamu juga bisa tambah testimoni baru kapan saja.</p>
+          <p>Testimoni yang sudah ada bisa diganti, dan kamu auga bisa tambah testimoni new kapan saja.</p>
           <div class="editor-fields">
             ${content.testimonials.map((item, index) => testimonialItemField(item, index)).join("")}
             <div class="editor-array-actions">
@@ -1437,7 +1475,7 @@
         ${content.catalogProducts.map((item, index) => `
           <div class="editor-section">
             <h3>Produk ${index + 1}</h3>
-            <p>Isi nama file gambar produk yang sudah kamu upload ke folder <strong>img</strong>. Jika link custom adalah link WhatsApp, nomor WA di link itu juga otomatis mengikuti Nomor Admin WA di atas.</p>
+            <p>Isi nama file gambar produk yang sudah kamu upload ke folder <strong>img</strong>.</p>
             <div class="editor-fields">
               ${field("Judul Produk", `catalogProducts.${index}.title`, item.title)}
               ${imageField("Nama File Gambar Produk", `catalogProducts.${index}.image`, item.image)}
@@ -1511,12 +1549,9 @@
         saveEditorData();
       };
 
-      const downloadIndexBtn = document.getElementById("downloadIndexBtn");
-      if (downloadIndexBtn) {
-        downloadIndexBtn.onclick = () => {
-          downloadCurrentIndexHtml();
-        };
-      }
+      document.getElementById("downloadIndexBtn").onclick = () => {
+        downloadCurrentIndexHtml();
+      };
 
       document.getElementById("copyEditLinkBtn").onclick = () => {
         copyText(getShareLink(true), "Link edit berhasil disalin.");
@@ -1589,6 +1624,4 @@
     initPage();
     setupEditorLock();
     renderEditor();
-  </script>
-</body>
-</html>
+  </script></body></html>
