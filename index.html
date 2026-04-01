@@ -1,2 +1,1628 @@
+
 <!DOCTYPE html>
-<html lang="id"><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js" id="eppiocemhmnlbhjplcgkofciiegomcon"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script><head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>LP Jersey - Single File</title> <style> * { box-sizing: border-box; } html { scroll-behavior: smooth; } body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #f7f8fc; color: #1f2937; line-height: 1.5; } :root { --page-primary-btn-bg: #22c55e; --page-primary-btn-text: #ffffff; } img { max-width: 100%; display: block; } a { text-decoration: none; } .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; } .hero { background: linear-gradient(135deg, #0f172a, #1d4ed8); color: white; padding: 28px 0 42px; } .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: center; } .badge { display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; margin-bottom: 16px; } h1 { margin: 0 0 14px; font-size: clamp(30px, 5vw, 54px); line-height: 1.05; } .hero p { margin: 0 0 18px; font-size: 17px; color: #dbeafe; } .price-box { display: flex; align-items: end; gap: 12px; margin: 18px 0 22px; flex-wrap: wrap; } .old-price { font-size: 18px; color: #cbd5e1; text-decoration: line-through; } .new-price { font-size: 34px; font-weight: 800; color: #ffffff; line-height: 1; } .discount-pill { background: #facc15; color: #111827; padding: 7px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; } .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; } .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 12px; font-weight: 700; transition: 0.2s ease; cursor: pointer; border: 0; text-align: center; } .btn-primary { background: #22c55e; color: white; } .btn-primary:hover { transform: translateY(-1px); } .page-theme-primary, .page-theme-primary:visited { background: var(--page-primary-btn-bg); color: var(--page-primary-btn-text); } .page-theme-primary:hover { color: var(--page-primary-btn-text); } .btn-secondary { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.2); } .btn-light { background: white; color: #0f172a; border: 1px solid #d1d5db; } .btn-dark { background: #0f172a; color: white; } .hero-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; overflow: hidden; backdrop-filter: blur(8px); box-shadow: 0 18px 45px rgba(0,0,0,0.22); } .hero-card img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 4.2; } .section { padding: 54px 0; } #bannerSection { padding-top: 18px; padding-bottom: 18px; } .section-title { margin: 0 0 10px; font-size: clamp(24px, 4vw, 36px); text-align: center; color: #0f172a; } .section-subtitle { margin: 0 auto 28px; max-width: 760px; text-align: center; color: #64748b; } .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; } .card { background: white; border: 1px solid #e5e7eb; border-radius: 20px; padding: 20px; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05); } .card h3 { margin: 0 0 10px; font-size: 20px; } .card p { margin: 0; color: #64748b; } .promo-banner-link { display: block; } .promo-banner-link.is-disabled { pointer-events: none; cursor: default; } .promo-banner-card { background: white; border: 1px solid #e5e7eb; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05); } .promo-banner-card img { width: 100%; aspect-ratio: 16 / 5.4; object-fit: cover; background: #fff; } .promo-banner-body { padding: 14px 18px; } .promo-banner-text { font-size: 18px; font-weight: 700; color: #0f172a; line-height: 1.35; } .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; } .product-card { position: relative; background: white; border: 1px solid #e5e7eb; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05); min-width: 0; } .product-badges { position: absolute; top: 10px; left: 10px; z-index: 2; display: flex; gap: 6px; flex-wrap: wrap; max-width: calc(100% - 20px); } .product-badge { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 0.3px; color: white; box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16); } .product-badge.best { background: #f59e0b; } .product-badge.hot { background: #ef4444; } .product-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: #fff; } .product-body { padding: 18px; } .product-title { margin: 0 0 10px; font-size: 18px; color: #0f172a; } .product-price { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; } .product-price .old { color: #94a3b8; text-decoration: line-through; font-size: 15px; } .product-price .new { color: #0f172a; font-size: 24px; font-weight: 800; } .product-btn { width: 100%; } .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; } .gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 18px; border: 1px solid #e5e7eb; background: #fff; min-width: 0; } .testimonial-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; } .testimonial-name { margin-top: 14px; font-weight: 700; color: #0f172a; } .highlight { background: linear-gradient(135deg, #eff6ff, #ffffff); border: 1px solid #dbeafe; border-radius: 24px; padding: 26px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; } .footer { background: #0f172a; color: #cbd5e1; padding: 24px 0; text-align: center; font-size: 14px; } .sticky-bar { position: sticky; bottom: 0; z-index: 40; background: rgba(15, 23, 42, 0.94); backdrop-filter: blur(8px); border-top: 1px solid rgba(255,255,255,0.08); } .sticky-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: white; flex-wrap: wrap; padding: 12px 0; } .sticky-price { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; } .sticky-price .old-price { color: #94a3b8; } .admin-info { margin-top: 14px; font-size: 14px; color: #bfdbfe; } .editor-wrap { display: none; background: #0b1220; color: white; padding: 20px 0 28px; border-bottom: 1px solid rgba(255,255,255,0.08); } body.edit-mode .editor-wrap { display: block; } .editor-panel { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 18px; } .editor-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; } .editor-head h2 { margin: 0 0 6px; font-size: 24px; } .editor-head p { margin: 0; color: #cbd5e1; font-size: 14px; max-width: 760px; } .editor-actions { display: flex; gap: 10px; flex-wrap: wrap; } .editor-note { margin: 14px 0 0; font-size: 13px; color: #cbd5e1; } .editor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; } .editor-section { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; } .editor-section h3 { margin: 0 0 8px; font-size: 18px; } .editor-section p { margin: 0 0 14px; font-size: 13px; color: #cbd5e1; } .editor-fields { display: grid; gap: 10px; } .editor-field { display: grid; gap: 6px; } .editor-field span { font-size: 13px; color: #dbeafe; } .editor-field input, .editor-field textarea { width: 100%; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.08); color: white; border-radius: 10px; padding: 10px 12px; outline: none; font: inherit; } .editor-field textarea { min-height: 88px; resize: vertical; } .editor-check-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 2px; } .editor-check { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: white; font-size: 13px; cursor: pointer; } .editor-check input { width: 16px; height: 16px; margin: 0; accent-color: #22c55e; } .editor-image-box { display: grid; gap: 8px; margin-top: 4px; } .editor-image-help { color: #cbd5e1; font-size: 12px; line-height: 1.45; padding: 10px; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.12); } .editor-preview-thumb { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); } .editor-mini-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; } .editor-mini-btn { min-height: 30px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.12); font-size: 12px; font-weight: 700; cursor: pointer; } .editor-array-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; } .editor-danger-btn { background: rgba(239,68,68,0.16); border-color: rgba(239,68,68,0.3); color: #fecaca; } .editor-preview-status { font-size: 12px; color: #cbd5e1; } .editor-preview-status.error { color: #fca5a5; } .editor-preview-status.success { color: #86efac; } .editor-link-box { margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.08); font-size: 13px; color: #dbeafe; word-break: break-all; } .floating-actions { position: fixed; right: 14px; bottom: 14px; z-index: 180; display: none; gap: 8px; align-items: center; } body.edit-mode .floating-actions.show { display: flex; } .floating-btn { min-height: 42px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 700; box-shadow: 0 14px 34px rgba(0,0,0,0.22); backdrop-filter: blur(8px); } .floating-btn-preview { background: rgba(15, 23, 42, 0.92); color: white; border: 1px solid rgba(255,255,255,0.1); } .helper-badge { display: inline-block; background: rgba(34,197,94,0.14); color: #bbf7d0; border: 1px solid rgba(34,197,94,0.24); padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; margin-bottom: 12px; } .editor-lock { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(2, 6, 23, 0.72); backdrop-filter: blur(8px); } .editor-lock.show { display: flex; } .editor-lock-card { width: min(460px, 100%); background: #0f172a; color: white; border: 1px solid rgba(255,255,255,0.12); border-radius: 22px; padding: 22px; box-shadow: 0 22px 70px rgba(0,0,0,0.35); } .editor-lock-card h2 { margin: 0 0 8px; font-size: 24px; } .editor-lock-card p { margin: 0 0 16px; color: #cbd5e1; font-size: 14px; } .editor-lock-card input { width: 100%; min-height: 48px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.08); color: white; padding: 0 14px; font: inherit; outline: none; margin-bottom: 12px; } .editor-lock-card .lock-note { margin-top: 12px; font-size: 12px; color: #94a3b8; } @media (max-width: 900px) { .hero-grid, .features, .testimonial-wrap, .highlight, .editor-grid { grid-template-columns: 1fr; } .catalog-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; } .gallery { grid-template-columns: repeat(3, 1fr); gap: 8px; } .gallery img { border-radius: 10px; } #bannerSection { padding-top: 12px; padding-bottom: 12px; } .promo-banner-card img { aspect-ratio: 16 / 7; } .promo-banner-body { padding: 12px 14px; } .promo-banner-text { font-size: 15px; } .product-card { border-radius: 12px; } .product-badges { top: 6px; left: 6px; gap: 4px; max-width: calc(100% - 12px); } .product-badge { min-height: 20px; padding: 0 7px; font-size: 8px; } .product-body { padding: 8px; } .product-title { font-size: 12px; line-height: 1.25; margin: 0 0 6px; } .product-price { gap: 4px; margin-bottom: 8px; } .product-price .old { font-size: 10px; } .product-price .new { font-size: 14px; } .product-btn { min-height: 34px; padding: 0 8px; border-radius: 8px; font-size: 11px; } .hero { padding-top: 20px; } .sticky-inner { justify-content: center; text-align: center; } .editor-head h2 { font-size: 20px; } .btn { min-height: 42px; } .floating-actions { right: 10px; bottom: 10px; gap: 6px; } .floating-btn { min-height: 38px; padding: 0 12px; font-size: 12px; } } </style> </head> <body> <div class="editor-lock" id="editorLock"> <div class="editor-lock-card"> <h2>Masuk ke Mode Edit</h2> <p>Mode edit dilindungi password sederhana. Masukkan password untuk membuka panel editor halaman ini.</p> <input type="password" id="editorPasswordInput" placeholder="Masukkan password edit"> <button class="btn btn-primary" type="button" id="unlockEditorBtn" style="width:100%;">Buka Editor</button> <div class="lock-note">Password ini cocok untuk proteksi ringan, bukan keamanan tingkat tinggi.</div> </div> </div> <div class="floating-actions" id="floatingActions"> <button class="btn floating-btn floating-btn-preview" type="button" id="floatingPreviewBtn">Preview</button> <button class="btn floating-btn floating-btn-preview" type="button" id="floatingDownloadBtn">Download</button> <button class="btn btn-primary floating-btn" type="button" id="floatingSaveBtn">Simpan</button> </div> <div class="editor-wrap" id="editorWrap"> <div class="container"> <div class="editor-panel"> <div class="editor-head"> <div> <div class="helper-badge">MODE EDIT AKTIF</div> <h2>Panel Edit Landing Page</h2> <p>Versi ini cocok untuk GitHub Pages. Semua file gambar kamu upload manual ke folder <strong>img</strong> di repository, lalu di editor ini cukup isi nama file gambar saja.</p> </div> <div class="editor-actions"> <button class="btn btn-primary" type="button" id="saveBrowserBtn">Simpan di Browser</button> <button class="btn btn-light" type="button" id="downloadIndexBtn">Download index.html</button> <button class="btn btn-light" type="button" id="copyEditLinkBtn">Salin Link Edit</button> <button class="btn btn-light" type="button" id="copyPreviewLinkBtn">Salin Link Preview</button> <button class="btn btn-dark" type="button" id="resetDataBtn">Reset</button> </div> </div> <div class="editor-grid" id="editorGrid"></div> <div class="editor-note">Catatan: untuk GitHub Pages, upload gambar dilakukan manual ke folder <strong>img</strong> di repo. Sesudah itu, isi nama file seperti <strong>produk-1.jpg</strong> atau <strong>logo.png</strong> di menu edit.</div> <div class="editor-link-box" id="editorLinkBox"></div> </div> </div> </div> <header class="hero"> <div class="container hero-grid"> <div> <div class="badge" id="badgeText"></div> <h1 id="pageTitle"></h1> <p id="pageDescription"></p> <div class="price-box"> <div class="old-price" id="priceOld"></div> <div class="new-price" id="priceNew"></div> <div class="discount-pill" id="discountText"></div> </div> <div class="cta-row"> <a class="btn btn-primary page-theme-primary" id="ctaBtn" target="_blank" rel="noopener noreferrer"></a> <a class="btn btn-secondary" id="secondaryBtn"></a> </div> <div class="admin-info" id="adminInfo"></div> </div> <div class="hero-card"> <img id="heroImage" src="" alt=""> </div> </div> </header> <section class="section"> <div class="container"> <h2 class="section-title" id="featuresTitle"></h2> <p class="section-subtitle" id="featuresSubtitle"></p> <div class="features" id="featuresList"></div> </div> </section> <section class="section" id="bannerSection"> <div class="container"> <a class="promo-banner-link" id="promoBannerLink" target="_blank" rel="noopener noreferrer"> <div class="promo-banner-card"> <img id="promoBannerImage" src="" alt=""> <div class="promo-banner-body"> <div class="promo-banner-text" id="promoBannerText"></div> </div> </div> </a> </div> </section> <section class="section"> <div class="container"> <h2 class="section-title" id="catalogTitle"></h2> <p class="section-subtitle" id="catalogSubtitle"></p> <div class="catalog-grid" id="catalogList"></div> </div> </section> <section class="section" id="galeri"> <div class="container"> <h2 class="section-title" id="galleryTitle"></h2> <p class="section-subtitle" id="gallerySubtitle"></p> <div class="gallery" id="galleryList"></div> </div> </section> <section class="section"> <div class="container"> <h2 class="section-title" id="testimonialTitle"></h2> <p class="section-subtitle" id="testimonialSubtitle"></p> <div class="testimonial-wrap" id="testimonialList"></div> </div> </section> <section class="section"> <div class="container"> <div class="highlight"> <div> <h2 style="margin:0 0 10px; font-size: clamp(24px, 4vw, 36px);" id="closingTitle"></h2> <p style="margin:0; color:#475569;" id="closingText"></p> </div> <div> <a class="btn btn-primary page-theme-primary" id="closingBtn" target="_blank" rel="noopener noreferrer"></a> </div> </div> </div> </section> <div class="sticky-bar"> <div class="container sticky-inner"> <div> <div style="font-weight:700;">Promo Jersey Hari Ini</div> <div style="font-size:13px; color:#cbd5e1;" id="promoNote"></div> </div> <div class="sticky-price"> <span class="old-price" id="stickyPriceOld"></span> <span style="font-size:24px; font-weight:800;" id="stickyPriceNew"></span> <a class="btn btn-primary page-theme-primary" id="stickyBtn" target="_blank" rel="noopener noreferrer"></a> </div> </div> </div> <footer class="footer"> <div class="container" id="footerText"></div> </footer> <script> const defaultContent = { brandName: "JerseySport Indonesia", pageTitle: "Promo Jersey Custom Premium", pageDescription: "Jersey bola, futsal, komunitas, dan event dengan bahan adem, full print, warna tajam, dan jahitan rapi.", badgeText: "BISA ORDER SATUAN & PARTAI", mediaBaseUrl: "img/", editPassword: "123456", heroImage: "hero-jersey.jpg", heroImageAlt: "Foto jersey utama", priceOld: "Rp249.000", priceNew: "Rp149.000", discountText: "HEMAT 40%", buttonPrimaryBg: "#22c55e", buttonPrimaryText: "#ffffff", ctaText: "Pesan via WhatsApp", ctaUrl: "", adminWaNumber: "6281234567890", adminWaLabel: "Admin WA: 0812-3456-7890", secondaryButtonText: "Lihat Detail", secondaryButtonUrl: "#galeri", waMainMessage: "Halo Admin, saya mau order jersey", waProductMessageTemplate: "Halo Admin, saya tertarik dengan {product}", featuresTitle: "Kenapa Banyak yang Pilih Jersey Kami?", featuresSubtitle: "Cocok untuk tim futsal, bola, komunitas, sekolah, event kantor, sampai reseller.", features: [ { title: "Bahan Adem", text: "Nyaman dipakai untuk latihan maupun pertandingan dengan sirkulasi udara yang baik." }, { title: "Full Custom Design", text: "Bisa ganti nama, nomor punggung, logo tim, sponsor, dan warna sesuai kebutuhan." }, { title: "Warna Tahan Lama", text: "Menggunakan teknik print berkualitas agar warna tetap tajam dan tidak mudah pudar." } ], bannerImage: "banner-promo.jpg", bannerText: "Promo spesial minggu ini, klik banner untuk lihat info lengkap.", bannerUrl: "", catalogTitle: "Katalog Produk Jersey", catalogSubtitle: "Pilih model favoritmu. Semua item di bawah ini bisa diganti foto, judul, harga, dan link tombol.", catalogProducts: [ { title: "Jersey Home 2026", image: "produk-1.jpg", oldPrice: "Rp219.000", newPrice: "Rp149.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false }, { title: "Jersey Away Premium", image: "produk-2.jpg", oldPrice: "Rp229.000", newPrice: "Rp159.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false }, { title: "Jersey Training Pro", image: "produk-3.jpg", oldPrice: "Rp199.000", newPrice: "Rp139.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false }, { title: "Jersey Edisi Tim", image: "produk-4.jpg", oldPrice: "Rp249.000", newPrice: "Rp169.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false }, { title: "Jersey Fans Edition", image: "produk-5.jpg", oldPrice: "Rp239.000", newPrice: "Rp164.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false }, { title: "Jersey Match Day", image: "produk-6.jpg", oldPrice: "Rp259.000", newPrice: "Rp179.000", buttonText: "Lihat Produk", buttonUrl: "", bestSeller: false, hot: false } ], galleryTitle: "Galeri Jersey", gallerySubtitle: "Upload gambar manual ke folder img di repository, lalu isi nama file di sini.", galleryImages: ["galeri-1.jpg", "galeri-2.jpg", "galeri-3.jpg"], testimonialTitle: "Testimoni Pembeli", testimonialSubtitle: "Bisa diganti bebas sesuai review asli dari customer kamu.", testimonials: [ { text: "Hasil print-nya bagus banget, warna sesuai mockup. Tim kami puas.", name: "Rama - Manager Futsal" }, { text: "Bahannya adem dan jahitannya rapi. Repeat order lagi bulan depan.", name: "Iqbal - Komunitas Bola" }, { text: "Fast respon, desain dibantu sampai jadi. Recommended.", name: "Dina - Panitia Event" } ], closingTitle: "Siap Order Jersey Hari Ini?", closingText: "Klik tombol WhatsApp sekarang untuk cek stok, konsultasi desain, dan dapatkan promo terbaik.", closingButtonText: "Chat Admin Sekarang", closingButtonUrl: "", footerText: "JerseySport Indonesia. Semua hak dilindungi.", promoNote: "Promo terbatas minggu ini. Harga bisa berubah kapan saja." }; const STORAGE_KEY = "lp_jersey_single_file_config"; const EDIT_UNLOCK_KEY = "lp_jersey_single_file_unlock"; let content = deepClone(defaultContent); const ORIGINAL_SOURCE_HTML = document.documentElement.outerHTML; const urlObj = new URL(window.location.href); const isEditMode = urlObj.searchParams.get("edit") === "1"; let editorUnlocked = false; function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); } function escapeHtml(value) { return String(value || "") .replace(/&/g, "&amp;") .replace(/</g, "&lt;") .replace(/>/g, "&gt;") .replace(/\"/g, "&quot;"); } function setByPath(obj, path, value) { const keys = path.split("."); let ref = obj; for (let i = 0; i < keys.length - 1; i += 1) { const maybeIndex = Number(keys[i]); const key = Number.isInteger(maybeIndex) && String(maybeIndex) === keys[i] ? maybeIndex : keys[i]; ref = ref[key]; } const lastMaybeIndex = Number(keys[keys.length - 1]); const lastKey = Number.isInteger(lastMaybeIndex) && String(lastMaybeIndex) === keys[keys.length - 1] ? lastMaybeIndex : keys[keys.length - 1]; ref[lastKey] = value; } function getByPath(obj, path) { return path.split(".").reduce((acc, key) => { const maybeIndex = Number(key); const parsedKey = Number.isInteger(maybeIndex) && String(maybeIndex) === key ? maybeIndex : key; return acc ? acc[parsedKey] : ""; }, obj); } function normalizeWaNumber(value) { const digits = String(value || "").replace(/\D/g, ""); if (!digits) return ""; if (digits.startsWith("62")) return digits; if (digits.startsWith("0")) return "62" + digits.slice(1); if (digits.startsWith("8")) return "62" + digits; return digits; } function buildWaLink(number, message) { const phone = normalizeWaNumber(number); if (!phone) return "#"; return "https://wa.me/" + phone + "?text=" + encodeURIComponent(message || ""); } function resolveImageUrl(value) { const raw = String(value || "").trim(); if (!raw) return ""; if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("data:") || raw.startsWith("/")) return raw; const base = String(content.mediaBaseUrl || "").trim(); if (!base) return raw; return base.replace(/\/+$/, "") + "/" + raw.replace(/^\/+/, ""); } function isWhatsAppUrl(url) { const raw = String(url || "").trim(); return /wa\.me\//i.test(raw) || /api\.whatsapp\.com\/send/i.test(raw) || /whatsapp:\/\/send/i.test(raw); } function getWhatsAppMessageFromUrl(url) { try { const raw = String(url || "").trim(); if (!raw) return ""; const parsed = new URL(raw); return parsed.searchParams.get("text") || parsed.searchParams.get("message") || ""; } catch (error) { const match = String(url || "").match(/[?&](?:text|message)=([^&]+)/i); return match ? decodeURIComponent(match[1]) : ""; } } function normalizeActionUrl(customUrl, fallbackMessage) { const raw = String(customUrl || "").trim(); if (!raw) { return buildWaLink(content.adminWaNumber, fallbackMessage); } if (isWhatsAppUrl(raw)) { const messageFromUrl = getWhatsAppMessageFromUrl(raw); return buildWaLink(content.adminWaNumber, messageFromUrl || fallbackMessage); } return raw; } function getMainWaUrl(customUrl, fallbackMessage) { return normalizeActionUrl(customUrl, fallbackMessage); } function getProductButtonUrl(item) { const template = String(content.waProductMessageTemplate || "Halo Admin, saya tertarik dengan {product}"); const message = template.replace(/\{product\}/g, item.title || "produk ini"); return normalizeActionUrl(item.buttonUrl, message); } function getDataParam() { try { const encoded = urlObj.searchParams.get("data"); if (!encoded) return null; const json = decodeURIComponent(atob(encoded)); return JSON.parse(json); } catch (error) { return null; } } function getSavedData() { try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : null; } catch (error) { return null; } } function loadInitialContent() { const dataFromUrl = getDataParam(); const dataFromStorage = getSavedData(); if (dataFromUrl) { content = dataFromUrl; } else if (dataFromStorage) { content = dataFromStorage; } } function getShareLink(withEdit) { const base = window.location.origin + window.location.pathname; const params = new URLSearchParams(); if (withEdit) params.set("edit", "1"); try { const encoded = btoa(encodeURIComponent(JSON.stringify(content))); params.set("data", encoded); } catch (error) {} const query = params.toString(); return query ? base + "?" + query : base; } function copyText(text, successMessage) { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text) .then(() => alert(successMessage)) .catch(() => window.prompt("Salin manual link berikut:", text)); } else { window.prompt("Salin manual link berikut:", text); } } function setText(id, value) { const el = document.getElementById(id); if (el) el.textContent = value; } function setLink(id, text, url) { const el = document.getElementById(id); if (!el) return; el.textContent = text; el.href = url; } function renderFeatures() { const wrapper = document.getElementById("featuresList"); wrapper.innerHTML = content.features.map(item => ` <div class="card"> <h3>${item.title}</h3> <p>${item.text}</p> </div> `).join(""); } function renderBanner() { const section = document.getElementById("bannerSection"); const link = document.getElementById("promoBannerLink"); const image = document.getElementById("promoBannerImage"); const text = document.getElementById("promoBannerText"); const rawImage = String(content.bannerImage || "").trim(); const rawText = String(content.bannerText || "").trim(); const rawUrl = String(content.bannerUrl || "").trim(); const hasContent = !!(rawImage || rawText); if (section) section.style.display = hasContent ? "" : "none"; if (image) { image.src = rawImage ? resolveImageUrl(rawImage) : ""; image.alt = rawText || "Banner promo"; image.style.display = rawImage ? "block" : "none"; } if (text) { text.textContent = rawText; text.style.display = rawText ? "block" : "none"; } if (link) { link.href = rawUrl || "#"; link.classList.toggle("is-disabled", !rawUrl); } } function renderCatalog() { const wrapper = document.getElementById("catalogList"); wrapper.innerHTML = content.catalogProducts.map(item => ` <div class="product-card"> <div class="product-badges"> ${item.bestSeller ? '<span class="product-badge best">BEST SELLER</span>' : ''} ${item.hot ? '<span class="product-badge hot">HOT</span>' : ''} </div> <img src="${resolveImageUrl(item.image)}" alt="${item.title}" /> <div class="product-body"> <h3 class="product-title">${item.title}</h3> <div class="product-price"> <span class="old">${item.oldPrice}</span> <span class="new">${item.newPrice}</span> </div> <a class="btn btn-primary page-theme-primary product-btn" href="${getProductButtonUrl(item)}" target="_blank" rel="noopener noreferrer">${item.buttonText}</a> </div> </div> `).join(""); } function renderGallery() { const wrapper = document.getElementById("galleryList"); wrapper.innerHTML = content.galleryImages.map((src, index) => ` <img src="${resolveImageUrl(src)}" alt="Galeri Jersey ${index + 1}" /> `).join(""); } function renderTestimonials() { const wrapper = document.getElementById("testimonialList"); wrapper.innerHTML = content.testimonials.map(item => ` <div class="card"> <p>“${item.text}”</p> <div class="testimonial-name">${item.name}</div> </div> `).join(""); } function initPage() { document.title = content.pageTitle; setText("badgeText", content.badgeText); setText("pageTitle", content.pageTitle); setText("pageDescription", content.pageDescription); setText("priceOld", content.priceOld); setText("priceNew", content.priceNew); setText("discountText", content.discountText); setText("featuresTitle", content.featuresTitle); setText("featuresSubtitle", content.featuresSubtitle); setText("catalogTitle", content.catalogTitle); setText("catalogSubtitle", content.catalogSubtitle); setText("galleryTitle", content.galleryTitle); setText("gallerySubtitle", content.gallerySubtitle); setText("testimonialTitle", content.testimonialTitle); setText("testimonialSubtitle", content.testimonialSubtitle); setText("closingTitle", content.closingTitle); setText("closingText", content.closingText); setText("promoNote", content.promoNote); setText("stickyPriceOld", content.priceOld); setText("stickyPriceNew", content.priceNew); setText("footerText", `© ${new Date().getFullYear()} ${content.footerText}`); setText("adminInfo", content.adminWaLabel + " | WA: " + normalizeWaNumber(content.adminWaNumber)); setLink("ctaBtn", content.ctaText, getMainWaUrl(content.ctaUrl, content.waMainMessage || "Halo Admin, saya mau order jersey")); setLink("secondaryBtn", content.secondaryButtonText, content.secondaryButtonUrl); setLink("closingBtn", content.closingButtonText, getMainWaUrl(content.closingButtonUrl, content.waMainMessage || "Halo Admin, saya mau order jersey")); setLink("stickyBtn", content.ctaText, getMainWaUrl(content.ctaUrl, content.waMainMessage || "Halo Admin, saya mau order jersey")); document.documentElement.style.setProperty("--page-primary-btn-bg", content.buttonPrimaryBg || "#22c55e"); document.documentElement.style.setProperty("--page-primary-btn-text", content.buttonPrimaryText || "#ffffff"); const heroImage = document.getElementById("heroImage"); heroImage.src = resolveImageUrl(content.heroImage); heroImage.alt = content.heroImageAlt; renderFeatures(); renderBanner(); renderCatalog(); renderGallery(); renderTestimonials(); updateEditorLinkBox(); if (editorUnlocked && isEditMode) { refreshAllImagePreviews(false); } } function field(label, path, value, type = "text") { if (type === "textarea") { return ` <label class="editor-field"> <span>${label}</span> <textarea data-path="${path}">${escapeHtml(value)}</textarea> </label> `; } return ` <label class="editor-field"> <span>${label}</span> <input type="${type}" data-path="${path}" value="${escapeHtml(value)}" /> </label> `; } function checkboxField(label, path, checked) { return ` <label class="editor-check"> <input type="checkbox" data-path="${path}" ${checked ? "checked" : ""} /> <span>${label}</span> </label> `; } function testimonialItemField(item, index) { return ` <div class="editor-section" style="padding:12px;"> <h3 style="font-size:16px; margin:0 0 10px;">Testimoni ${index + 1}</h3> <div class="editor-fields"> ${field("Isi Testimoni", `testimonials.${index}.text`, item.text, "textarea")} ${field("Nama / Jabatan", `testimonials.${index}.name`, item.name)} <div class="editor-array-actions"> <button type="button" class="editor-mini-btn editor-danger-btn" data-remove-testimonial="${index}">Hapus Testimoni</button> </div> </div> </div> `; } function imageField(label, path, value) { const resolved = resolveImageUrl(value); return ` <div class="editor-field"> <span>${label}</span> <input type="text" data-path="${path}" value="${escapeHtml(value)}" placeholder="contoh: produk-1.jpg atau logo.png" /> <div class="editor-image-box"> <div class="editor-image-help"> Upload file gambar secara manual ke folder <strong>img</strong> di repository GitHub, lalu isi nama file di kolom atas. </div> <div class="editor-mini-actions"> <button type="button" class="editor-mini-btn" data-refresh-path="${path}">Refresh Preview</button> <span class="editor-preview-status" data-status-path="${path}">Cek preview dari GitHub</span> </div> <img class="editor-preview-thumb" data-preview-path="${path}" src="${resolved}" alt="preview" style="${resolved ? "" : "display:none;"}" /> </div> </div> `; } function setPreviewStatus(path, text, type = "") { const status = document.querySelector(`[data-status-path="${path}"]`); if (!status) return; status.textContent = text; status.classList.remove("error", "success"); if (type) status.classList.add(type); } function updateSingleEditorPreview(path, forceRefresh = false) { const preview = document.querySelector(`[data-preview-path="${path}"]`); if (!preview) return; const resolved = resolveImageUrl(getByPath(content, path)); if (!resolved) { preview.removeAttribute("src"); preview.style.display = "none"; setPreviewStatus(path, "Nama file belum diisi"); return; } if (resolved.startsWith("data:")) { preview.src = resolved; preview.style.display = "block"; setPreviewStatus(path, "Preview siap", "success"); return; } const testSrc = forceRefresh ? `${resolved}${resolved.includes("?") ? "&" : "?"}v=${Date.now()}` : resolved; setPreviewStatus(path, forceRefresh ? "Mencoba refresh dari GitHub..." : "Mengecek preview..."); const tester = new Image(); tester.onload = () => { preview.src = testSrc; preview.style.display = "block"; setPreviewStatus(path, "Preview ditemukan", "success"); }; tester.onerror = () => { preview.style.display = "none"; preview.removeAttribute("src"); setPreviewStatus(path, "Gambar belum muncul di GitHub", "error"); }; tester.src = testSrc; } function refreshAllImagePreviews(forceRefresh = false) { document.querySelectorAll("[data-preview-path]").forEach((el) => { const path = el.dataset.previewPath; if (path) updateSingleEditorPreview(path, forceRefresh); }); } function setFloatingActionsVisible(isVisible) { const wrap = document.getElementById("floatingActions"); if (!wrap) return; wrap.classList.toggle("show", !!isVisible); } function saveEditorData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(content)); alert("Perubahan disimpan di browser ini. Untuk semua perangkat, download index.html terbaru lalu upload ke GitHub."); } function buildExportHtml() { const source = "<!DOCTYPE html>\n" + ORIGINAL_SOURCE_HTML; const startMarker = "const defaultContent = {"; const endMarker = "\n\n const STORAGE_KEY ="; const startIndex = source.indexOf(startMarker); const endIndex = source.indexOf(endMarker, startIndex); if (startIndex === -1 || endIndex === -1) return source; const before = source.slice(0, startIndex); const after = source.slice(endIndex); const serializedContent = JSON.stringify(content, null, 6); return before + `const defaultContent = ${serializedContent};` + after; } function downloadCurrentIndexHtml() { const blob = new Blob([buildExportHtml()], { type: "text/html;charset=utf-8" }); const url = URL.createObjectURL(blob); const link = document.createElement("a"); link.href = url; link.download = "index.html"; document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url); } function openPreviewPage() { const previewLink = getShareLink(false); window.open(previewLink, "_blank"); } function updateEditorLinkBox() { const box = document.getElementById("editorLinkBox"); if (!box || !isEditMode || !editorUnlocked) return; box.innerHTML = ` <div><strong>Link edit:</strong><br>${escapeHtml(getShareLink(true))}</div> <div style="margin-top:10px;"><strong>Link preview:</strong><br>${escapeHtml(getShareLink(false))}</div> `; } function renderEditor() { const lockEl = document.getElementById("editorLock"); const wrapEl = document.getElementById("editorWrap"); if (!isEditMode) { lockEl.classList.remove("show"); document.body.classList.remove("edit-mode"); setFloatingActionsVisible(false); return; } if (!editorUnlocked) { lockEl.classList.add("show"); document.body.classList.remove("edit-mode"); wrapEl.style.display = "none"; setFloatingActionsVisible(false); return; } lockEl.classList.remove("show"); wrapEl.style.display = "block"; document.body.classList.add("edit-mode"); setFloatingActionsVisible(true); const editorGrid = document.getElementById("editorGrid"); editorGrid.innerHTML = ` <div class="editor-section"> <h3>Pengaturan Edit & Media</h3> <p>Gunakan folder <strong>img</strong> untuk semua gambar di repository GitHub Pages kamu. Di sini kamu juga bisa ubah warna semua tombol utama sekaligus.</p> <div class="editor-fields"> ${field("Folder Gambar", "mediaBaseUrl", content.mediaBaseUrl)} ${field("Password Edit", "editPassword", content.editPassword)} ${field("Warna Button Utama", "buttonPrimaryBg", content.buttonPrimaryBg, "color")} ${field("Warna Teks Button", "buttonPrimaryText", content.buttonPrimaryText, "color")} ${field("Template WA Produk ({product})", "waProductMessageTemplate", content.waProductMessageTemplate, "textarea")} ${field("Pesan WA Utama", "waMainMessage", content.waMainMessage, "textarea")} </div> </div> <div class="editor-section"> <h3>Bagian Utama</h3> <p>Kalau link WA utama dikosongkan, tombol utama akan otomatis pakai nomor admin dan pesan WA utama. Jika link custom adalah link WhatsApp, nomor WA di link itu juga otomatis mengikuti Nomor Admin WA di atas.</p> <div class="editor-fields"> ${field("Judul LP", "pageTitle", content.pageTitle)} ${field("Deskripsi LP", "pageDescription", content.pageDescription, "textarea")} ${imageField("Nama File Gambar Hero", "heroImage", content.heroImage)} ${field("Harga Coret Hero", "priceOld", content.priceOld)} ${field("Harga Hero", "priceNew", content.priceNew)} ${field("Teks Diskon", "discountText", content.discountText)} ${field("Nomor Admin WA", "adminWaNumber", content.adminWaNumber)} ${field("Label Admin WA", "adminWaLabel", content.adminWaLabel)} ${field("Link Tombol WA Utama (opsional)", "ctaUrl", content.ctaUrl)} ${field("Link Tombol Closing (opsional)", "closingButtonUrl", content.closingButtonUrl)} </div> </div> <div class="editor-section"> <h3>Banner</h3> <p>Banner ini tampil lebar seperti card dengan tinggi sedang. Klik gambar atau teks banner akan menuju URL yang kamu isi.</p> <div class="editor-fields"> ${imageField("Nama File Gambar Banner", "bannerImage", content.bannerImage)} ${field("Teks Banner", "bannerText", content.bannerText)} ${field("Link URL Banner", "bannerUrl", content.bannerUrl)} </div> </div> <div class="editor-section"> <h3>Galeri</h3> <p>Isi nama file gambar yang sudah kamu upload ke folder <strong>img</strong>.</p> <div class="editor-fields"> ${content.galleryImages.map((item, index) => imageField(`Nama File Gambar Galeri ${index + 1}`, `galleryImages.${index}`, item)).join("")} </div> </div> <div class="editor-section"> <h3>Footer</h3> <p>Tahun footer otomatis mengikuti tahun aktif. Di sini kamu cukup ganti isi teks footernya saja.</p> <div class="editor-fields"> ${field("Teks Footer", "footerText", content.footerText, "textarea")} </div> </div> <div class="editor-section"> <h3>Testimoni</h3> <p>Testimoni yang sudah ada bisa diganti, dan kamu juga bisa tambah testimoni baru kapan saja.</p> <div class="editor-fields"> ${content.testimonials.map((item, index) => testimonialItemField(item, index)).join("")} <div class="editor-array-actions"> <button type="button" class="editor-mini-btn" id="addTestimonialBtn">Tambah Testimoni</button> </div> </div> </div> ${content.catalogProducts.map((item, index) => ` <div class="editor-section"> <h3>Produk ${index + 1}</h3> <p>Isi nama file gambar produk yang sudah kamu upload ke folder <strong>img</strong>. Jika link custom adalah link WhatsApp, nomor WA di link itu juga otomatis mengikuti Nomor Admin WA di atas.</p> <div class="editor-fields"> ${field("Judul Produk", `catalogProducts.${index}.title`, item.title)} ${imageField("Nama File Gambar Produk", `catalogProducts.${index}.image`, item.image)} ${field("Harga Coret", `catalogProducts.${index}.oldPrice`, item.oldPrice)} ${field("Harga Promo", `catalogProducts.${index}.newPrice`, item.newPrice)} ${field("Teks Tombol", `catalogProducts.${index}.buttonText`, item.buttonText)} ${field("Link Custom Produk (opsional)", `catalogProducts.${index}.buttonUrl`, item.buttonUrl)} <div class="editor-check-row"> ${checkboxField("Best Seller", `catalogProducts.${index}.bestSeller`, item.bestSeller)} ${checkboxField("Hot", `catalogProducts.${index}.hot`, item.hot)} </div> </div> </div> `).join("")} `; editorGrid.oninput = (event) => { const target = event.target; const path = target.dataset.path; if (!path) return; setByPath(content, path, target.type === "checkbox" ? target.checked : target.value); if (path === "editPassword") { sessionStorage.setItem(EDIT_UNLOCK_KEY, target.value); } initPage(); if (path === "mediaBaseUrl") { refreshAllImagePreviews(false); } else { updateSingleEditorPreview(path, false); } }; editorGrid.onchange = (event) => { const target = event.target; if (target.dataset.path && target.type === "checkbox") { const path = target.dataset.path; setByPath(content, path, target.checked); initPage(); } }; editorGrid.onclick = (event) => { const removeBtn = event.target.closest("[data-remove-testimonial]"); if (removeBtn) { const removeIndex = removeBtn.dataset.removeTestimonial; content.testimonials.splice(Number(removeIndex), 1); if (content.testimonials.length === 0) { content.testimonials.push({ text: "", name: "" }); } initPage(); renderEditor(); return; } const refreshBtn = event.target.closest("[data-refresh-path]"); if (!refreshBtn) return; const path = refreshBtn.dataset.refreshPath; updateSingleEditorPreview(path, true); }; const addTestimonialBtn = document.getElementById("addTestimonialBtn"); if (addTestimonialBtn) { addTestimonialBtn.onclick = () => { content.testimonials.push({ text: "", name: "" }); initPage(); renderEditor(); }; } document.getElementById("saveBrowserBtn").onclick = () => { saveEditorData(); }; const downloadIndexBtn = document.getElementById("downloadIndexBtn"); if (downloadIndexBtn) { downloadIndexBtn.onclick = () => { downloadCurrentIndexHtml(); }; } document.getElementById("copyEditLinkBtn").onclick = () => { copyText(getShareLink(true), "Link edit berhasil disalin."); }; document.getElementById("copyPreviewLinkBtn").onclick = () => { copyText(getShareLink(false), "Link preview berhasil disalin."); }; document.getElementById("resetDataBtn").onclick = () => { localStorage.removeItem(STORAGE_KEY); sessionStorage.removeItem(EDIT_UNLOCK_KEY); content = deepClone(defaultContent); editorUnlocked = true; sessionStorage.setItem(EDIT_UNLOCK_KEY, content.editPassword); initPage(); renderEditor(); }; const floatingSaveBtn = document.getElementById("floatingSaveBtn"); if (floatingSaveBtn) { floatingSaveBtn.onclick = () => { saveEditorData(); }; } const floatingPreviewBtn = document.getElementById("floatingPreviewBtn"); if (floatingPreviewBtn) { floatingPreviewBtn.onclick = () => { openPreviewPage(); }; } const floatingDownloadBtn = document.getElementById("floatingDownloadBtn"); if (floatingDownloadBtn) { floatingDownloadBtn.onclick = () => { downloadCurrentIndexHtml(); }; } updateEditorLinkBox(); } function setupEditorLock() { if (!isEditMode) return; const input = document.getElementById("editorPasswordInput"); const button = document.getElementById("unlockEditorBtn"); const tryUnlock = () => { if (String(input.value) === String(content.editPassword || "")) { editorUnlocked = true; sessionStorage.setItem(EDIT_UNLOCK_KEY, String(content.editPassword || "")); input.value = ""; renderEditor(); } else { alert("Password edit salah."); } }; button.onclick = tryUnlock; input.onkeydown = (event) => { if (event.key === "Enter") tryUnlock(); }; const savedUnlock = sessionStorage.getItem(EDIT_UNLOCK_KEY); editorUnlocked = !!savedUnlock && savedUnlock === String(content.editPassword || ""); } loadInitialContent(); initPage(); setupEditorLock(); renderEditor(); </script></body></html>
+<html lang="id"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LP Jersey - Single File</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f8fc;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; }
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      color: white;
+      padding: 28px 0 42px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.05;
+    }
+    .hero p {
+      margin: 0 0 18px;
+      font-size: 17px;
+      color: #dbeafe;
+    }
+    .price-box {
+      display: flex;
+      align-items: end;
+      gap: 12px;
+      margin: 18px 0 22px;
+      flex-wrap: wrap;
+    }
+    .old-price {
+      font-size: 18px;
+      color: #cbd5e1;
+      text-decoration: line-through;
+    }
+    .new-price {
+      font-size: 34px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .discount-pill {
+      background: #facc15;
+      color: #111827;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: 0.2s ease;
+      cursor: pointer;
+      border: 0;
+      text-align: center;
+    }
+    .btn-primary {
+      background: #22c55e;
+      color: white;
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-light {
+      background: white;
+      color: #0f172a;
+      border: 1px solid #d1d5db;
+    }
+    .btn-dark {
+      background: #0f172a;
+      color: white;
+    }
+    .hero-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.22);
+    }
+    .hero-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4 / 4.2;
+    }
+    .section {
+      padding: 54px 0;
+    }
+    .section-title {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 4vw, 36px);
+      text-align: center;
+      color: #0f172a;
+    }
+    .section-subtitle {
+      margin: 0 auto 28px;
+      max-width: 760px;
+      text-align: center;
+      color: #64748b;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+    }
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+    .card p {
+      margin: 0;
+      color: #64748b;
+    }
+    .promo-banner-link {
+      display: block;
+    }
+    .promo-banner-link.is-disabled {
+      pointer-events: none;
+      cursor: default;
+    }
+    .promo-banner-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+    }
+    .promo-banner-card img {
+      width: 100%;
+      aspect-ratio: 16 / 5.4;
+      object-fit: cover;
+      background: #fff;
+    }
+    .promo-banner-body {
+      padding: 14px 18px;
+    }
+    .promo-banner-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.35;
+    }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .product-card {
+      position: relative;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+      min-width: 0;
+    }
+    .product-badges {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      max-width: calc(100% - 20px);
+    }
+    .product-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: white;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+    }
+    .product-badge.best { background: #f59e0b; }
+    .product-badge.hot { background: #ef4444; }
+    .product-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #fff;
+    }
+    .product-body { padding: 18px; }
+    .product-title {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #0f172a;
+    }
+    .product-price {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .product-price .old {
+      color: #94a3b8;
+      text-decoration: line-through;
+      font-size: 15px;
+    }
+    .product-price .new {
+      color: #0f172a;
+      font-size: 24px;
+      font-weight: 800;
+    }
+    .product-btn { width: 100%; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      min-width: 0;
+    }
+    .testimonial-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .testimonial-name {
+      margin-top: 14px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .highlight {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+      border: 1px solid #dbeafe;
+      border-radius: 24px;
+      padding: 26px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+    .footer {
+      background: #0f172a;
+      color: #cbd5e1;
+      padding: 24px 0;
+      text-align: center;
+      font-size: 14px;
+    }
+    .sticky-bar {
+      position: sticky;
+      bottom: 0;
+      z-index: 40;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .sticky-inner {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: white;
+      flex-wrap: wrap;
+      padding: 12px 0;
+    }
+    .sticky-price {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .sticky-price .old-price { color: #94a3b8; }
+    .admin-info {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #bfdbfe;
+    }
+
+    .editor-wrap {
+      display: none;
+      background: #0b1220;
+      color: white;
+      padding: 20px 0 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    body.edit-mode .editor-wrap { display: block; }
+    .editor-panel {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 18px;
+    }
+    .editor-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .editor-head h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+    .editor-head p {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 14px;
+      max-width: 760px;
+    }
+    .editor-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .editor-note {
+      margin: 14px 0 0;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    .editor-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .editor-section {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .editor-section h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+    .editor-section p {
+      margin: 0 0 14px;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    .editor-fields {
+      display: grid;
+      gap: 10px;
+    }
+    .editor-field {
+      display: grid;
+      gap: 6px;
+    }
+    .editor-field span {
+      font-size: 13px;
+      color: #dbeafe;
+    }
+    .editor-field input,
+    .editor-field textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-radius: 10px;
+      padding: 10px 12px;
+      outline: none;
+      font: inherit;
+    }
+    .editor-field textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+    .editor-check-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+    .editor-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .editor-check input {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      accent-color: #22c55e;
+    }
+    .editor-image-box {
+      display: grid;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .editor-image-help {
+      color: #cbd5e1;
+      font-size: 12px;
+      line-height: 1.45;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px dashed rgba(255,255,255,0.12);
+    }
+    .editor-preview-thumb {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+    }
+    .editor-mini-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .editor-mini-btn {
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .editor-array-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .editor-danger-btn {
+      background: rgba(239,68,68,0.16);
+      border-color: rgba(239,68,68,0.3);
+      color: #fecaca;
+    }
+    .editor-preview-status {
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    .editor-preview-status.error {
+      color: #fca5a5;
+    }
+    .editor-preview-status.success {
+      color: #86efac;
+    }
+    .editor-link-box {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.08);
+      font-size: 13px;
+      color: #dbeafe;
+      word-break: break-all;
+    }
+    .floating-actions {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 180;
+      display: none;
+      gap: 8px;
+      align-items: center;
+    }
+    body.edit-mode .floating-actions.show {
+      display: flex;
+    }
+    .floating-btn {
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
+      backdrop-filter: blur(8px);
+    }
+    .floating-btn-preview {
+      background: rgba(15, 23, 42, 0.92);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .helper-badge {
+      display: inline-block;
+      background: rgba(34,197,94,0.14);
+      color: #bbf7d0;
+      border: 1px solid rgba(34,197,94,0.24);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .editor-lock {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(2, 6, 23, 0.72);
+      backdrop-filter: blur(8px);
+    }
+    .editor-lock.show { display: flex; }
+    .editor-lock-card {
+      width: min(460px, 100%);
+      background: #0f172a;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 22px 70px rgba(0,0,0,0.35);
+    }
+    .editor-lock-card h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+    .editor-lock-card p {
+      margin: 0 0 16px;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+    .editor-lock-card input {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      padding: 0 14px;
+      font: inherit;
+      outline: none;
+      margin-bottom: 12px;
+    }
+    .editor-lock-card .lock-note {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .features,
+      .testimonial-wrap,
+      .highlight,
+      .editor-grid {
+        grid-template-columns: 1fr;
+      }
+      .catalog-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .gallery img { border-radius: 10px; }
+      .promo-banner-card img { aspect-ratio: 16 / 7; }
+      .promo-banner-body { padding: 12px 14px; }
+      .promo-banner-text { font-size: 15px; }
+      .product-card { border-radius: 12px; }
+      .product-badges {
+        top: 6px;
+        left: 6px;
+        gap: 4px;
+        max-width: calc(100% - 12px);
+      }
+      .product-badge {
+        min-height: 20px;
+        padding: 0 7px;
+        font-size: 8px;
+      }
+      .product-body { padding: 8px; }
+      .product-title {
+        font-size: 12px;
+        line-height: 1.25;
+        margin: 0 0 6px;
+      }
+      .product-price {
+        gap: 4px;
+        margin-bottom: 8px;
+      }
+      .product-price .old { font-size: 10px; }
+      .product-price .new { font-size: 14px; }
+      .product-btn {
+        min-height: 34px;
+        padding: 0 8px;
+        border-radius: 8px;
+        font-size: 11px;
+      }
+      .hero { padding-top: 20px; }
+      .sticky-inner { justify-content: center; text-align: center; }
+      .editor-head h2 { font-size: 20px; }
+      .btn { min-height: 42px; }
+      .floating-actions {
+        right: 10px;
+        bottom: 10px;
+        gap: 6px;
+      }
+      .floating-btn {
+        min-height: 38px;
+        padding: 0 12px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="editor-lock" id="editorLock">
+    <div class="editor-lock-card">
+      <h2>Masuk ke Mode Edit</h2>
+      <p>Mode edit dilindungi password sederhana. Masukkan password untuk membuka panel editor halaman ini.</p>
+      <input type="password" id="editorPasswordInput" placeholder="Masukkan password edit">
+      <button class="btn btn-primary" type="button" id="unlockEditorBtn" style="width:100%;">Buka Editor</button>
+      <div class="lock-note">Password ini cocok untuk proteksi ligan, bukan keamanan tingkat tinggi.</div>
+    </div>
+  </div>
+
+  <div class="floating-actions" id="floatingActions">
+    <button class="btn floating-btn floating-btn-preview" type="button" id="floatingPreviewBtn">Preview</button>
+    <button class="btn floating-btn floating-btn-preview" type="button" id="floatingDownloadBtn">Download</button>
+    <button class="btn btn-primary floating-btn" type="button" id="floatingSaveBtn">Simpan</button>
+  </div>
+
+  <div class="editor-wrap" id="editorWrap">
+    <div class="container">
+      <div class="editor-panel">
+        <div class="editor-head">
+          <div>
+            <div class="helper-badge">MODE EDIT AKTIF</div>
+            <h2>Panel Edit Landing Page</h2>
+            <p>Versi ini cocok untuk GitHub Pages. Semua file gambar kamu upload manual ke folder <strong>img</strong> de repository, lalu di editor ini cukup isi nama file gambar saja.</p>
+          </div>
+          <div class="editor-actions">
+            <button class="btn btn-primary" type="button" id="saveBrowserBtn">Simpan di Browser</button>
+            <button class="btn btn-light" type="button" id="downloadIndexBtn">Download index.html</button>
+            <button class="btn btn-light" type="button" id="copyEditLinkBtn">Salin Link Edit</button>
+            <button class="btn btn-light" type="button" id="copyPreviewLinkBtn">Salin Link Preview</button>
+            <button class="btn btn-dark" type="button" id="resetDataBtn">Reset</button>
+          </div>
+        </div>
+        <div class="editor-grid" id="editorGrid"></div>
+        <div class="editor-note">Catatan: untuk GitHub Pages, upload gambar dilakukan manual ke folder <strong>img</strong> di repo. Sesudah itu, isi nama file seperti <strong>produk-1.jpg</strong> atau <strong>logo.png</strong> di menu edit.</div>
+        <div class="editor-link-box" id="editorLinkBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge" id="badgeText"></div>
+        <h1 id="pageTitle"></h1>
+        <p id="pageDescription"></p>
+
+        <div class="price-box">
+          <div class="old-price" id="priceOld"></div>
+          <div class="new-price" id="priceNew"></div>
+          <div class="discount-pill" id="discountText"></div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" id="ctaBtn" target="_blank" rel="noopener noreferrer"></a>
+          <a class="btn btn-secondary" id="secondaryBtn"></a>
+        </div>
+
+        <div class="admin-info" id="adminInfo"></div>
+      </div>
+
+      <div class="hero-card">
+        <img id="heroImage" src="" alt="">
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title" id="featuresTitle"></h2>
+      <p class="section-subtitle" id="featuresSubtitle"></p>
+      <div class="features" id="featuresList"></div>
+    </div>
+  </section>
+
+  <section class="section" id="bannerSection">
+    <div class="container">
+      <a class="promo-banner-link" id="promoBannerLink" target="_blank" rel="noopener noreferrer">
+        <div class="promo-banner-card">
+          <img id="promoBannerImage" src="" alt="">
+          <div class="promo-banner-body">
+            <div class="promo-banner-text" id="promoBannerText"></div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title" id="catalogTitle"></h2>
+      <p class="section-subtitle" id="catalogSubtitle"></p>
+      <div class="catalog-grid" id="catalogList"></div>
+    </div>
+  </section>
+
+  <section class="section" id="galeri">
+    <div class="container">
+      <h2 class="section-title" id="galleryTitle"></h2>
+      <p class="section-subtitle" id="gallerySubtitle"></p>
+      <div class="gallery" id="galleryList"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title" id="testimonialTitle"></h2>
+      <p class="section-subtitle" id="testimonialSubtitle"></p>
+      <div class="testimonial-wrap" id="testimonialList"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="highlight">
+        <div>
+          <h2 style="margin:0 0 10px; font-size: clamp(24px, 4vw, 36px);" id="closingTitle"></h2>
+          <p style="margin:0; color:#475569;" id="closingText"></p>
+        </div>
+        <div>
+          <a class="btn btn-primary" id="closingBtn" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sticky-bar">
+    <div class="container sticky-inner">
+      <div>
+        <div style="font-weight:700;">Promo Jersey Hari Ini</div>
+        <div style="font-size:13px; color:#cbd5e1;" id="promoNote"></div>
+      </div>
+      <div class="sticky-price">
+        <span class="old-price" id="stickyPriceOld"></span>
+        <span style="font-size:24px; font-weight:800;" id="stickyPriceNew"></span>
+        <a class="btn btn-primary" id="stickyBtn" target="_blank" rel="noopener noreferrer"></a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container" id="footerText"></div>
+  </footer>
+
+  <script>
+    const defaultContent = {
+      "brandName": "JerseySport Indonesia",
+      "pageTitle": "Promo Jersey Custom Premium",
+      "pageDescription": "Jersey bola, futsal, komunitas, dan event dengan bahan adem, full print, warna tajam, dan jahitan rapi.",
+      "badgeText": "BISA ORDER SATUAN & PARTAI",
+      "mediaBaseUrl": "img/",
+      "editPassword": "123456",
+      "heroImage": "promo.jpeg",
+      "heroImageAlt": "Foto jersey utama",
+      "priceOld": "Rp 129.000",
+      "priceNew": "Rp 79.000",
+      "discountText": "HEMAT 21%",
+      "ctaText": "Pesan via WhatsApp",
+      "ctaUrl": "",
+      "adminWaNumber": "6285191563084",
+      "adminWaLabel": "Admin WA: 0851-9156-3084",
+      "secondaryButtonText": "Lihat Detail",
+      "secondaryButtonUrl": "#galeri",
+      "waMainMessage": "Halo kak, Saya tertarik custom jersey, bisa dibantu cara order dan customnya?",
+      "waProductMessageTemplate": "Halo Admin, saya tertarik dengan {product}",
+      "featuresTitle": "Kenapa Banyak yang Pilih Jersey Kami?",
+      "featuresSubtitle": "Cocok untuk tim futsal, bola, komunitas, sekolah, event kantor, sampai reseller.",
+      "features": [
+            {
+                  "title": "Bahan Adem",
+                  "text": "Nyaman dipakai untuk latihan maupun pertandingan dengan sirkulasi udara yang baik."
+            },
+            {
+                  "title": "Full Custom Design",
+                  "text": "Bisa ganti nama, nomor punggung, logo tim, sponsor, dan warna sesuai kebutuhan."
+            },
+            {
+                  "title": "Warna Tahan Lama",
+                  "text": "Menggunakan teknik print berkualitas agar warna tetap tajam dan tidak mudah pudar."
+            }
+      ],
+      "bannerImage": "banner.jpg",
+      "bannerText": "Mau lihat produk lengkap? KLIK DISINI!!",
+      "bannerUrl": "https://shopee.co.id/geark_sport#product_list",
+      "catalogTitle": "Katalog Produk Jersey",
+      "catalogSubtitle": "Pilih model favoritmu. Semua item di bawah ini bisa diganti foto, judul, harga, dan link tombol.",
+      "catalogProducts": [
+            {
+                  "title": "Jersey \"Kamu Itu Badut\" Full Printing - Custom Nama & Logo Sesukamu",
+                  "image": "produk1.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 85.000",
+                  "buttonText": "Lihat Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Futsal-Sepak-Bola-Full-Printing-Bebas-Custom-Design-Terbaru-BISA-SATUAN--i.383260121.51102777379?extraParams=%7B%22display_model_id%22%3A345267819917%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": false
+            },
+            {
+                  "title": "Jersey Fire Flowers Full Printing",
+                  "image": "produk2.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 85.000",
+                  "buttonText": "Cek Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Futsal-Sepak-Bola-Terbaru-Full-Printing-Free-Nama-Dan-Nomor-Punggung-Motif-LAVENDER-BLAZE-i.383260121.47450320582?extraParams=%7B%22display_model_id%22%3A310027927144%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": false
+            },
+            {
+                  "title": "Jersey Full Printing Cotton Burn Futsal",
+                  "image": "produk3.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 85.000",
+                  "buttonText": "Cek Promo",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Futsal-Sepak-Bola-Terbaru-Free-Nama-Dan-Nomor-Punggung-Motif-COTTON-BURN-Full-Printing-i.383260121.56550300300?extraParams=%7B%22display_model_id%22%3A385027248997%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": false
+            },
+            {
+                  "title": "Jersey Custom Futsal dan Sepak Bola Free Logo Sponsor",
+                  "image": "produk4.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 79.000",
+                  "buttonText": "Lihat Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Futsal-Custom-Full-Printing-Free-Nama-Punggung-Dan-Nomor-Bisa-Satuan--i.383260121.12961124703?extraParams=%7B%22display_model_id%22%3A156564720171%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": false,
+                  "hot": true
+            },
+            {
+                  "title": "Jersey Edition Cream Liquify Bahan Dryfit Premium",
+                  "image": "produk5.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp 79.000",
+                  "buttonText": "Lihat Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Baju-Futsal-Sepakbola-Terbaru-Bebas-Custom-Design-Motif-CREAMY-LIQUEFY-Full-Printing-Termurah-Dan-Terlaris-i.383260121.25852610423?extraParams=%7B%22display_model_id%22%3A158452152402%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": false
+            },
+            {
+                  "title": "Jersey Flaming Pink Custom Design",
+                  "image": "produk6.jpg",
+                  "oldPrice": "Rp 100.000",
+                  "newPrice": "Rp79.000",
+                  "buttonText": "Lihat Produk",
+                  "buttonUrl": "https://shopee.co.id/Jersey-Baju-Futsal-Sepak-Bola-Terbaru-Motif-FLAMING-PINK-Full-Printing-Bebas-Custom-Design-i.383260121.25087180652?extraParams=%7B%22display_model_id%22%3A256796248580%2C%22model_selection_logic%22%3A3%7D",
+                  "bestSeller": true,
+                  "hot": true
+            }
+      ],
+      "galleryTitle": "Galeri Jersey",
+      "gallerySubtitle": "Upload gambar manual ke folder img di repository, lalu isi nama file di sini.",
+      "galleryImages": [
+            "galeri1.jpeg",
+            "galeri2.jpeg",
+            "galeri3.jpeg"
+      ],
+      "testimonialTitle": "Testimoni Pembeli",
+      "testimonialSubtitle": "Bisa diganti bebas sesuai review asli dari customer kamu.",
+      "testimonials": [
+            {
+                  "text": "Hasil print-nya bagus banget, warna sesuai mockup. Tim kami puas.",
+                  "name": "Rama - Manager Futsal"
+            },
+            {
+                  "text": "Bahannya adem dan jahitannya rapi. Repeat order lagi bulan depan.",
+                  "name": "Iqbal - Komunitas Bola"
+            },
+            {
+                  "text": "Fast respon, desain dibantu sampai jadi. Recommended.",
+                  "name": "Dina - Panitia Event"
+            }
+      ],
+      "closingTitle": "Siap Order Jersey Hari Ini?",
+      "closingText": "Klik tombol WhatsApp sekarang untuk cek stok, konsultasi desain, dan dapatkan promo terbaik.",
+      "closingButtonText": "Chat Admin Sekarang",
+      "closingButtonUrl": "",
+      "footerText": "© 2026 Geark Sport Indonesia. Semua hak dilindungi.",
+      "promoNote": "Promo terbatas minggu ini. Harga bisa berubah kapan saja."
+};
+
+    const STORAGE_KEY = "lp_jersey_single_file_config";
+    const EDIT_UNLOCK_KEY = "lp_jersey_single_file_unlock";
+    let content = deepClone(defaultContent);
+    const urlObj = new URL(window.location.href);
+    let editorUnlocked = false;
+    const isEditMode = urlObj.searchParams.get("edit") === "1";
+    const ORIGINAL_SOURCE_HTML = document.documentElement.outerHTML;
+
+    function deepClone(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;");
+    }
+
+    function setByPath(obj, path, value) {
+      const keys = path.split(".");
+      let ref = obj;
+      for (let i = 0; i < keys.length - 1; i += 1) {
+        const maybeIndex = Number(keys[i]);
+        const key = Number.isInteger(maybeIndex) && String(maybeIndex) === keys[i] ? maybeIndex : keys[i];
+        ref = ref[key];
+      }
+      const lastMaybeIndex = Number(keys[keys.length - 1]);
+      const lastKey = Number.isInteger(lastMaybeIndex) && String(lastMaybeIndex) === keys[keys.length - 1] ? lastMaybeIndex : keys[keys.length - 1];
+      ref[lastKey] = value;
+    }
+
+    function getByPath(obj, path) {
+      return path.split(".").reduce((acc, key) => {
+        const maybeIndex = Number(key);
+        const parsedKey = Number.isInteger(maybeIndex) && String(maybeIndex) === key ? maybeIndex : key;
+        return acc ? acc[parsedKey] : "";
+      }, obj);
+    }
+
+    function normalizeWaNumber(value) {
+      const digits = String(value || "").replace(/\D/g, "");
+      if (!digits) return "";
+      if (digits.startsWith("62")) return digits;
+      if (digits.startsWith("0")) return "62" + digits.slice(1);
+      if (digits.startsWith("8")) return "62" + digits;
+      return digits;
+    }
+
+    function buildWaLink(number, message) {
+      const phone = normalizeWaNumber(number);
+      if (!phone) return "#";
+      return "https://wa.me/" + phone + "?text=" + encodeURIComponent(message || "");
+    }
+
+    function resolveImageUrl(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "";
+      if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("data:") || raw.startsWith("/")) return raw;
+      const base = String(content.mediaBaseUrl || "").trim();
+      if (!base) return raw;
+      return base.replace(/\/+$/, "") + "/" + raw.replace(/^\/+/, "");
+    }
+
+    function isWhatsAppUrl(url) {
+      const raw = String(url || "").trim();
+      return /wa\.me\//i.test(raw) || /api\.whatsapp\.com\/send/i.test(raw) || /whatsapp:\/\/send/i.test(raw);
+    }
+
+    function getWhatsAppMessageFromUrl(url) {
+      try {
+        const raw = String(url || "").trim();
+        if (!raw) return "";
+        const parsed = new URL(raw);
+        return parsed.searchParams.get("text") || parsed.searchParams.get("message") || "";
+      } catch (error) {
+        const match = String(url || "").match(/[?&](?:text|message)=([^&]+)/i);
+        return match ? decodeURIComponent(match[1]) : "";
+      }
+    }
+
+    function normalizeActionUrl(customUrl, fallbackMessage) {
+      const raw = String(customUrl || "").trim();
+      if (!raw) {
+        return buildWaLink(content.adminWaNumber, fallbackMessage);
+      }
+      if (isWhatsAppUrl(raw)) {
+        const messageFromUrl = getWhatsAppMessageFromUrl(raw);
+        return buildWaLink(content.adminWaNumber, messageFromUrl || fallbackMessage);
+      }
+      return raw;
+    }
+
+    function getMainWaUrl(customUrl, fallbackMessage) {
+      return normalizeActionUrl(customUrl, fallbackMessage);
+    }
+
+    function getProductButtonUrl(item) {
+      const template = String(content.waProductMessageTemplate || "Halo Admin, saya tertarik dengan {product}");
+      const message = template.replace(/\{product\}/g, item.title || "produk ini");
+      return normalizeActionUrl(item.buttonUrl, message);
+    }
+
+    function getDataParam() {
+      try {
+        const encoded = urlObj.searchParams.get("data");
+        if (!encoded) return null;
+        const json = decodeURIComponent(atob(encoded));
+        return JSON.parse(json);
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function getSavedData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function loadInitialContent() {
+      const dataFromUrl = getDataParam();
+      const dataFromStorage = getSavedData();
+      if (dataFromUrl) {
+        content = dataFromUrl;
+      } else if (dataFromStorage) {
+        content = dataFromStorage;
+      }
+    }
+
+    function getShareLink(withEdit) {
+      const base = window.location.origin + window.location.pathname;
+      const params = new URLSearchParams();
+      if (withEdit) params.set("edit", "1");
+      try {
+        const encoded = btoa(encodeURIComponent(JSON.stringify(content)));
+        params.set("data", encoded);
+      } catch (error) {}
+      const query = params.toString();
+      return query ? base + "?" + query : base;
+    }
+
+    function copyText(text, successMessage) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+          .then(() => alert(successMessage))
+          .catch(() => window.prompt("Salin manual link berikut:", text));
+      } else {
+        window.prompt("Salin manual link berikut:", text);
+      }
+    }
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function setLink(id, text, url) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = text;
+      el.href = url;
+    }
+
+    function renderFeatures() {
+      const wrapper = document.getElementById("featuresList");
+      wrapper.innerHTML = content.features.map(item => `
+        <div class="card">
+          <h3>${item.title}</h3>
+          <p>${item.text}</p>
+        </div>
+      `).join("");
+    }
+
+    function renderBanner() {
+      const section = document.getElementById("bannerSection");
+      const link = document.getElementById("promoBannerLink");
+      const image = document.getElementById("promoBannerImage");
+      const text = document.getElementById("promoBannerText");
+      const rawImage = String(content.bannerImage || "").trim();
+      const rawText = String(content.bannerText || "").trim();
+      const rawUrl = String(content.bannerUrl || "").trim();
+      const hasContent = !!(rawImage || rawText);
+
+      if (section) section.style.display = hasContent ? "" : "none";
+      if (image) {
+        image.src = rawImage ? resolveImageUrl(rawImage) : "";
+        image.alt = rawText || "Banner promo";
+        image.style.display = rawImage ? "block" : "none";
+      }
+      if (text) {
+        text.textContent = rawText;
+        text.style.display = rawText ? "block" : "none";
+      }
+      if (link) {
+        link.href = rawUrl || "#";
+        link.classList.toggle("is-disabled", !rawUrl);
+      }
+    }
+
+    function renderCatalog() {
+      const wrapper = document.getElementById("catalogList");
+      wrapper.innerHTML = content.catalogProducts.map(item => `
+        <div class="product-card">
+          <div class="product-badges">
+            ${item.bestSeller ? '<span class="product-badge best">BEST SELLER</span>' : ''}
+            ${item.hot ? '<span class="product-badge hot">HOT</span>' : ''}
+          </div>
+          <img src="${resolveImageUrl(item.image)}" alt="${item.title}" />
+          <div class="product-body">
+            <h3 class="product-title">${item.title}</h3>
+            <div class="product-price">
+              <span class="old">${item.oldPrice}</span>
+              <span class="new">${item.newPrice}</span>
+            </div>
+            <a class="btn btn-primary product-btn" href="${getProductButtonUrl(item)}" target="_blank" rel="noopener noreferrer">${item.buttonText}</a>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderGallery() {
+      const wrapper = document.getElementById("galleryList");
+      wrapper.innerHTML = content.galleryImages.map((src, index) => `
+        <img src="${resolveImageUrl(src)}" alt="Galeri Jersey ${index + 1}" />
+      `).join("");
+    }
+
+    function renderTestimonials() {
+      const wrapper = document.getElementById("testimonialList");
+      wrapper.innerHTML = content.testimonials.map(item => `
+        <div class="card">
+          <p>“${item.text}”</p>
+          <div class="testimonial-name">${item.name}</div>
+        </div>
+      `).join("");
+    }
+
+    function initPage() {
+      document.title = content.pageTitle;
+      setText("badgeText", content.badgeText);
+      setText("pageTitle", content.pageTitle);
+      setText("pageDescription", content.pageDescription);
+      setText("priceOld", content.priceOld);
+      setText("priceNew", content.priceNew);
+      setText("discountText", content.discountText);
+      setText("featuresTitle", content.featuresTitle);
+      setText("featuresSubtitle", content.featuresSubtitle);
+      setText("catalogTitle", content.catalogTitle);
+      setText("catalogSubtitle", content.catalogSubtitle);
+      setText("galleryTitle", content.galleryTitle);
+      setText("gallerySubtitle", content.gallerySubtitle);
+      setText("testimonialTitle", content.testimonialTitle);
+      setText("testimonialSubtitle", content.testimonialSubtitle);
+      setText("closingTitle", content.closingTitle);
+      setText("closingText", content.closingText);
+      setText("promoNote", content.promoNote);
+      setText("stickyPriceOld", content.priceOld);
+      setText("stickyPriceNew", content.priceNew);
+      setText("footerText", `© ${new Date().getFullYear()} ${content.footerText}`);
+      setText("adminInfo", content.adminWaLabel + " | WA: " + normalizeWaNumber(content.adminWaNumber));
+      setLink("ctaBtn", content.ctaText, getMainWaUrl(content.ctaUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
+      setLink("secondaryBtn", content.secondaryButtonText, content.secondaryButtonUrl);
+      setLink("closingBtn", content.closingButtonText, getMainWaUrl(content.closingButtonUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
+      setLink("stickyBtn", content.ctaText, getMainWaUrl(content.ctaUrl, content.waMainMessage || "Halo Admin, saya mau order jersey"));
+      const heroImage = document.getElementById("heroImage");
+      heroImage.src = resolveImageUrl(content.heroImage);
+      heroImage.alt = content.heroImageAlt;
+      renderFeatures();
+      renderBanner();
+      renderCatalog();
+      renderGallery();
+      renderTestimonials();
+      updateEditorLinkBox();
+      if (editorUnlocked && isEditMode) {
+        refreshAllImagePreviews(false);
+      }
+    }
+
+    function field(label, path, value, type = "text") {
+      if (type === "textarea") {
+        return `
+          <label class="editor-field">
+            <span>${label}</span>
+            <textarea data-path="${path}">${escapeHtml(value)}</textarea>
+          </label>
+        `;
+      }
+      return `
+        <label class="editor-field">
+          <span>${label}</span>
+          <input type="${type}" data-path="${path}" value="${escapeHtml(value)}" />
+        </label>
+      `;
+    }
+
+    function checkboxField(label, path, checked) {
+      return `
+        <label class="editor-check">
+          <input type="checkbox" data-path="${path}" ${checked ? "checked" : ""} />
+          <span>${label}</span>
+        </label>
+      `;
+    }
+
+    function testimonialItemField(item, index) {
+      return `
+        <div class="editor-section" style="padding:12px;">
+          <h3 style="font-size:16px; margin:0 0 10px;">Testimoni ${index + 1}</h3>
+          <div class="editor-fields">
+            ${field("Isi Testimoni", `testimonials.${index}.text`, item.text, "textarea")}
+            ${field("Nama / Jabatan", `testimonials.${index}.name`, item.name)}
+            <div class="editor-array-actions">
+              <button type="button" class="editor-mini-btn editor-danger-btn" data-remove-testimonial="${index}">Hapus Testimoni</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function imageField(label, path, value) {
+      const resolved = resolveImageUrl(value);
+      return `
+        <div class="editor-field">
+          <span>${label}</span>
+          <input type="text" data-path="${path}" value="${escapeHtml(value)}" placeholder="contoh: produk-1.jpg atau logo.png" />
+          <div class="editor-image-box">
+            <div class="editor-image-help">
+              Upload file gambar secara manual ke folder <strong>img</strong> di repository GitHub, lalu isi nama file di kolom atas.
+            </div>
+            <div class="editor-mini-actions">
+              <button type="button" class="editor-mini-btn" data-refresh-path="${path}">Refresh Preview</button>
+              <span class="editor-preview-status" data-status-path="${path}">Cek preview dari GitHub</span>
+            </div>
+            <img class="editor-preview-thumb" data-preview-path="${path}" src="${resolved}" alt="preview" style="${resolved ? "" : "display:none;" }" />
+          </div>
+        </div>
+      `;
+    }
+
+    function setPreviewStatus(path, text, type = "") {
+      const status = document.querySelector(`[data-status-path="${path}"]`);
+      if (!status) return;
+      status.textContent = text;
+      status.classList.remove("error", "success");
+      if (type) status.classList.add(type);
+    }
+
+    function updateSingleEditorPreview(path, forceRefresh = false) {
+      const preview = document.querySelector(`[data-preview-path="${path}"]`);
+      if (!preview) return;
+      const resolved = resolveImageUrl(getByPath(content, path));
+      if (!resolved) {
+        preview.removeAttribute("src");
+        preview.style.display = "none";
+        setPreviewStatus(path, "Nama file belum disi");
+        return;
+      }
+
+      const testSrc = forceRefresh ? `${resolved}${resolved.includes("?") ? "&" : "?"}v=${Date.now()}` : resolved;
+      setPreviewStatus(path, forceRefresh ? "Mencoba refresh dari GitHub..." : "Mengecek preview...");
+
+      const tester = new Image();
+      tester.onload = () => {
+        preview.src = testSrc;
+        preview.style.display = "block";
+        setPreviewStatus(path, "Preview ditemukan", "success");
+      };
+      tester.onerror = () => {
+        preview.style.display = "none";
+        preview.removeAttribute("src");
+        setPreviewStatus(path, "Gambar kelum munule di GitHub", "error");
+      };
+      tester.src = testSrc;
+    }
+
+    function refreshAllImagePreviews(forceRefresh = false) {
+      document.querySelectorAll("[data-preview-path]").forEach((el) => {
+        const path = el.dataset.previewPath;
+        if (path) updateSingleEditorPreview(path, forceRefresh);
+      });
+    }
+
+    function setFloatingActionsVisible(isVisible) {
+      const wrap = document.getElementById("floatingActions");
+      if (!wrap) return;
+      wrap.classList.toggle("show", !!isVisible);
+    }
+
+    function saveEditorData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+      alert("Perubahan disimpan di browser ini. Untuk semua perangkat, download index.html terbaru lalu upload ke GitHub.");
+    }
+
+    function buildExportHtml() {
+      const source = "<!DOCTYPE html>\n" + ORIGINAL_SOURCE_HTML;
+      const startMarker = "const defaultContent = {";
+      const endMarker = "\n\n    const STORAGE_KEY =";
+      const startIndex = source.indexOf(startMarker);
+      const endIndex = source.indexOf(endMarker, startIndex);
+      if (startIndex === -1 || endIndex === -1) return source;
+      const before = source.slice(0, startIndex);
+      const after = source.slice(endIndex);
+      const serializedContent = JSON.stringify(content, null, 6);
+      return before + `const defaultContent = ${serializedContent};` + after;
+    }
+
+    function downloadCurrentIndexHtml() {
+      const blob = new Blob([buildExportHtml()], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "index.html";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function openPreviewPage() {
+      const previewLink = getShareLink(false);
+      window.open(previewLink, "_blank");
+    }
+
+    function updateEditorLinkBox() {
+      const box = document.getElementById("editorLinkBox");
+      if (!box || !isEditMode || !editorUnlocked) return;
+      box.innerHTML = `<div><strong>Link edit:</strong><br>${escapeHtml(getShareLink(true))}</div>
+        <div style="margin-top:10px;"><strong>Link preview:</strong><br>${escapeHtml(getShareLink(false))}</div>`;
+    }
+
+    function renderEditor() {
+      const lockEl = document.getElementById("editorLock");
+      const wrapEl = document.getElementById("editorWrap");
+      if (!isEditMode) {
+        lockEl.classList.remove("show");
+        document.body.classList.remove("edit-mode");
+        setFloatingActionsVisible(false);
+        return;
+      }
+      if (!editorUnlocked) {
+        lockEl.classList.add("show");
+        document.body.classList.remove("edit-mode");
+        wrapEl.style.display = "none";
+        setFloatingActionsVisible(false);
+        return;
+      }
+
+      lockEl.classList.remove("show");
+      wrapEl.style.display = "block";
+      document.body.classList.add("edit-mode");
+      setFloatingActionsVisible(true);
+
+      const editorGrid = document.getElementById("editorGrid");
+      editorGrid.innerHTML = `
+        <div class="editor-section">
+          <h3>Pengaturan Edit & Media</h3>
+          <p>Gunakan folder <strong>img</strong> untuk semua gambar di repository GitHub Pages kamu.</p>
+          <div class="editor-fields">
+            ${field("Folder Gambar", "mediaBaseUrl", content.mediaBaseUrl)}
+            ${field("Password Edit", "editPassword", content.editPassword)}
+            ${field("Template WA Produk ({ product })", "waProductMessageTemplate", content.waProductMessageTemplate, "textarea")}
+            ${field("Pesan WA Utama", "waMainMessage", content.waMainMessage, "textarea")}
+          </div>
+        </div>
+
+        <div class="editor-section">
+          <h3>Bagian Utama</h3>
+          <p>Kalau link WA utama dikosongkan, tombol utama akan otomatis pakai nomor admin dan pesan WA utama. Jika link custom adalah link WhatsApp, nomor WA di link itu juga otomatis mengikuti Nomor Admin WA di atas.</p>
+          <div class="editor-fields">
+            ${field("Judul LP", "pageTitle", content.pageTitle)}
+            ${field("Descripsi LP", "pageDescription", content.pageDescription, "textarea")}
+            ${imageField("Nama File Gambar Hero", "heroImage", content.heroImage)}
+            ${field("Harga Coret Hero", "priceOld", content.priceOld)}
+            ${field("Harga Hero", "priceNew", content.priceNew)}
+            ${field("Teks Diskon", "discountText", content.discountText)}
+            ${field("Nomor Admin WA", "adminWaNumber", content.adminWaNumber)}
+            ${field("Label Admin WA", "adminWaLabel", content.adminWaLabel)}
+            ${field("Link Tombol WA Utama (opsional)", "ctaUrl", content.ctaUrl)}
+            ${field("Link Tombol Closing (opsional)", "closingButtonUrl", content.closingButtonUrl)}
+          </div>
+        </div>
+
+        <div class="editor-section">
+          <h3>Banner</h3>
+          <p>Banner ini tampil lebar seperti card dengan tinggi sedang. Klik gambar atau teks banner akan menuju URL yang kamu isi.</p>
+          <div class="editor-fields">
+            ${imageField("Nama File Gambar Banner", "bannerImage", content.bannerImage)}
+            ${field("Teks Banner", "bannerText", content.bannerText)}
+            ${field("Link URL Banner", "bannerUrl", content.bannerUrl)}
+          </div>
+        </div>
+
+        <div class="editor-section">
+          <h3>Galeri</h3>
+          <p>Isi nama file gambar yang sudah kamu upload ke folder <strong>img</strong>.</p>
+          <div class="editor-fields">
+            ${content.galleryImages.map((item, index) => imageField(`Nama File Gambar Galeri ${index + 1}`, `galleryImages.${index}`, item)).join("")}
+          </div>
+        </div>
+
+        
+        <div class="editor-section">
+          <h3>Footer</h3>
+          <p>Tahun footer otomatis mengikuti tahun aktif. Di sini kamu cukup ganti isi teks footernya saja.</p>
+          <div class="editor-fields">
+            ${field("Teks Footer", "footerText", content.footerText, "textarea")}
+          </div>
+        </div>
+
+<div class="editor-section">
+          <h3>Testimoni</h3>
+          <p>Testimoni yang sudah ada bisa diganti, dan kamu auga bisa tambah testimoni new kapan saja.</p>
+          <div class="editor-fields">
+            ${content.testimonials.map((item, index) => testimonialItemField(item, index)).join("")}
+            <div class="editor-array-actions">
+              <button type="button" class="editor-mini-btn" id="addTestimonialBtn">Tambah Testimoni</button>
+            </div>
+          </div>
+        </div>
+
+        ${content.catalogProducts.map((item, index) => `
+          <div class="editor-section">
+            <h3>Produk ${index + 1}</h3>
+            <p>Isi nama file gambar produk yang sudah kamu upload ke folder <strong>img</strong>.</p>
+            <div class="editor-fields">
+              ${field("Judul Produk", `catalogProducts.${index}.title`, item.title)}
+              ${imageField("Nama File Gambar Produk", `catalogProducts.${index}.image`, item.image)}
+              ${field("Harga Coret", `catalogProducts.${index}.oldPrice`, item.oldPrice)}
+              ${field("Harga Promo", `catalogProducts.${index}.newPrice`, item.newPrice)}
+              ${field("Teks Tombol", `catalogProducts.${index}.buttonText`, item.buttonText)}
+              ${field("Link Custom Produk (opsional)", `catalogProducts.${index}.buttonUrl`, item.buttonUrl)}
+              <div class="editor-check-row">
+                ${checkboxField("Best Seller", `catalogProducts.${index}.bestSeller`, item.bestSeller)}
+                ${checkboxField("Hot", `catalogProducts.${index}.hot`, item.hot)}
+              </div>
+            </div>
+          </div>
+        `).join("")}
+      `;
+
+      editorGrid.oninput = (event) => {
+        const target = event.target;
+        const path = target.dataset.path;
+        if (!path) return;
+        setByPath(content, path, target.type === "checkbox" ? target.checked : target.value);
+        if (path === "editPassword") {
+          sessionStorage.setItem(EDIT_UNLOCK_KEY, target.value);
+        }
+        initPage();
+        if (path === "mediaBaseUrl") {
+          refreshAllImagePreviews(false);
+        } else {
+          updateSingleEditorPreview(path, false);
+        }
+      };
+
+      editorGrid.onchange = (event) => {
+        const target = event.target;
+        if (target.dataset.path && target.type === "checkbox") {
+          const path = target.dataset.path;
+          setByPath(content, path, target.checked);
+          initPage();
+        }
+      };
+
+      editorGrid.onclick = (event) => {
+        const removeBtn = event.target.closest("[data-remove-testimonial]");
+        if (removeBtn) {
+          const removeIndex = removeBtn.dataset.removeTestimonial;
+          content.testimonials.splice(Number(removeIndex), 1);
+          if (content.testimonials.length === 0) {
+            content.testimonials.push({ text: "", name: "" });
+          }
+          initPage();
+          renderEditor();
+          return;
+        }
+
+        const refreshBtn = event.target.closest("[data-refresh-path]");
+        if (!refreshBtn) return;
+        const path = refreshBtn.dataset.refreshPath;
+        updateSingleEditorPreview(path, true);
+      };
+
+      const addTestimonialBtn = document.getElementById("addTestimonialBtn");
+      if (addTestimonialBtn) {
+        addTestimonialBtn.onclick = () => {
+          content.testimonials.push({ text: "", name: "" });
+          initPage();
+          renderEditor();
+        };
+      }
+
+      document.getElementById("saveBrowserBtn").onclick = () => {
+        saveEditorData();
+      };
+
+      document.getElementById("downloadIndexBtn").onclick = () => {
+        downloadCurrentIndexHtml();
+      };
+
+      document.getElementById("copyEditLinkBtn").onclick = () => {
+        copyText(getShareLink(true), "Link edit berhasil disalin.");
+      };
+
+      document.getElementById("copyPreviewLinkBtn").onclick = () => {
+        copyText(getShareLink(false), "Link preview berhasil disalin.");
+      };
+
+      document.getElementById("resetDataBtn").onclick = () => {
+        localStorage.removeItem(STORAGE_KEY);
+        sessionStorage.removeItem(EDIT_UNLOCK_KEY);
+        content = deepClone(defaultContent);
+        editorUnlocked = true;
+        sessionStorage.setItem(EDIT_UNLOCK_KEY, content.editPassword);
+        initPage();
+        renderEditor();
+      };
+
+      const floatingSaveBtn = document.getElementById("floatingSaveBtn");
+      if (floatingSaveBtn) {
+        floatingSaveBtn.onclick = () => {
+          saveEditorData();
+        };
+      }
+
+      const floatingPreviewBtn = document.getElementById("floatingPreviewBtn");
+      if (floatingPreviewBtn) {
+        floatingPreviewBtn.onclick = () => {
+          openPreviewPage();
+        };
+      }
+
+      const floatingDownloadBtn = document.getElementById("floatingDownloadBtn");
+      if (floatingDownloadBtn) {
+        floatingDownloadBtn.onclick = () => {
+          downloadCurrentIndexHtml();
+        };
+      }
+
+      updateEditorLinkBox();
+    }
+
+    function setupEditorLock() {
+      if (!isEditMode) return;
+      const input = document.getElementById("editorPasswordInput");
+      const button = document.getElementById("unlockEditorBtn");
+
+      const tryUnlock = () => {
+        if (String(input.value) === String(content.editPassword || "")) {
+          editorUnlocked = true;
+          sessionStorage.setItem(EDIT_UNLOCK_KEY, String(content.editPassword || ""));
+          input.value = "";
+          renderEditor();
+        } else {
+          alert("Password edit salah.");
+        }
+      };
+
+      button.onclick = tryUnlock;
+      input.onkeydown = (event) => {
+        if (event.key === "Enter") tryUnlock();
+      };
+
+      const savedUnlock = sessionStorage.getItem(EDIT_UNLOCK_KEY);
+      editorUnlocked = !!savedUnlock && savedUnlock === String(content.editPassword || "");
+    }
+
+    loadInitialContent();
+    initPage();
+    setupEditorLock();
+    renderEditor();
+  </script></body></html>
